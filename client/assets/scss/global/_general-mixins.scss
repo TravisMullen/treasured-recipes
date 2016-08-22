@@ -1,0 +1,192 @@
+// =============================================================================
+// GLOBAL mixins 
+// =============================================================================
+// @import "compass";  
+// compass for 
+// @import "compass/css3/transition"
+// @import "compass/css3/border-radius"
+
+// for mapping to compass
+// 
+// 
+$animation-speed: 2s !default;
+@mixin single-transition($align: opacity, $speed: $animation-speed) {
+    transition: $align $speed;
+    // assumes auto prefixer is in place.
+}
+
+// image repalcement
+// `use @include image-replacement;`
+@mixin image-replacement {
+    display: block;
+    text-align: left;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+// `display:inline-block` for dynamic height grid layouts.
+@mixin inline-block($align: baseline) {
+    display: inline-block;
+    vertical-align: $align;
+    *display: inline;
+    *zoom: 1;
+}
+
+@mixin opacity($percent: 50) {
+    // // IE 8
+    // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$percent)";
+    // IE 5-7
+    filter: alpha(opacity=$percent);
+    // Netscape
+    // -moz-opacity: $percent * 0.01;
+    // Safari 1.x
+    // -khtml-opacity: $percent * 0.01;
+    // Good browsers
+    opacity: $percent * 0.01;
+}
+
+// requires compass for `@mixin circle` // this will also queue for later use in `main.scss`
+// @import "compass/css3/border-radius";
+@mixin circle($diameter: rem-calc(10)) {
+    border-radius: 50%; 
+    height: $diameter;
+    width: $diameter;
+    font-size: ($diameter/3)*2;
+    line-height: $diameter;
+}
+
+@mixin down-arrow($color: $white, $left: 34, $right: 34, $top: 26) {
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border-left: rem-calc($left) solid transparent;
+    border-right: rem-calc($right) solid transparent;
+    border-top: rem-calc($top) solid $color;
+}
+
+@mixin diamond-narrow ($color: #000, $height: rem-calc(50), $width: rem-calc(70)) {
+    width: 0;
+    height: 0;
+    border: $height solid transparent;
+    border-bottom: $width solid $color;
+    position: relative;
+    top: -$height;
+    &:after {
+        content: '';
+        position: absolute;
+        left: -$height;
+        top: $width;
+        width: 0;
+        height: 0;
+        border: $height solid transparent;
+        border-top: $width solid $color;
+    }
+}
+
+@mixin linear-gradient($start: $white, $stop: $black, $from: 0%, $to: 100%) {
+    // @include background-image(linear-gradient(white, #cccccc 30%, #bbbbbb 70%, #aaaaaa));
+    // background-color: $start;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($start), to($stop));
+    background-image: -moz-linear-gradient(center top, $start $from, $stop $to);
+    background-image: -moz-gradient(center top, $start $from, $stop $to);
+    background-image: -webkit-linear-gradient(top, $start $from, $stop $to);
+    background-image: -o-linear-gradient(top, $start $from, $stop $to);
+    background-image: -ms-linear-gradient(top, $start $from, $stop $to);
+    background-image: linear-gradient(to bottom, $start $from, $stop $to);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$start}', endColorstr='#{$stop}', GradientType=0);
+}
+
+@mixin box-sizing( $sizing: border-box) {
+    -webkit-box-sizing: $sizing;
+    -moz-box-sizing: $sizing;
+    box-sizing: $sizing;
+}
+
+// animations
+@mixin animation($animation) {
+    -webkit-animation: $animation;
+    -moz-animation: $animation;
+    // -ms-animation: $animation;
+    //  -o-animation: $animation;
+    animation: $animation;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    // @-ms-keyframes #{$name} {
+    //     @content;
+    // }
+    // @-o-keyframes #{$name} {
+    //     @content;    
+    // }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// animation classes
+// @mixin slider( $sizing: 200px ) {
+//     overflow-y: hidden;
+//     max-height: $sizing; /* approximate max height */
+//     transition-property: all;
+//     transition-duration: .5s;
+//     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+//     &.closed {
+//         max-height: 0;
+//     }
+// }
+// columns styles
+@mixin column-count($count) {
+    // The column-count property specifies the number of columns an element should be divided into.
+    -webkit-column-count: $count;
+    /* Chrome, Safari, Opera */
+    -moz-column-count: $count;
+    /* Firefox */
+    column-count: $count;
+}
+
+@mixin column-gap($gap) {
+    // The column-gap property specifies the gap between the columns.
+    -webkit-column-gap: $gap;
+    /* Chrome, Safari, Opera */
+    -moz-column-gap: $gap;
+    /* Firefox */
+    column-gap: $gap;
+}
+
+@mixin column-rule($rule) {
+    // The following example sets the width, style, and color of the rule between columns.
+    // formatting `1px solid lightblue`
+    -webkit-column-rule: $rule;
+    /* Chrome, Safari, Opera */
+    -moz-column-rule: $rule;
+    /* Firefox */
+    column-rule: $rule;
+}
+
+@mixin column-span($span) {
+    // The column-span property specifies how many columns an element should span across.
+    -webkit-column-span: $span;
+    /* Chrome, Safari, Opera */
+    column-span: $span;
+}
+
+@mixin column-width($width) {
+    // The column-width property specifies a suggested, optimal width for the columns.
+    -webkit-column-width: $width;
+    /* Chrome, Safari, Opera */
+    column-width: $width;
+}
+
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50%;
+    transform: translateY(-50%);
+}

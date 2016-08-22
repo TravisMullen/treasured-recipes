@@ -1,0 +1,35 @@
+@font-face {
+	font-family: 'Dosis';
+	font-style: normal;
+	font-weight: 600;
+	src: url(app/styles/fonts/dosis-600-normal.eot);
+	src: local('Dosis SemiBold'), local('Dosis-SemiBold'), url(app/styles/fonts/dosis-600-normal.woff2) format('woff2'), url(app/styles/fonts/dosis-600-normal.woff) format('woff'), url(app/styles/fonts/dosis-600-normal.ttf) format('truetype'), url(app/styles/fonts/dosis-600-normal.svg#Dosis) format('svg');
+}
+@font-face {
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: 300;
+	src: url(app/styles/fonts/merriweather-sans-300-normal.eot);
+	src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(app/styles/fonts/merriweather-sans-300-normal.woff2) format('woff2'), url(app/styles/fonts/merriweather-sans-300-normal.woff) format('woff'), url(app/styles/fonts/merriweather-sans-300-normal.ttf) format('truetype'), url(app/styles/fonts/merriweather-sans-300-normal.svg#MerriweatherSans) format('svg');
+}
+@font-face {
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: 800;
+	src: url(app/styles/fonts/merriweather-sans-800-normal.eot);
+	src: local('Merriweather Sans ExtraBold'), local('MerriweatherSans-ExtraBold'), url(app/styles/fonts/merriweather-sans-800-normal.woff2) format('woff2'), url(app/styles/fonts/merriweather-sans-800-normal.woff) format('woff'), url(app/styles/fonts/merriweather-sans-800-normal.ttf) format('truetype'), url(app/styles/fonts/merriweather-sans-800-normal.svg#MerriweatherSans) format('svg');
+}
+@font-face {
+	font-family: 'Inconsolata';
+	font-style: normal;
+	font-weight: 400;
+	src: url(app/styles/fonts/inconsolata-400-normal.eot);
+	src: local('Inconsolata'), url(app/styles/fonts/inconsolata-400-normal.woff2) format('woff2'), url(app/styles/fonts/inconsolata-400-normal.woff) format('woff'), url(app/styles/fonts/inconsolata-400-normal.ttf) format('truetype'), url(app/styles/fonts/inconsolata-400-normal.svg#Inconsolata) format('svg');
+}
+@font-face {
+	font-family: 'Quicksand';
+	font-style: normal;
+	font-weight: 400;
+	src: url(app/styles/fonts/quicksand-400-normal.eot);
+	src: local('Quicksand Regular'), local('Quicksand-Regular'), url(app/styles/fonts/quicksand-400-normal.woff2) format('woff2'), url(app/styles/fonts/quicksand-400-normal.woff) format('woff'), url(app/styles/fonts/quicksand-400-normal.ttf) format('truetype'), url(app/styles/fonts/quicksand-400-normal.svg#Quicksand) format('svg');
+}

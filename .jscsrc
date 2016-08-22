@@ -1,0 +1,56 @@
+{
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCapitalizedConstructors": true,
+    "requireParenthesesAroundIIFE": true,
+    "disallowMixedSpacesAndTabs": true,
+    
+    "validateQuoteMarks": "'",
+    "disallowTrailingComma": true,
+
+    "requireSpacesInsideBrackets": true,
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpacesInsideParentheses": {
+        "all": true,
+        "except": ["{", "}", "\""]
+    },
+    "requireSpacesInsideParenthesizedExpression": {
+        "allExcept": [ "{", "}" ]
+    },
+    "disallowSpaceBeforeSemicolon": true,
+    "requireSpaceAfterComma": {
+        "allExcept": ["trailing"]
+    },
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch",
+        "case",
+        "default"
+    ],
+    "disallowYodaConditions": [
+        "==",
+        "===",
+        "!=",
+        "!=="
+    ],
+    "maximumLineLength": 120,
+    "requireDotNotation": true,
+
+    "requireObjectKeysOnNewLine": {
+        "allExcept": ["sameLine"]
+    },
+    "requireSpaceAfterObjectKeys": true,
+    "requireSpaceBeforeDestructuredValues": true,
+    "requireSpaceBeforeObjectValues": true,
+    //"requireSpacesInsideImportedObjectBraces": true,
+
+    // not sure about these...
+    "requireArrayDestructuring": true,
+    "requireObjectDestructuring": true
+}

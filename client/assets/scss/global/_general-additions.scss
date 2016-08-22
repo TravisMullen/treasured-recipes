@@ -1,0 +1,592 @@
+// =============================================================================
+// GLOBAL styles 
+// =============================================================================
+// measure 
+$onepixelasrem: rem-calc(1); // create EM increment from PX
+// do math to align to other media queries in grid.scss
+// remove 1px from $screen because other grid queries are checking the inverse (no max-width)
+// $max-width-medium: ($medium - $onepixelasrem);
+$onepx: 1px;
+
+
+// general
+.z-index-1 {
+    z-index: 1;
+}
+
+.relative {
+    position: relative;
+}
+
+.full {
+    width: 100%;
+}
+
+.crop {
+    overflow: hidden;
+}
+
+.clear {
+    clear: both;
+}
+
+.nowrap,
+.no-wrap {
+    white-space: nowrap;
+}
+
+.wrap {
+    word-break: break-word;
+}
+
+.text-line-1 {
+    line-height: 1;
+}
+
+// .slider {
+//     @include slider(); // close by adding `.closed`
+// }
+// on hover classes
+// @media #{$large} {
+.trigger-on-hover {
+    .show-on-hover-only {
+        visibility: hidden;
+    }
+    &:hover {
+        .show-on-hover-only {
+            visibility: visible;
+        }
+    }
+}
+
+// }
+// // text-align for breakpoints
+// @media #{$screen} {
+//     .left-medium-up,
+//     .left-large-up {
+//         float: none !important;
+//     }
+//     .right-medium-up,
+//     .right-large-up {
+//         float: none !important;
+//         &.inline-list {
+//             float: none !important;
+//         }
+//     }
+//     // what was `.text-center-medium-down-right` used for on brochure??
+//     .text-center-small,
+//     .text-center-medium-down 
+//     {
+//         text-align: center;
+//     }
+//     .large-only-br {
+//         br {
+//             display: none;
+//         }
+//     }
+// }
+// @media #{$medium} {
+//     .left-medium-up {
+//         float: left !important;
+//     }
+//     .right-medium-up {
+//         float: right !important;
+//         &.inline-list {
+//             float: right !important;
+//         }
+//     }
+//     .row-small {
+//         width: inherit;
+//     }    
+//     .text-center-small {
+//         text-align: inherit;
+//     }
+//     .text-center-medium,
+//     .text-center-medium-down {
+//         text-align: center;
+//     }
+//     .text-right-medium {
+//         text-align: right;
+//     }
+// }
+// @media #{$large} {
+//     .left-large-up {
+//         float: left !important;
+//     }
+//     .right-large-up {
+//         float: right !important;
+//         &.inline-list {
+//             float: right !important;
+//         }
+//     }
+//     .row-small {
+//         width: inherit;
+//     }
+//     // .text-center-medium-down,
+//     // .text-center-medium-down-right,
+//     // .text-right-medium,
+//     // .text-center-medium
+//     // {
+//     //     text-align: inherit;
+//             // cannot use `text-align: inherit;` cause it will default to 'text-align: start;' on Chrome
+//     // }
+//     .text-center-large-up {
+//         text-align: center;
+//     }
+//     .large-only-br {
+//         br {
+//             display: inherit;
+//         }
+//     }
+// }
+// =============================================================================
+// max width classes
+// =============================================================================
+.max-small {
+    max-width: rem-calc(30);
+}
+
+// do not code hex values here, 
+// pull color vars from `setting.scss`
+// $base-color-classes: ( 
+//     "white": $white,
+//     "black": $black,
+//     "primary-color": $primary-color,
+//     "secondary-color": $secondary-color,
+//     "alert-color": $alert-color,
+//     "info-color": $info-color,
+//     // below not part of base foundation, 
+//     // but added here to be bound to underline classes
+//     "warning-color": $warning-color,
+//     "gray": $gray,
+//     "light-gray": $gray,
+//     "medium-gray": $medium-gray,
+//     "gray-black": $gray-black,
+//     "dark-gray": $dark-gray,
+//     "pale-gray": $pale-gray
+// );
+// =============================================================================
+// color classes :: base
+// =============================================================================
+// do not code hex values here, 
+// pull color vars from `setting.scss`
+$base-color-classes: ( 
+"white": $white, 
+"black": $black, 
+"primary-color": $primary-color, 
+"secondary-color": $secondary-color, 
+"success-color": $success-color, 
+"alert-color": $alert-color, 
+"info-color": $info-color, // below not part of base foundation, 
+// but added here to be bound to underline classes
+"warning-color": $warning-color, 
+"gray": $gray // "light-gray": $gray,
+//     "medium-gray": $medium-gray,
+//     "gray-black": $gray-black,
+//     
+// "alert-color": $alert-color, 
+// "alert-color": $alert-color, 
+// "dark-gray": $dark-gray //     "pale-gray": $pale-gray
+);
+
+/* basic foreground colors :: `.color-name` */
+
+@each $color,
+$value in $base-color-classes {
+    .#{$color} {
+        color: $value !important;
+    }
+}
+
+
+/* basic background colors :: `.bg-color-name` */
+
+@each $color,
+$value in $base-color-classes {
+    .bg-#{$color} {
+        background-color: $value !important;
+    }
+}
+
+
+/* lines and borders */
+
+.underline,
+.underline-medium-down {
+    border-bottom: $onepx solid $border-color;
+    // add underline color classes
+    @each $color, $value in $base-color-classes {
+        &.#{$color} {
+            border-bottom-color: $value;
+        }
+    }
+}
+
+.overline {
+    border-top: $onepx solid $border-color;
+    // add overline color classes
+    @each $color, $value in $base-color-classes {
+        &.ol-#{$color} {
+            border-top-color: $value;
+        }
+    }
+}
+
+hr {
+    border-top: $onepx solid $border-color;
+    height: 0;
+    width: 100%;
+    // add overline color classes
+    @each $color, $value in $base-color-classes {
+        &.#{$color} {
+            border-top-color: $value;
+        }
+    }
+}
+
+// @media #{$medium} {
+//     .underline-medium-down {
+//         border-bottom: $onepx solid $border-color;
+//         // add underline color classes
+//         @each $color, $value in $base-color-classes {
+//             &.#{$color} {
+//                 border-bottom-color: $value;
+//             }
+//         }
+//     }
+// }
+// @media #{$large} {
+//     .underline-medium-down {
+//         border-bottom: none;
+//     }
+// }
+
+/* miscellaneous */
+
+// add misc here
+// =============================================================================
+// positioning classes 
+// :: extensions to `grid.scss` 
+// :: override values in `settings.scss`
+// =============================================================================
+// top spacing
+$pull-top-increments: 6 !default;
+$pull-top-distance: $base-increment-distance !default;
+@for $i from 0 through $pull-top-increments {
+    .pull-down-#{$i},
+    .pull-down-#{$i}-small-only {
+        // display: block; // should we auto apply display: block; ?
+        margin-top: $pull-top-distance * $i !important;
+    }
+    // @include breakpoint(medium) { 
+    // }
+    // @include breakpoint(large) { 
+    // }
+}
+
+.pull-down-0-5 {
+    // for rare scenarios where we just need a touch of padding
+    margin-top: $pull-top-distance/2 !important;
+}
+
+// side spacing
+$pull-side-increments: 4 !default;
+$pull-side-distance: $base-increment-distance !default;
+// bottom spacing
+$pull-bottom-increments: 6 !default;
+$pull-bottom-distance: $base-increment-distance !default;
+// fixed heights
+$height-increments: 4 !default;
+$height-distance: rem-calc(30) !default;
+@for $i from 1 through $height-increments {
+    .height-#{$i} {
+        min-height: $height-distance * $i;
+    }
+}
+
+// columns
+$column-increments: 4 !default;
+$column-gap: rem-calc(20) !default;
+
+/* pull-down classes: small, meduim and large breakpoints */
+
+// TODO: finishing building out pull classes for breakpoints
+// @for $i from 2 through $column-increments {
+//     .small-only-columns-#{$i} {
+//         @include column-count($i);
+//         // @include column-gap(0);
+//     }
+// }
+@for $i from 0 through $pull-bottom-increments {
+    // set 0 increment to zero out bottom
+    .bottom-gutter-#{$i},
+    .bottom-gutter-#{$i}-small-only {
+        margin-bottom: $pull-bottom-distance * $i !important;
+    }
+}
+
+@for $i from 1 through $pull-side-increments {
+    .pull-left-#{$i},
+    .pull-left-#{$i}-small-only {
+        // display: block; 
+        margin-right: $pull-side-distance * $i !important;
+    }
+}
+
+@for $i from 1 through $pull-side-increments {
+    .pull-right-#{$i},
+    .pull-right-#{$i}-small-only {
+        // display: block; 
+        margin-left: $pull-side-distance * $i !important;
+    }
+}
+
+// @media #{$medium} {
+//     // use class `.medium-break` to apply break without grid breakpoint
+//     [class^="medium-"], 
+//     [class*=" medium-"] {
+//         @for $i from 0 through $pull-top-increments {
+//             &.pull-down-break-#{$i} { 
+//                 margin-top: $pull-top-distance * $i !important;
+//             }
+//         }
+//         @for $i from 0 through $pull-bottom-increments {
+//             &.bottom-gutter-break-#{$i} { 
+//                 margin-bottom: $pull-bottom-distance * $i !important; 
+//             }
+//         }
+//         @for $i from 1 through $pull-side-increments {
+//             &.pull-left-break-#{$i} { 
+//                 margin-right: $pull-side-distance * $i !important; 
+//             }
+//         }
+//         @for $i from 1 through $pull-side-increments {
+//             &.pull-right-break-#{$i} { 
+//                 margin-left: $pull-side-distance * $i !important;
+//             }
+//         }
+//     } 
+//     // remove this small only bullshit?
+//     @for $i from 0 through $pull-bottom-increments { // set 0 increment to zero out bottom
+//         .medium-bottom-gutter-#{$i},
+//         .medium-bottom-gutter-#{$i}-small-only { 
+//             margin-bottom: $pull-bottom-distance * $i !important; 
+//         }
+//     }
+//     @for $i from 1 through $pull-side-increments {
+//         .medium-pull-left-#{$i},
+//         .medium-pull-left-#{$i}-small-only { 
+//             // display: block; 
+//             margin-right: $pull-side-distance * $i !important; 
+//         }
+//     }
+//     @for $i from 1 through $pull-side-increments {
+//         .medium-pull-right-#{$i},
+//         .medium-pull-right-#{$i}-small-only { 
+//             // display: block; 
+//             margin-left: $pull-side-distance * $i !important;
+//         }
+//     }
+//     // @for $i from 1 through $pull-top-increments {
+//     //     .pull-down-#{$i}-small-only { margin-top: 0; }
+//     // }
+//     // subtract top spacing
+//     // .pull-up-1 {
+//     // margin-top: -($pull-top-distance/2); // half of $pull-top-distance;
+//     // }
+//     // .pull-up-2 {
+//     // margin-top: -($pull-top-distance); // full $pull-top-distance;
+//     // }
+//     // .pull-up-3 {
+//     // margin-top: -($pull-top-distance*1.5); // one and a half of $pull-top-distance;
+//     // }
+//     // $height-increments: 4 !default;
+//     // $height-distance: rem-calc(30) !default;
+//     @for $i from 1 through $height-increments {
+//         .medium-height-#{$i} {
+//             min-height: $height-distance * $i;
+//         }
+//     }
+//     @for $i from 2 through $column-increments {
+//         .columns-#{$i} {
+//             @include column-count($i);
+//             @include column-gap($column-gap);
+//         }
+//     }
+//     // @for $i from 2 through $column-increments {
+//     //     .small-only-columns-#{$i} {
+//     //         @include column-count(1);
+//     //         // @include column-gap(0);
+//     //     }
+//     // }
+// }
+// @media #{$large} {
+//     // use class `.large-break` to apply break without grid breakpoint
+//     [class^="large-"], 
+//     [class*=" large-"] {
+//         @for $i from 0 through $pull-top-increments {
+//             &.pull-down-break-#{$i} { 
+//                 margin-top: $pull-top-distance * $i !important;
+//             }
+//         }  
+//         @for $i from 0 through $pull-bottom-increments {
+//             &.bottom-gutter-break-#{$i} { 
+//                 margin-bottom: $pull-bottom-distance * $i !important; 
+//             }
+//         }
+//         @for $i from 1 through $pull-side-increments {
+//             &.pull-left-break-#{$i} { 
+//                 margin-right: $pull-side-distance * $i !important; 
+//             }
+//         }
+//         @for $i from 1 through $pull-side-increments {
+//             &.pull-right-break-#{$i} { 
+//                 margin-left: $pull-side-distance * $i !important;
+//             }
+//         }
+//     }
+// }
+// @media #{$medium} {
+//     .small-pull-down-1,
+//     .small-pull-down-2,
+//     .small-pull-down-3,
+//     .small-pull-down-4 {
+//         margin-top: 0; // clear small
+//     }
+//     // adding large to medium space to conform with custom grid system
+//     // as large will override small in medium space
+//     .large-pull-down-1 {
+//         margin-top: $pull-distance;
+//     }
+//     .large-pull-down-2 {
+//         margin-top: $pull-distance*2;
+//     }
+//     .large-pull-down-3 {
+//         margin-top: $pull-distance*3;
+//     }
+//     .large-pull-down-4 {
+//         margin-top: $pull-distance*4;
+//     }
+//     .medium-pull-down-1 {
+//         margin-top: $pull-distance;
+//     }
+//     .medium-pull-down-2 {
+//         margin-top: $pull-distance*2;
+//     }
+//     .medium-pull-down-3 {
+//         margin-top: $pull-distance*3;
+//     }
+//     .medium-pull-down-4 {
+//         margin-top: $pull-distance*4;
+//     }
+//     .medium-pull-down-5 {
+//         margin-top: $pull-distance*5;
+//     }
+// }
+// @media #{$large} {
+//     .medium-pull-down-1,
+//     .medium-pull-down-2,
+//     .medium-pull-down-3,
+//     .medium-pull-down-4 {
+//         margin-top: 0; //clear medium
+//     }
+//     .large-pull-down-1 {
+//         margin-top: $pull-distance;
+//     }
+//     .large-pull-down-2 {
+//         margin-top: $pull-distance*2;
+//     }
+//     .large-pull-down-3 {
+//         margin-top: $pull-distance*3;
+//     }
+//     .large-pull-down-4 {
+//         margin-top: $pull-distance*4;
+//     }
+//     .large-pull-down-5 {
+//         margin-top: $pull-distance*5;
+//     }
+// }
+// image replacement
+.image,
+.screen-reader-text {
+    @include image-replacement;
+}
+
+.screen-reader-text {
+    height: 0;
+    width: 0;
+}
+
+// .radius {
+//     @include radius;
+// }
+.inline-block {
+    @include inline-block;
+}
+
+.inline-block-bottom {
+    @include inline-block(bottom)
+}
+
+.vertical-align {
+    @include vertical-align()
+}
+
+// // // =============================================================================
+// // // debug classes
+// // // https://gist.githubusercontent.com/pburtchaell/e702f441ba9b3f76f587/raw/c9d02f7ca75e8883a691f23b616432e21d57be61/styles.css
+// // // =============================================================================
+// // *
+// //  * VH and VW units can cause issues on iOS devices: http://caniuse.com/#feat=viewport-units
+// //  * 
+// //  * To overcome this, create media queries that target the width, height, and orientation of iOS devices. 
+// //  * It isn't optimal, but there is really no other way to solve the problem. In this example, I am fixing 
+// //  * the height of element `.foo` â€”which is a full width and height cover image.
+// //  *
+// //  * iOS Resolution Quick Reference: http://www.iosres.com/
+// /** 
+//  * iPad with portrait orientation.
+//  */
+// @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
+//   .v-app-view-type {
+//     height: 1024px;
+//   }
+// }
+// /** 
+//  * iPad with landscape orientation.
+//  */
+// @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape){
+//   .v-app-view-type {
+//     height: 768px;
+//   }
+// }
+// /**
+//  * iPhone 5
+//  * You can also target devices with aspect ratio.
+//  */
+// @media screen and (device-aspect-ratio: 40/71) {
+//   .v-app-view-type {
+//     height: 500px;
+//   }
+// }
+// =============================================================================
+// debug classes
+// =============================================================================
+.hl
+/* highlight */
+
+{
+    border: 1px solid red;
+    background-color: yellow;
+    &.clean {
+        border: none;
+    }
+    &.fill {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    &.tall {
+        height: 200px;
+    }
+}

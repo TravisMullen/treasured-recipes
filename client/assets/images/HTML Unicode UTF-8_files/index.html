@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- saved from url=(0105)https://s1.2mdn.net/3569326/1470181040933/USA_TNBABT_Smart_Cities-Kansas_728x90_STANDARD_HTML5/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>728x90 City</title>
+	<link rel="stylesheet" href="./style.css" type="text/css">
+	<meta name="ad.size" content="width=728,height=90">
+	<script type="text/javascript">
+		var clickTag = "http://www.google.com";
+	</script>
+<script type="text/javascript">
+    
+      (function() {
+        var relegateNavigation = '';
+        var handleClickTagMessage = function(e) {
+          try {
+            var eventData = JSON.parse(e.data);
+          } catch (err) {
+            return;
+          }
+          if (eventData.isInitClickTag) {
+            if (eventData.clickTags) {
+              for (var i = 0; i < eventData.clickTags.length; i++) {
+                var clkTag = eventData.clickTags[i];
+                window[clkTag.name] = clkTag.url;
+              }
+            } else if (eventData.clickTag) {
+              window.clickTag = eventData.clickTag;
+            }
+            relegateNavigation = eventData.relegateNavigation;
+          }
+        };
+
+        if (open.call) {
+          window.open = function(open) {
+            return function(url, name, features) {
+              if (relegateNavigation === 'parent') {
+                var message = {'clickTag': url, 'isPostClickTag': true};
+                parent.postMessage(JSON.stringify(message), '*');
+              } else {
+                var args = [url, name];
+                if (features) {
+                  args.push(features);
+                }
+                open.apply(window, args);
+              }
+            };
+          }(window.open);
+        }
+
+        if (window.addEventListener) {
+          window.addEventListener(
+              'message', handleClickTagMessage, false);
+        } else {
+          window.attachEvent('onmessage', handleClickTagMessage);
+        }
+      })();
+    
+  </script></head>
+<body>
+	<div id="banner" class="banner">
+		<div id="div_main">
+            
+                <img id="bg" data-src="bg.jpg" src="./bg.jpg">
+            
+			
+
+			
+			
+			<div id="glowcontainer">
+                
+                
+             <!--     <div id="glow11" class="glow"> <img data-src="glow_11.png"> </div>
+                                 <div id="glow3" class="glow"> <img data-src="glow_3.png"> </div>
+                                 -->
+               
+             <!--    <div id="glow10" class="glow"> <img data-src="glow_10.png"> </div> -->
+               
+               <!--  <div id="glow9" class="glow"> <img data-src="glow_9.png"> </div> -->
+                <div id="glow1" class="glow" style="opacity: 0.1; visibility: inherit;"> <img data-src="glow_1.png" src="./glow_1.png"> </div>
+                <div id="glow2" class="glow" style="opacity: 0; visibility: inherit;"> <img data-src="glow_2.png" src="./glow_2.png"> </div>
+            
+                
+                <div id="glow6" class="glow" style="opacity: 1; visibility: inherit;"> <img data-src="glow_6.png" src="./glow_6.png"> </div>
+                <div id="glow7" class="glow" style="opacity: 1; visibility: inherit;"> <img data-src="glow_7.png" src="./glow_7.png"> </div>
+                <div id="glow8" class="glow" style="opacity: 1; visibility: inherit;"> <img data-src="glow_8.png" src="./glow_8.png"> </div>
+              
+              
+                
+                 <div id="glow4" class="glow" style="opacity: 0; visibility: inherit;"> <img data-src="glow_4.png" src="./glow_4.png"> </div>
+                <div id="glow5" class="glow" style="opacity: 0; visibility: inherit;"> <img data-src="glow_5.png" src="./glow_5.png"> </div>
+                
+            
+                <div id="glow12" class="glow" style="opacity: 1; visibility: inherit;"> <img data-src="glow_12.png" src="./glow_12.png"> </div>
+                
+                
+                
+      
+			</div>
+
+
+			<img id="copyLine1" class="copylines" data-src="copyline1.png" src="./copyline1.png" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+			<img id="copyLine2" class="copylines" data-src="copyline2.png" src="./copyline2.png" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+		
+			
+	<!-- 		<img id="skyline" data-src="skyline.png">
+			<img id="foreground" data-src="foreground.png">
+			<div id="sunflare" class="sunflase"> <img data-src="sunflare.png"> </div> -->
+
+			<img id="copyLine5" class="copylines" data-src="copyline5.png" src="./copyline5.png" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+			<img id="logo" data-src="logo.svg" src="./logo.svg">
+            <div class="bannerClick">
+            	<div id="ctaButton" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0); background-position: 0% 0%;"></div>
+            </div>
+		</div>
+	</div>
+	<script src="./tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
+	<script src="./main.js"></script>       
+
+</body></html>

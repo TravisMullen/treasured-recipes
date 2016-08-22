@@ -1,0 +1,64 @@
+<!-- slideOutRight -->
+<!-- title: 'Algorithm Collection'
+-->
+<!-- todo add search? -->
+<!-- add filter -->
+<!-- add sort by -->
+<article class="grid-block bg-table-cloth align-center">
+    <!--  <article ng-hide="recipe" class="grid-container align-center text-center">
+        <h1>
+		<span ng-include="'views/partials/loader-icon.html'"></span>
+	</h1>
+    </article> -->
+    <!-- {{recipe}} -->
+    <div ng-controller="recipeCtrl" class="grid-block shrink">
+        <section class="grid-block">
+            <div class="grid-content">
+                <div class="book-left-page-top-cap fade-in" ng-show="recipe.title.rendered"></div>
+                <div class="book-left-page fade-in" ng-show="recipe.title.rendered">
+                    <article class="grid-container">
+                        <h1>{{recipe.title.rendered}}</h1>
+                        <h2>{{recipe.details.name}}</h2>
+                       
+						<div class="grid-block wrap gutters">
+							 <div class="grid-block medium-4" ng-if="assets.id == recipe.featured_media" ng-repeat="assets in attachments">
+	                            <div class="grid-content">
+	                                <img class="old-world"  ng-src="{{assets.media_details.sizes['recipe-thumbnail'].source_url}}"alt="Description" />
+	                            </div>
+	                        </div>
+	                        <div class="grid-block medium-4" ng-if="assets.id != recipe.featured_media" ng-repeat="assets in attachments">
+	                            <div class="grid-content">
+	                                <img class="old-world"  ng-src="{{assets.media_details.sizes['recipe-thumbnail'].source_url}}"alt="Description" />
+	                            </div>
+	                        </div>
+						</div>
+
+                        <br>
+                        <br>
+                        <section>
+                            <header>Ingredients</header>
+                            <ul>
+                                <li ng-repeat="ing in recipe.details.recipeIngredient">
+                                    {{ing}}
+                                </li>
+                            </ul>
+                        </section>
+                        <br>
+                        <br>
+                        <section ng-show="recipe.details.recipeInstructions.length">
+                            <header>Cooking Instructions</header>
+                            <ol>
+                                <!-- <li>{{recipe.details.recipeInstructions}}</li> -->
+                                <li ng-repeat="step in recipe.details.recipeInstructions">
+                                    {{step}}
+                                </li>
+                            </ol>
+                        </section>
+                    </article>
+                </div>
+                <div class="book-left-page-bottom-cap fade-in" ng-show="recipe.title.rendered"></div>
+            </div>
+        </section>
+        <!-- <family-recipe ingredients="ingredients" item="recipe"></family-recipe> -->
+    </div>
+</article>

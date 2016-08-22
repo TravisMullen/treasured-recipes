@@ -1,0 +1,32 @@
+{{hello}}LIST
+<label>
+    <span class="inline-label">
+        <span class="form-label">
+            <img zf-iconic="" icon="magnifying-glass" size="small">
+        </span>
+    <input type="text">
+    </span>
+</label>
+<div class="grid-container align-center">
+    <div class="grid-block">
+        <section class="grid-block medium-6 align-center">
+            <img src="/assets/images/kettle.svg" alt="Dutch Oven" />
+        </section>
+        <div class="grid-block medium-6 align-center">
+            <!-- <h1>Treasured Receipes!</h1> -->
+        </div>
+        <!-- <a href=""></a> -->
+        <!-- <a ui-sref="algorithmsView({ id: item.id })">recipees</a> -->
+        <a ui-sref="recipe" class="button extend">Recipes</a>
+    </div>
+    <div class="grid-block">
+        <section class="block-list">
+            <header>Ingredients</header>
+            <ul>
+                <li ng-repeat="ing in recipe.details.recipeIngredient">
+                    {{ing}}
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>

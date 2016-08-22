@@ -1,0 +1,212 @@
+// =============================================================================
+//
+// treasuredrecipes custom styles
+//
+// =============================================================================
+
+
+body {
+    background-image: url('../images/stock-photo-seamless-wooden-pattern-305852627.jpg');
+    background-repeat: repeat;
+    background-position: 0 0;
+}
+
+.bg-cutting-board {
+    background-image: url('../images/stock-photo-green-chives-with-flowers-chopped-on-a-wood-cutting-board-isolated-on-white-77395993.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-color: transparent;
+    width: rem-calc(760);
+    background-size: rem-calc(760);
+    height: rem-calc(811);
+}
+
+.book-left-page-top-cap,
+.book-left-page,
+.book-left-page-bottom-cap {
+    margin: 0;
+    padding: 0;
+    width: rem-calc(760);
+    // background-size: rem-calc(760);
+    // 
+    background-size: rem-calc(760);
+    background-color: transparent;
+    // -webkit-box-shadow: 2px -1px 15px -4px rgba(0,0,0,0.75);
+    // -moz-box-shadow: 2px -1px 15px -4px rgba(0,0,0,0.75);
+    // box-shadow: 2px -1px 15px -4px rgba(0,0,0,0.75);
+}
+
+.book-left-page-top-cap {
+    background-image: url("../images/recipe-pad-background-top.png");
+    background-repeat: no-repeat;
+    height: rem-calc(310);
+    background-position: top center;
+}
+
+.book-left-page-bottom-cap {
+    background-image: url("../images/recipe-pad-background-bottom-tip.png");
+    background-repeat: no-repeat;
+    height: rem-calc(121);
+    background-position: top center;
+    margin-bottom: rem-calc(40);
+}
+
+.book-left-page {
+    margin-top: -3px;
+    min-height: rem-calc(1223);
+    background-image: url("../images/recipe-pad-background-top.png"), url("../images/recipe-pad-background-bottom.png"), url("../images/recipe-pad-background-middle.png");
+    background-repeat: no-repeat, no-repeat, repeat-y;
+    background-position: center rem-calc(-310), bottom center, center center;
+    p,
+    h1, h2,
+    a {
+        // opacity: 0.9;
+        // color
+        color: rgba($primary-color, 0.8);
+        // color: $primary-color;
+        // color: transparent;
+        // text-shadow: 0 0 5px rgba($primary-color,0.6);
+        text-shadow: 0 0 3px rgba($primary-color, 0.5);
+        // margin: au rem-calc(-90);
+    }
+}
+
+
+
+.logo-nav {
+    color: $white;
+    g {
+        color: $white;
+    }
+    display: inline-block;
+    height: rem-calc(20);
+}
+
+
+
+[ui-view="header"] {
+    box-shadow: 0 0 1em black;
+    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+    // }
+}
+
+[ui-view="main"] {
+    [ng-controller] {
+        // background: transparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+        // background: transparent url('../images/stock-photo-seamless-wooden-pattern-305852627.jpg') repeat 0 0;
+    }
+    // margin-top: rem-calc(50);
+    // .grid-container{
+    // background: transparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+    // }
+}
+
+[ui-view="main"] {
+    overflow-y: auto;
+    overflow-x: hidden;
+    [ng-controller] {
+        // background: transparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+        // background: transparent url('../images/stock-photo-seamless-wooden-pattern-305852627.jpg') repeat 0 0;
+    }
+    // margin-top: rem-calc(50);
+    // .grid-container{
+    // background: transparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+    // }
+}
+
+.bg-table-cloth {
+    // background-image: url("../images/stock-photo-stock-image-of-closeup-of-burlap-background-texture-image-has-been-prepared-to-be-tileable-51820867.jpg");
+    // stock-photo-stock-image-of-closeup-of-burlap-background-texture-image-has-been-prepared-to-be-tileable-51820867
+    background-image: url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg");
+    background-repeat: repeat;
+    background-position: 0 0;
+    margin-left: rem-calc(-30);
+}
+
+.old-world {
+    display: block;
+    margin: 0 auto;
+    // float: right;
+    opacity: 0.45;
+    // -webkit-filter: sepia(1);
+    filter: sepia(0.7);
+    // margin: 0 30px 20px 0;
+    // 
+    // margin: 20px auto;
+    // text-align:center;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.bg-wood-beam {
+    background-image: url("../images/stock-photo-stock-image-of-closeup-of-burlap-background-texture-image-has-been-prepared-to-be-tileable-51820867.jpg");
+    background-repeat: repeat;
+    background-position: 0 0;
+    // box-shadow: 0 0 1em black;
+}
+
+// .grid-container {
+//  background-color: #fff;
+// }
+// 
+// // animate `ng-show`
+// and all children of elm that have `ng-show` used
+// [ng-show].fade-in,
+// .fade-in-all [ng-show] {
+//     // too dangerous to just use `.fade-in`
+//     // @include single-transition( opacity, 0.5s );
+//     // 
+//     transition-property: opacity;
+//     transition-duration: 0.5s;
+//     &.ng-hide {
+//         display: inherit !important; // we don't want `display: block` here!
+//         // display: none !important; // we don't want `display: block` here!
+//         opacity: 0;
+//     }
+// }
+
+// // =============================================================================
+// // shive for f5 sites
+// // =============================================================================
+// ul {
+//     &.grid-block {
+//         margin: auto;
+//     }
+// }
+
+ol, ul {
+    margin: 0;
+    padding: 0;
+}
+// ol {
+    // list-style: 
+    li { 
+        list-style: none; /* Remove list bullets */
+        padding-left: rem-calc(16); 
+    }
+
+    li:before {
+        display: inline-block;
+        position: relative;
+        // content: "•"; /* Insert content that looks like bullets */
+        //9633
+        // 
+        // content: "."; /* Insert content that looks like bullets */
+        // padding-right: rem-calc(8);
+        // top: rem-calc(-3.5);
+        ol & {
+        content: "\2610"; /* Insert content that looks like bullets */
+        }
+        ul & {
+        // content: "\2610"; /* Insert content that looks like bullets */
+        }
+        padding-right: rem-calc(8);
+        top: rem-calc(-3.5);
+
+        // color: blue; /* Or a color you prefer */
+        color: #93311B; // note card red
+        // color: #008542; // lime
+    }
+// }

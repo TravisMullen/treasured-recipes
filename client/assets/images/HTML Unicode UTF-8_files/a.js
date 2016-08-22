@@ -1,0 +1,8 @@
+(function(){
+  document.write('<div id="adsatlas-1538175463" style="position:relative;width:300px;height:250px;overflow:hidden">');
+  document.write('<a href="https://googleads.g.doubleclick.net/dbm/clk?sa=L&ai=CHoko8Xq5V8D-E8KqhATrx4q4COKOnbJGm53z-7wC083wyKkDEAEgj8DuImDJ9qaM0KTkD6AB5fbWxwPIAQmoAwGqBKsBT9BEGYew2e20shKAN9tO5DDQk5bgqeFSsY1jlWd1ghEGv5plfhzvRb51vVS0mzqVeY5qp107SwHLhEWygXfQBh1ljse8xQHTqFcJeiTUsJfAXtd8sCJX9N1FiyLiAqjoqIrSSV37355AZqHCOW3DnZmUM77NYfnvdRJ6a2fIDt9tfG0s_Up4fRP9wGQ0Xu5hXwAa-DAO2DGbtFqUvKoKAtHuynl8qstdec3i4AQDoAZNgAeDiak4qAeBxhuoB6a-G9gHAMgT6Y3VAdATANgTAw&num=1&sig=AOD64_0Sn7sO2KEN9EBnuwScB5iRneTS7Q&client=ca-pub-1993393738408076&dbm_c=AKAmf-AStwbyrVKpNgOkfZovWYadEw9lTsqlefROThKFZjgrPl6QSLL1sLUI0Gg5X9Ubbf5LH7RK&adurl=https://ad.atdmt.com/c/go;p=11222202787311;as=11222202739459;a=11222202849828;crs=11222202849755;cr=11222202849758;i.ts=1471773469" target="_blank"><img border="0" src="https://cdn.atlassbx.com/FB/11222202849758/30OFF_BWD_Crystal_300x250.gif"/></a><img src="https://ad.atdmt.com/d/img;p=11222202787311;as=11222202739459;a=11222202849828;crs=11222202849755;cr=11222202849758;llid=-7367642254893819550;cache=577982015" />');
+  document.write('</div>');
+  document.write('<script src="https://cdn.atlassbx.com/FB/11122200772940/browser_features1469469235.js"></script><script type="text/javascript">(function(){var data = window.getAtlasBrowserFeatures.getFastBrowserFeatures();new Image().src = "https://sig.atdmt.com/bf?iid=-7367642254893819550&bf=" + encodeURIComponent(data);})();</script>');
+  document.write('');
+  document.close();
+})();

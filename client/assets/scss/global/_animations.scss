@@ -1,0 +1,74 @@
+// =============================================================================
+// animations
+// =============================================================================
+// USE MIXIN 
+// 
+// @include keyframes( NAME ) {
+//     CONTENT
+// }
+// =============================================================================
+// base animation speed // to keep pace the same
+$animation-speed: 2s !default;
+// start animation
+@include keyframes( pulse) {
+    0%,
+    100% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(2.0);
+    }
+}
+
+@include keyframes( highlight) {
+    0%,
+    100% {
+        stroke: $smoke;
+    }
+    50% {
+        stroke: $iron;
+    }
+}
+
+@include keyframes( spin) {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@include keyframes( wiggle) {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(5deg);
+    }
+    30% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+    70% {
+        transform: rotate(-2deg);
+    }
+    90% {
+        transform: rotate(1deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@include keyframes( lighten) {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}

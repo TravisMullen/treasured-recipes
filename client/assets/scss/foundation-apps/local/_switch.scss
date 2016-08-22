@@ -1,0 +1,130 @@
+
+// =============================================================================
+// switches styling
+// =============================================================================
+
+// `.off` class
+$switch-height-med: $base-increment-distance*3 !default;
+
+.switch {
+    border-color: red;
+    &.off {
+
+        // start :: styles for side labels =====================================
+
+        // &:before,
+        // &:after {
+        //     @include inline-block;
+        //     margin-top: rem-calc(8);
+        //     font-size: $h5-font-size;
+        // }
+        
+        // &:before {
+        //     content: "OFF";
+        //     margin-right: $base-increment-distance/2;
+        // }
+        // &:after {
+        //     content: "ON";
+        //     margin-left: $base-increment-distance/2;
+        // }
+
+        // end :: styles for side labels =======================================
+        label {
+            background-color: $alert-color;
+            &:before {
+                position: absolute;
+                top: rem-calc(6);
+                font-size: rem-calc(12);
+                color: $oil;
+                z-index: 2;
+                content: "OFF";
+                left: rem-calc(-58);
+            }
+        }
+        input:checked + label {            
+            &:before {
+                content: "ON";
+                left: rem-calc(-24);
+                // @include single-transition(left, $transition-speed, $transition-ease);
+            }
+        }
+    }
+
+    &.select {
+        // styles for checkboxes
+
+        // see `charts.scss` for custom color settings
+
+        label {
+            background-color: $border-color;
+            width: $switch-height-med;
+            &:after {
+                background-color: $white;
+                border: rem-calc(3) solid $white;
+                @include single-transition(background-color);
+            }
+        }
+        input:checked + label {        
+            background-color: $border-color;
+            width: $switch-height-med;    
+            &:after {
+                left: .25rem; // match `/bower_components/foundation/scss/foundation/components/_switches.scss`
+                color: $secondary-color;
+                background-color: $secondary-color;
+            }
+        }
+        // styles for radio buttons
+        input[type="radio"] + label,
+        input[type="radio"]:checked + label {
+            @include circle($switch-height-med);
+            &:after {
+                @include circle($switch-height-med/4*3);
+                width: $switch-height-med/4*3;
+                height: $switch-height-med/4*3;
+            }
+        }
+
+        // disabled
+        [disabled="disabled"] + label {
+            cursor: default;
+            &:after {
+                cursor: default;
+                color: $border-color;
+                background-color: $border-color;
+                border-color: $border-color;
+                @include single-transition(background-color);
+                @include single-transition(border-color);
+            }
+        }
+        
+    }
+}
+
+// wrap for `row collapse postfix-radius` > `v-datepicker`
+.switch-wrapper {
+    max-width: rem-calc(90);
+}
+
+
+// input[type="radio"] {
+//     &.select {
+//         // label {
+//             background-color: $border-color;
+//             width: $switch-height-med;
+//             // &:after {
+//             //     background-color: $white;
+//             //     border: rem-calc(3) solid $white;
+//             //     @include single-transition(background-color);
+//             // }
+//         // }
+//         // input:checked + label {        
+//         //     background-color: $border-color;
+//         //     width: $switch-height-med;    
+//         //     &:after {
+//         //         left: .25rem; // match `/bower_components/foundation/scss/foundation/components/_switches.scss`
+//         //         color: $secondary-color;
+//         //         background-color: $secondary-color;
+//         //     }
+//         // }
+//     }
+// }

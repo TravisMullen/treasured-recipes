@@ -1,0 +1,144 @@
+// =============================================================================
+// custom buttons
+// dependancy: foundation buttons
+// bower_components/foundation/scss/foundation/components/_buttons.scss
+// =============================================================================
+button,
+.button {
+    // for raw svg objects
+    // font-size: rem-calc(180);
+    filter: drop-shadow(rem-calc(1) rem-calc(1) rem-calc(1) rgba(0, 0, 0, 0.1));
+    // cursor: pointer;
+    // // unstyled buttons
+    // &.unstyled,
+    // &.no-style {
+    //     border: none;
+    //     background: transparent;
+    //     padding: 0;
+    //     margin: 0;
+    //     box-shadow: none;
+    //     &:hover {
+    //         box-shadow: none;
+    //     }
+    // }
+    // &.no-gutter { // use `.buttom-gutter-0`
+    //     margin-bottom: 0;
+    // }
+    hr {
+        border-top: $onepx solid $button-background;
+    }
+    &.secondary {
+        hr {
+            border-top: $onepx solid $secondary-color;
+        }
+    }
+    [class^="icon-"],
+    [class*=" icon-"] {
+        filter: blur(rem-calc(0.4));
+    }
+    // custom styles
+    // box-shadow: none;
+    &:hover {
+        [class^="icon-"],
+        [class*=" icon-"] {
+            filter: blur(rem-calc(0));
+        }
+        // box-shadow: $onepx $onepx 2px 0 $button-shadow;
+        @include single-transition(box-shadow);
+    }
+    &.disabled,
+    &[disabled],
+    &:disabled {
+        cursor: default;
+        filter: drop-shadow(0 0 0 0);
+        filter: blur(rem-calc(1.5));
+        // filter: drop-shadow(rem-calc(1) rem-calc(1) rem-calc(1) rgba(0, 0, 0, 0.1));
+        //     background-color: $light-gray;
+        color: $warning-color;
+        //     // use $onepixelasrem instead of $onepx (1px)
+        //     // so it can match the rem conversion needed to do padding calcs
+        //     border: $onepixelasrem solid $medium-gray;
+        //     // compensate for 1px border addition
+        //     padding-top: $button-font-size - $onepixelasrem; //  padding-top: $padding;
+        //     padding-bottom: $button-font-size; // padding-bottom: $padding + rem-calc(1);
+        //     // cursor: default;
+        //     opacity: 1;
+        //     box-shadow: none;
+        //     &:hover {
+        //         color: $gray;
+        //         background-color: $light-gray;
+        //         box-shadow: none;
+        //     }
+        // &.hollow {
+        border-color: $warning-color;
+        // }
+        &:hover {
+            cursor: default;
+            color: $warning-color;
+            border-color: $warning-color;
+        }
+    }
+    // $button-gradient: linear-gradient(45deg, $iron, skyblue);
+    // &.action {
+    //     // Extend the base selector to get core styles
+    //     @extend %button;
+    //     // Use the size mixin to set a size
+    //     @include button-size( $size: large, // tiny, small, medium, or large
+    //     $expand: false);
+    //     // Use the style mixin to set visual styles
+    //     @include button-style( $background: $lime-green, // Background color
+    //     $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    //     $color: $iron, // Text color
+    //     $style: hollow // Can be solid or hollow
+    //     );
+    //     // border: rem-calc(3) solid transparent;
+    //     &.custom-disabled {
+    //         @include button-disabled;
+    //     }
+    // }
+    // .button {
+    //     color: transparent;
+    //     font-size: 2rem;
+    //     letter-spacing: 5px;
+    //     border: 4px solid transparent;
+    //     border-image: $gradient;
+    //     border-image-slice: 1;
+    //     background: $gradient;
+    //     -webkit-background-clip: text;
+    //     text-fill-color: transparent;
+    //     transition: all 0.2s ease;
+    //     &:hover {
+    //         border-image: $gradient2;
+    //         background: $gradient2;
+    //     }
+    // }
+    // &.mover {
+    //     &:hover {
+    //         // cursor: grab;
+    //         cursor: all-scroll;
+    //     }
+    // }
+    // input styles
+    // &.input {
+    //     @include button(
+    //         // $padding - Used to build padding for buttons Default: $button-font-size or rem-calc(12)
+    //         $button-font-size,
+    //         // Primary color set in settings file. Default: $primary-color.
+    //         $medium-gray
+    //     );
+    //     padding-top: rem-calc(4);
+    //     margin-bottom: 0;
+    // }
+    // // push down arrow icons within buttons
+    // [class^="icon-arrow"], 
+    // [class*=" icon-arrow"] {
+    //     position: relative;
+    //     top: $button-font-med/9; // this seems to work nicely and keeps it relative
+    // }
+    // &.tiny {
+    //     [class^="icon-arrow"], 
+    //     [class*=" icon-arrow"] {
+    //         top: $button-font-tny/9; // this seems to work nicely and keeps it relative
+    //     }
+    // }
+}

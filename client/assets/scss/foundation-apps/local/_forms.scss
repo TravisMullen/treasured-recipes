@@ -1,0 +1,25 @@
+/* ============================================= *
+
+forms
+
+ * ============================================= */
+
+label {
+    cursor: pointer;
+    font-family: 'Dosis', serif;
+    font-size: rem-calc(20);
+    &:hover {
+        color: $secondary-color;
+        @include single-transition(color);
+    }
+    // @include single-transition(box-shadow);
+    // border: $onepx solid $iron;
+    input {
+    	// &
+        cursor: pointer;
+        // &:hover {
+        //     color: $accent-color;
+        //     @include single-transition(color);
+        // }
+    }
+}
