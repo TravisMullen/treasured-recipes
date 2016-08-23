@@ -17,22 +17,28 @@
                 <div class="book-left-page-top-cap fade-in" ng-show="recipe.title.rendered"></div>
                 <div class="book-left-page fade-in" ng-show="recipe.title.rendered">
                     <article class="grid-container">
-                        <h1>{{recipe.title.rendered}}</h1>
-                        <h2>{{recipe.details.name}}</h2>
+                        <!-- <span class="underline"> -->
+                            <h1>{{recipe.title.rendered}}</h1>
+                            <h2>{{recipe.details.name}}</h2>
+                        <!-- </span> -->
                        
-						<div class="grid-block wrap gutters">
-							 <div class="grid-block medium-4" ng-if="assets.id == recipe.featured_media" ng-repeat="assets in attachments">
+                        <hr>
+
+						<div class="grid-block wrap align-justify">
+							 <div class="grid-block medium-6" ng-if="asset.id == recipe.featured_media" ng-repeat="asset in attachments">
 	                            <div class="grid-content">
-	                                <img class="old-world"  ng-src="{{assets.media_details.sizes['recipe-thumbnail'].source_url}}"alt="Description" />
+	                                <a ui-sref=".image({imgid: asset.id})" title="View Image">
+	                                	<img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
+	                                </a>	
 	                            </div>
 	                        </div>
-	                        <div class="grid-block medium-4" ng-if="assets.id != recipe.featured_media" ng-repeat="assets in attachments">
+	                        <div class="grid-block medium-6" ng-if="asset.id != recipe.featured_media" ng-repeat="asset in attachments">
 	                            <div class="grid-content">
-	                                <img class="old-world"  ng-src="{{assets.media_details.sizes['recipe-thumbnail'].source_url}}"alt="Description" />
+	                                <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
 	                            </div>
 	                        </div>
 						</div>
-
+                        <hr>
                         <br>
                         <br>
                         <section>
@@ -43,6 +49,7 @@
                                 </li>
                             </ul>
                         </section>
+                        <hr>
                         <br>
                         <br>
                         <section ng-show="recipe.details.recipeInstructions.length">
@@ -62,3 +69,5 @@
         <!-- <family-recipe ingredients="ingredients" item="recipe"></family-recipe> -->
     </div>
 </article>
+
+<div ui-view="modal"></div>

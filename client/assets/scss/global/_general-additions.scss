@@ -171,6 +171,9 @@ $onepx: 1px;
 // do not code hex values here, 
 // pull color vars from `setting.scss`
 $base-color-classes: ( 
+
+"border-color-alt": $border-color-alt,
+
 "white": $white, 
 "black": $black, 
 "primary-color": $primary-color, 

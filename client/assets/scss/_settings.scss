@@ -52,7 +52,7 @@ $include-css: (
   badge: false,
   // list: true,
   // menu-bar: true,
-  modal: false,
+  // modal: true,
   motion: false,
   notification: false,
   // off-canvas: true,
@@ -131,7 +131,8 @@ $info-color: #A0D3E8;
 $success-color: #43AC6A;
 $warning-color: #F08A24;
 $dark-color: #232323;
-$border-color: $smoke;
+$border-color: rgba($alert-color, 0.3);
+$border-color-alt: rgba($primary-color, 0.3);
 
 // We use these to make sure border radius matches unless we want it different.
 $global-radius: 4px;
@@ -372,21 +373,21 @@ $button-tag-selector: false;
 // - - - - - - - - - - - - - - -
 
 // Basic form variables
-// $form-fontsize: 1rem;
-// $form-padding: 0.5rem;
+$form-fontsize: 2rem;
+$form-padding: 0.75rem;
 
 // Text fields
-// $input-color: #000;
-// $input-color-hover: $input-color;
-// $input-color-focus: $input-color;
-// $input-background: #fff;
-// $input-background-hover: $input-background;
-// $input-background-focus: $input-background;
-// $input-background-disabled: smartscale($input-background);
-// $input-border: 1px solid #ccc;
-// $input-border-hover: 1px solid #bbb;
-// $input-border-focus: 1px solid #999;
-// $input-cursor-disabled: not-allowed;
+$input-color: #000;
+$input-color-hover: $input-color;
+$input-color-focus: $primary-color;
+$input-background: #fff;
+$input-background-hover: $input-background;
+$input-background-focus: $input-background;
+$input-background-disabled: smartscale($input-background);
+$input-border: 1px solid #ccc;
+$input-border-hover: 1px solid #bbb;
+$input-border-focus: 1px solid #999;
+$input-cursor-disabled: not-allowed;
 
 // Select menus
 // $select-color: #000;

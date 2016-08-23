@@ -1,0 +1,27 @@
+<!-- <div class="grid-block shrink" ng-controller="imageCtrl">
+    <section class="grid-block">
+        <div class="grid-content">
+
+	         <img class="old-world" ng-src="{{image.media_details.sizes['recipe'].source_url}}" alt="Description" />
+            <div class="book-left-page-top-cap fade-in" ng-show="recipe.title.rendered"></div>
+        </div>
+    </section>
+</div>
+ -->
+<div ng-controller="imageCtrl" class="modal-overlay is-active" ng-click="close()">
+    <div class="collapse modal is-active">
+        <div class="grid-block vertical">
+            <div class="grid-content text-center">
+                <h3 ng-if="image.caption" class="center">{{image.caption}}</h3>
+                <img ng-src="{{image.media_details.sizes.full.source_url}}" alt="{{image.alt_text}}" />
+            </div>
+            <!--     <div class="primary title-bar">
+    </div>
+    <div class="grid-content padding" style="padding-top: 1rem;">
+      <img ng-src="{{image.media_details.sizes.full.source_url}}" alt="{{image.alt_text}}" />
+     <p>{{image.description}}</p>
+     <button class="button text-center" title="View Image" ng-click="close()" type="button">Close</button>
+    </div> -->
+        </div>
+    </div>
+</div>

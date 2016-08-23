@@ -16,17 +16,16 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
 
             service = {};
 
-        function addHash(attachments) {
+        function buildHash() {
             for (var i = attachments.length - 1; i >= 0; i--) {
-                if (idHash[attachments[i].id] === undefined) {
-                    idHash[attachments[i].id] = attachments[i];
-                }
+                idHash[attachments[i].id] = attachments[i];
             }
+            // return idHash[asset.id];
         }
 
     // meant to be a READ ONLY service
 
-        function getAttachments(recipeId) {
+        function getAttachmentsByRecipe(recipeId) {
             var deferred = $q.defer(),
                 cacheTime = +(new Date()) - cache;
 
@@ -39,7 +38,9 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
 
                 attachments = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':collection');
                 lastreq = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':lastreq');
-
+                if (attachments.length != Object.keys(idHash).length) {
+                    buildHash();
+                }
                 deferred.resolve(attachments);
 
             } else {
@@ -57,6 +58,7 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
                     console.log("successCallback response",response);
                     // set to global of `data`
                     attachments = response.data;
+                    buildHash();
 
                     webStorage.set('treasuredrecipes:wp-attachments:'+recipeId+':collection', attachments);
                     webStorage.set('treasuredrecipes:wp-attachments:'+recipeId+':lastreq', +(new Date()));
@@ -77,7 +79,7 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
             var deferred = $q.defer();
 
             // make sure is has is set
-            getAttachments().then(function() {
+            getAttachmentsByRecipe().then(function() {
                 deferred.resolve(idHash[id]);
             });
 
@@ -118,9 +120,9 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
         // }
 
 
-        service.getAttachments = getAttachments;
+        service.getAttachmentsByRecipe = getAttachmentsByRecipe;
 
-        // service.get = getAttachmentByPost;
+        service.getById = getAttachmentById;
         // service.selected = selected;
         // service.error = error;
 

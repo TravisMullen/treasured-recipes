@@ -1,0 +1,36 @@
+.old-world {
+
+
+    img {
+        width: rem-calc(150);
+        height: auto;
+        background-color: transparent;
+    }
+
+    &.loading {
+        img {
+            height: rem-calc(100);
+            background-color: $border-color;
+        }
+    }
+
+    display: block;
+    margin: 0 auto;
+    // float: right;
+    opacity: 0.45;
+    // -webkit-filter: sepia(1);
+    filter: sepia(0.7);
+    // margin: 0 30px 20px 0;
+    // 
+    // margin: 20px auto;
+    // text-align:center;
+    // &
+    border: rem-calc(2) solid $border-color;
+    [href] & {
+    &:hover {
+        border-color: $alert-color;
+        filter: sepia(0.2);
+    }
+    }
+    padding: rem-calc(12);
+}

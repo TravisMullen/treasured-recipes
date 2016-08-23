@@ -1,10 +1,10 @@
 {
-  "name": "foundation-apps-template",
-  "version": "1.2.0",
+  "name": "treasured-recipes",
+  "version": "1.0.0",
   "authors": [
-    "ZURB"
+    "TravisMullen"
   ],
-  "description": "Template project for Foundation for Apps by ZURB.",
+  "description": "Gravy.",
   "main": "gulpfile.js",
   "keywords": [
     "framework",
@@ -13,7 +13,7 @@
     "apps"
   ],
   "license": "MIT",
-  "homepage": "http://foundation.zurb.com",
+  "homepage": "http://treasuredrecipes.info",
   "private": true,
   "ignore": [
     "**/.*",
@@ -23,7 +23,6 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-apps": "~1.2.0",
     "angular-webstorage": "^0.14.0",
     "angular-base-apps": "^1.2.6"
   },

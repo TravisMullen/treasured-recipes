@@ -1,19 +1,40 @@
 <div class="grid-block bg-table-cloth" ng-controller="homeCtrl">
     <article class="grid-container">
-        <!-- <div class="book-left-page-top-cap"></div> -->
-        <div class="bg-cutting-board">
-            <!-- <img src="assets/images/kitchenware.png" class="old-world" alt="Kitche Ware"> -->
-            <div action="" class="grid-block medium-8 medium-centered">
-                <label>
-                    <!-- Search Recipes -->
-                    <span class="inline-label">
-<input type="search" placeholder="Search Recipes">
-<a href="#" class="button rounded">Search</a>
-</span>
-                </label>
+        <div class="bg-cutting-board grid-block middle">
+            <div class="grid-block">
+                <div class="grid-block medium-6 medium-offset-1 end">
+                    <div class="grid-content">
+                        <label class="">
+                            <!-- Search Recipes -->
+                            <span class="inline-label">
+                        <input ng-model="searchValue" type="search" placeholder="Search Recipes">
+                        <a ng-click="gotoRecipes()" class="button rounded">Go</a>
+                    </span>
+                        </label>
+                        <ul ng-show="searchValue != '' && searchValue != 'undefined'">
+                            <li ng-repeat="recipe in recipes | filter:searchValue:'title.rendered'"><a ui-sref="recipe({slug: recipe.slug})" class="button secondary hollow large bg-border-color rounded" title="">{{recipe.title.rendered}}</a></li>
+                        </ul>
+                        <!-- <a ng-click="gotoRecipes()" class="button large">Recipes</a> -->
+                    </div>
+                </div>
+                <!--   <div class="grid-block medium-6 end">
+                    <div class="grid-content">
+                        <ul class="base-panel" ng-show="searchValue != '' && searchValue != 'undefined'">
+                            <li ng-repeat="recipe in recipes | filter:searchValue:'title.rendered'"><a ui-sref="recipe({slug: recipe.slug})" title="">{{recipe.title.rendered}}</a></li>
+                        </ul>
+                        <div ng-hide="searchValue != '' && searchValue != 'undefined'">
+                            Hello
+                        </div>
+                    </div>
+                </div> -->
             </div>
-            <a ng-click="gotoRecipes()" class="button extended">Recipes</a>
         </div>
+        <!-- <div class="book-left-page-top-cap"></div> -->
+        <!-- <div class="bg-cutting-board"> -->
+        <!-- <img src="assets/images/kitchenware.png" class="old-world" alt="Kitche Ware"> -->
+        <!-- <div action="" class="grid-block medium-8 medium-centered"> -->
+        <!-- </div> -->
+        <!-- </div> -->
     </article>
     <!-- <div class="book-left-page-bottom-cap"></div> -->
 </div>

@@ -15,20 +15,20 @@ function recipeCtrl($scope, $stateParams, $state, recipeService, attachmentServi
         recipeService.get($stateParams.slug).then(function(recipe) {
             $scope.recipe = recipe;
 
-            attachmentService.getAttachments($scope.recipe.id).then(function(results) {
+            attachmentService.getAttachmentsByRecipe($scope.recipe.id).then(function(results) {
                 $scope.attachments = results;
             });
 
             recipeService.next($stateParams.slug).then(function(next) {
                 $scope.next = next;
                 // preload for next 
-                attachmentService.getAttachments($scope.next.id);
+                attachmentService.getAttachmentsByRecipe($scope.next.id);
 
             });
             recipeService.prev($stateParams.slug).then(function(prev) {
                 $scope.prev = prev;
                 // preload for prev 
-                attachmentService.getAttachments($scope.prev.id);
+                attachmentService.getAttachmentsByRecipe($scope.prev.id);
             });
         },function() {
             // $state.go('recipe',{ slug: undefined });

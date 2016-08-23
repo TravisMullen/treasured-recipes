@@ -47,6 +47,22 @@
             }
 
         })
+        .state('recipe.image', {
+            url: '/image/:imgid',
+            // controller: 'recipeCtrl as recipe',
+            // templateUrl: 'recipe/landing.html'
+            // data: {
+            //     slug: false // queue large header/nav
+            // }
+
+            views: {
+                "modal@": {
+                    templateUrl: 'recipe/image.html'
+                }
+
+            }
+
+        })
         .state('index', {
             url: '/table-of-contents',
             // controller: 'recipeCtrl as recipe',
