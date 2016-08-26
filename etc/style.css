@@ -1,41 +1,15 @@
-
-@font-face {
-    font-family: 'BlackLetterTypewriter';
-    src: url('../fonts/f25_blacklettertypewriter-webfont.woff2') format('woff2'),
-         url('../fonts/f25_blacklettertypewriter-webfont.woff') format('woff'),
-         url('../fonts/f25_blacklettertypewriter-webfont.ttf') format('truetype'),
-         url('../fonts/f25_blacklettertypewriter-webfont.svg#f25_blacklettertypewriterRg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
-
-@font-face {
-    font-family: 'SmithTypewriter';
-    src: url('../fonts/l.c._smith_5_typewriter-webfont.woff2') format('woff2'),
-         url('../fonts/l.c._smith_5_typewriter-webfont.woff') format('woff'),
-         url('../fonts/l.c._smith_5_typewriter-webfont.ttf') format('truetype'),
-         url('../fonts/l.c._smith_5_typewriter-webfont.svg#l.c._smith_5_typewriterRg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 @font-face {
   font-family: 'treasured-recipes';
-  src:  url('../fonts/treasured-recipes.eot?1cjgsb');
-  src:  url('../fonts/treasured-recipes.eot?1cjgsb#iefix') format('embedded-opentype'),
-    url('../fonts/treasured-recipes.ttf?1cjgsb') format('truetype'),
-    url('../fonts/treasured-recipes.woff?1cjgsb') format('woff'),
-    url('../fonts/treasured-recipes.svg?1cjgsb#treasured-recipes') format('svg');
+  src:  url('../client/assets/fonts/treasured-recipes.eot?1cjgsb');
+  src:  url('../client/assets/fonts/treasured-recipes.eot?1cjgsb#iefix') format('embedded-opentype'),
+    url('../client/assets/fonts/treasured-recipes.ttf?1cjgsb') format('truetype'),
+    url('../client/assets/fonts/treasured-recipes.woff?1cjgsb') format('woff'),
+    url('../client/assets/fonts/treasured-recipes.svg?1cjgsb#treasured-recipes') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-.icon-base,
-[class^="icon-"], [class*=" icon-"], {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'treasured-recipes' !important;
   speak: none;

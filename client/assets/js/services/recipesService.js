@@ -62,6 +62,11 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
                 console.log("Loaded from Storage");
 
                 recipes = webStorage.get('treasuredrecipes:collection');
+                // rebuild lost hash
+                for (var i = 0; i < recipes.length; i++) {
+                    slugHash[ recipes[i].slug ] = true;
+                }
+
                 lastreq = webStorage.get('treasuredrecipes:lastreq');
 
                 deferred.resolve(recipes);
@@ -118,6 +123,7 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
                         webStorage.set('treasuredrecipes:selected', selected);
 
                         deferred.resolve(selected);
+                        return;
                     } else if ( i === 0 ) {
                         deferred.reject();
                     }
@@ -165,7 +171,7 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
                 last = webStorage.get('treasuredrecipes:selected');
 
             getRecipes().then(function() {
-                if (last && slugHash[last.slug]) {
+               if (last && slugHash[last.slug]) {
                     deferred.resolve(last);
                 } else {
                     deferred.resolve(recipes[0]);

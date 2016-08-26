@@ -4,7 +4,7 @@ angular.module('application.controllers')
     .controller('actionNavCtrl', actionNavCtrl);
 
 
-function actionNavCtrl($scope, $state, recipeService) {
+function actionNavCtrl($scope, $state, $timeout, recipeService) {
     $scope.$watchCollection(function() {
         return $state.params;
     }, function(p) {
@@ -18,11 +18,14 @@ function actionNavCtrl($scope, $state, recipeService) {
                     $scope.prev = res;
                 });
             });
-            $scope.showNav = true;
+            $timeout(function() {
+                $scope.showNav = true;
+            }, 1000);
+            
         } else {
             $scope.showNav = false;
         }
     });
 }
 
-actionNavCtrl.$inject = ['$scope', '$state', 'recipeService'];
+actionNavCtrl.$inject = ['$scope', '$state', '$timeout', 'recipeService'];

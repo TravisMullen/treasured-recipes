@@ -56,34 +56,30 @@
             // }
 
             views: {
-                "modal@": {
+                "modal@recipe": {
                     templateUrl: 'recipe/image.html'
                 }
-
             }
 
         })
-        .state('index', {
-            url: '/table-of-contents',
-            // controller: 'recipeCtrl as recipe',
-            // templateUrl: 'recipe/landing.html',
-            // data: {
-            //     slug: false // queue large header/nav
-            // }
+        // .state('index', {
+        //     url: '/table-of-contents',
+        //     // controller: 'recipeCtrl as recipe',
+        //     // templateUrl: 'recipe/landing.html',
+        //     // data: {
+        //     //     slug: false // queue large header/nav
+        //     // }
 
-            views: {
-                "header": {
-                    templateUrl: 'partials/interior/header.html'
-                },
-                "main": {
-                    templateUrl: 'recipe/list.html'
-                },
-                "footer": {
-                    templateUrl: 'partials/footer.html'
-                }
-            }
+        //     views: {
+        //         "header": {
+        //             templateUrl: 'partials/interior/header.html'
+        //         },
+        //         "main": {
+        //             templateUrl: 'recipe/list.html'
+        //         }
+        //     }
 
-        })
+        // })
         .state('404', {
             url: '/page-not-found',
             // controller: 'recipeCtrl as recipe',
@@ -98,9 +94,6 @@
                 },
                 "main": {
                     templateUrl: '404.html'
-                },
-                "footer": {
-                    templateUrl: 'partials/footer.html'
                 }
             }
 

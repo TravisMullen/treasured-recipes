@@ -102,7 +102,9 @@ function recipeCtrl($scope, $stateParams, $state, recipeService, attachmentServi
     //     }
     // }
 
-
+// if ( $(window).scrollTop() >= 42 ) {
+//             $('html,body').animate( { scrollTop: 42 } , 400 );
+//         }
 }
 
 recipeCtrl.$inject = ['$scope', '$stateParams', '$state', 'recipeService', 'attachmentService'];

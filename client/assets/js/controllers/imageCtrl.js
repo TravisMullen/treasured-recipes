@@ -6,7 +6,7 @@ angular.module('application.controllers')
 
 function imageCtrl($scope, $state, $stateParams, attachmentService) {
     $scope.close = function() {
-        $state.go('^.');
+        $state.go('^');
     };
     attachmentService.getById($stateParams.imgid).then(function(results) {
         $scope.image = results;

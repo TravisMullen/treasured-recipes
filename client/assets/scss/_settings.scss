@@ -53,7 +53,7 @@ $include-css: (
   // list: true,
   // menu-bar: true,
   // modal: true,
-  motion: false,
+  // motion: true,
   notification: false,
   // off-canvas: true,
   panel: false,
@@ -126,16 +126,16 @@ $gray-light: lighten($gray, 8);
 
 $primary-color: #013C78;
 $secondary-color: #f1f1f1;
-$alert-color: #F04124;
+$alert-color: #93311B;
 $info-color: #A0D3E8;
 $success-color: #43AC6A;
 $warning-color: #F08A24;
 $dark-color: #232323;
-$border-color: rgba($alert-color, 0.3);
+$border-color: $alert-color;
 $border-color-alt: rgba($primary-color, 0.3);
 
 // We use these to make sure border radius matches unless we want it different.
-$global-radius: 4px;
+$global-radius: 6px;
 $global-rounded: 1000px;
 
 // We use this for default spacing
@@ -201,7 +201,7 @@ $h6-font-size: 1rem;
 // We use these to style paragraphs
 $paragraph-font-family: $alt-font-family;
 $paragraph-font-weight: $font-weight-normal;
-$paragraph-font-size: 1rem;
+$paragraph-font-size: 1.6rem;
 $paragraph-line-height: 2.2;
 // $paragraph-margin-bottom: rem-calc(20);
 // $paragraph-aside-font-size: rem-calc(14);
@@ -272,7 +272,7 @@ $button-style: solid;
 $button-background: $primary-color;
 $button-background-hover: scale-color($button-background, $lightness: -15%);
 $button-color: auto;
-$button-radius: 0;
+$button-radius: $global-radius;
 $button-sizes: (
   tiny: 0.7,
   small: 0.8,

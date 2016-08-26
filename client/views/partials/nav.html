@@ -1,5 +1,5 @@
 <ul class="dark menu-bar fade-in" ng-show="showNav" ng-controller="actionNavCtrl">
-    <li ng-if="next.slug"><a ui-sref="recipe({slug: next.slug})"><img zf-iconic="" icon="chevron" data-direction="left" size="medium">{{next.title.rendered}}</a></li>
-    <!-- <li class="show-for-medium"><a ui-sref="home"><img src="/assets/images/kettle.svg" alt="Dutch Oven" /></a></li> -->
-    <li ng-if="prev.slug" class="align-right"><a ui-sref="recipe({slug: prev.slug})"><img zf-iconic="" icon="chevron" data-direction="right" size="medium">{{prev.title.rendered}}</a></li>
+    <li ng-if="next.slug"><a ui-sref="recipe({slug: next.slug})" ><span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{next.title.rendered}}</span></a></li>
+    <li class="show-for-medium shrink"><a ui-sref="home"><span class="icon-home white"></span></a></li>
+    <li ng-if="prev.slug" class="align-right"><a ui-sref="recipe({slug: prev.slug})"><span>{{prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span></a></li>
 </ul>

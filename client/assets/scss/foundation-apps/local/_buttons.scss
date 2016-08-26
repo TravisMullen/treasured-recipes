@@ -7,7 +7,7 @@ button,
 .button {
     // for raw svg objects
     // font-size: rem-calc(180);
-    filter: drop-shadow(rem-calc(1) rem-calc(1) rem-calc(1) rgba(0, 0, 0, 0.1));
+   filter: drop-shadow(rem-calc(1) rem-calc(2) rem-calc(2) rgba(0, 0, 0, 0.3));
     // cursor: pointer;
     // // unstyled buttons
     // &.unstyled,
@@ -141,4 +141,27 @@ button,
     //         top: $button-font-tny/9; // this seems to work nicely and keeps it relative
     //     }
     // }
+}
+
+.ink-button {
+    // Use the style mixin to set visual styles
+    @include button-style( $background: $border-color, // Background color
+    $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    $color: $border-color, // Text color
+    $style: hollow // Can be solid or hollow
+    );
+}
+
+
+.call-to-action {
+    border-radius: 50%;
+    display: block;
+
+    width: 100px;
+
+    @include button-style( $background: $border-color, // Background color
+    $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    $color: $border-color, // Text color
+    $style: solid // Can be solid or hollow
+    );
 }

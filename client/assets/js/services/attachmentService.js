@@ -11,6 +11,7 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
             // cache = 1*60*60000, // 1 hour
 
             lastreq,
+            lastid,
 
             error = null,
 
@@ -29,8 +30,9 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
             var deferred = $q.defer(),
                 cacheTime = +(new Date()) - cache;
 
+
           // first check to see if in memory and not too old
-            if (attachments && (lastreq > cacheTime)) {
+            if (attachments && (lastreq > cacheTime) && recipeId !== lastid) {
                 deferred.resolve(attachments);
             // }
             // second check to see if in localstorage and not too old
@@ -38,9 +40,9 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
 
                 attachments = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':collection');
                 lastreq = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':lastreq');
-                if (attachments.length != Object.keys(idHash).length) {
+                // if (attachments.length !== Object.keys(idHash).length) {
                     buildHash();
-                }
+                // }
                 deferred.resolve(attachments);
 
             } else {
@@ -71,6 +73,9 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
                     error = "No attachments found.";
                 });
             }
+
+
+            lastid = recipeId;
 
             return deferred.promise;
         }

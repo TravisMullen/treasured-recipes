@@ -4,22 +4,48 @@ forms
 
  * ============================================= */
 
-label {
-    cursor: pointer;
-    font-family: 'Dosis', serif;
-    font-size: rem-calc(20);
-    &:hover {
-        color: $secondary-color;
-        @include single-transition(color);
+// label {
+//     cursor: pointer;
+//     font-family: 'Dosis', serif;
+//     font-size: rem-calc(20);
+//     &:hover {
+//         color: $secondary-color;
+//         @include single-transition(color);
+//     }
+//     // @include single-transition(box-shadow);
+//     // border: $onepx solid $iron;
+//     input {
+//     	// &
+//         cursor: pointer;
+//         // &:hover {
+//         //     color: $accent-color;
+//         //     @include single-transition(color);
+//         // }
+//     }
+// }
+
+
+input {
+    filter: drop-shadow(rem-calc(1) rem-calc(2) rem-calc(2) rgba(0, 0, 0, 0.3));
+    
+    &.radius {
+        border-radius: $global-radius;
     }
-    // @include single-transition(box-shadow);
-    // border: $onepx solid $iron;
-    input {
-    	// &
-        cursor: pointer;
-        // &:hover {
-        //     color: $accent-color;
-        //     @include single-transition(color);
-        // }
+    &.search-box {
+        z-index: 1;
+        // border: rem-calc(3) solid $border-color;
+        // background-color: rgba($white,0.6);
+        &:after {
+            width: rem-calc(20);
+            height: rem-calc(20);
+            color: $iron;
+            z-index: 2;
+            display: block;
+            position: relative;
+            @extend .icon-base;
+            @extend .icon-search:before;
+            top: rem-calc(2);
+            right: rem-calc(4);
+        }
     }
 }
