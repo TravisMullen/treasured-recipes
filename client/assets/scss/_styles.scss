@@ -3,13 +3,14 @@
 // treasuredrecipes custom styles
 //
 // =============================================================================
-
 .keep-scroll {
     overflow-y: scroll;
 }
 
 body {
-    background-image: url('../images/stock-photo-seamless-beech-texture-156113486.jpg');
+    // border-top: rem-calc(6) solid $alert-color;
+    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
+    background-image: url('../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg');
     background-repeat: repeat;
     background-position: 0 0;
 }
@@ -24,18 +25,13 @@ body {
 //     min-height: rem-calc(711);
 // }
 // 
-
 .old-tablet-seemless {
     position: relative;
-
     filter: drop-shadow(rem-calc(2) rem-calc(4) rem-calc(4) rgba(0, 0, 0, 0.7));
-    
     margin: rem-calc(320) 0 0 0;
     padding: 0;
-
     min-height: rem-calc(1223);
     width: rem-calc(760);
-
     background-image: url("../images/recipe-pad-background-top.png"), url("../images/recipe-pad-background-bottom.png"), url("../images/recipe-pad-background-middle.png");
     background-repeat: no-repeat, no-repeat, repeat-y;
     background-position: center rem-calc(-310), bottom center, center center;
@@ -51,18 +47,15 @@ body {
     &:before {
         background-image: url("../images/recipe-pad-background-top.png");
         background-position: top center;
-        
         top: rem-calc(-310);
         height: rem-calc(310);
     }
     &:after {
         background-image: url("../images/recipe-pad-background-bottom-tip.png");
         background-position: top center;
-        
         bottom: rem-calc(-121);
         height: rem-calc(121);
     }
-
 }
 
 .logo-nav {
@@ -76,20 +69,26 @@ body {
 
 [ui-view="header"] {
     box-shadow: 0 0 1em black;
-    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;;
+    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
     // }
 }
 
 [ui-view="main"] {
+    [type="search"] {
+        border: rem-calc(4) solid $primary-color;
+        &:hover,
+        &:focus,
+        &:active {
+            border: rem-calc(4) solid $alert-color;
+        }
+    }
     // min-height: rem-calc(1223);
-
     &.ng-leave {
-
         // transition: all ease 0.5s;
         // .ng-show.fade-in {
-            animation-name: scrollout;
-            animation-duration: 0.5s;
-            animation-timing-function: ease;
+        animation-name: scrollout;
+        animation-duration: 1.2s;
+        animation-timing-function: easein;
         // }
     }
     // &.ng-leave-active {
@@ -106,29 +105,31 @@ body {
         //     animation-duration: 1s;
         //     animation-timing-function: ease;
         // }
-    }  
+    }
     &.ng-enter {
         // .ng-show.fade-in {
         // animation-delay: 0.5s;
-            animation-name: scrollin;
-            animation-duration: 1s;
-            animation-timing-function: ease;
+        animation-name: scrollin;
+        animation-duration: 1s;
+        animation-timing-function: easein;
         // }
     }
 }
-    // .main-leave {
-    //     animation-name: scrollout;
-    //     animation-duration: 1s;
-    //     animation-timing-function: ease;
-    // }
 
-    // .main-enter {
-    //     // animation-delay: 1.5s;
-    //     animation-name: scrollin;
-    //     animation-duration: 1s;
-    //     animation-timing-function: ease;
-    // }
-[ui-view="nav"] {
+// .main-leave {
+//     animation-name: scrollout;
+//     animation-duration: 1s;
+//     animation-timing-function: ease;
+// }
+// .main-enter {
+//     // animation-delay: 1.5s;
+//     animation-name: scrollin;
+//     animation-duration: 1s;
+//     animation-timing-function: ease;
+// }
+[ui-view="footer"] {
+    border-top: 1px solid $black;
+    background-color: rgba($black, 0.2);
     // position: fixed;
     // bottom: 0;
     // position: fixed;
@@ -140,7 +141,6 @@ body {
     //     animation-duration: 1s;
     //     animation-timing-function: ease;
     // }
-
     // .ng-enter &,
     // .ng-move-active,
     // .ng-show {
@@ -149,6 +149,45 @@ body {
     //     animation-duration: 1s;
     //     animation-timing-function: ease;
     // }
+    // .fade-in {
+    // 
+    .menu-bar {
+        // border: 1px solid red;
+        // animation-duration: 1s;
+        &.ng-hide {
+            animation-name: slideout;
+            animation-delay: 0;
+            animation-duration: 1s;
+            animation-timing-function: easein;
+        }
+        // &.ng-show {
+        animation-name: slidein;
+        // animation-delay: 2s;
+        animation-duration: 0.2s;
+        animation-timing-function: easein;
+        // }
+    }
+}
+
+[ui-view="modal"] {
+    &.ng-enter {
+        transition: opacity ease 0.4s;
+        opacity: 0;
+    }
+    &.ng-enter-active {
+        opacity: 1;
+    }
+    .modal {
+        animation-name: scrollin;
+        animation-duration: 1s;
+        animation-timing-function: easein;
+    }
+    &.ng-leave {
+        transition: opacity ease 0.4s;
+    }
+    &.ng-leave-active {
+        opacity: 0;
+    }
 }
 
 // .main-leave
@@ -266,7 +305,8 @@ li:before {
 // .recipe-button.ng-enter 
 {
     animation-name: searchout;
-    animation-duration: 0.4s;
+    animation-duration: 0.8s;
+    animation-timing-function: easein;
     // opacity: 0;
     // max-height: 0;
 }
@@ -279,18 +319,22 @@ li:before {
     // opacity: 1;
     // max-height: 30px;
     animation-name: searchin;
-    animation-duration: 0.4s;
+    animation-duration: 0.8s;
+    animation-timing-function: easein;
 }
 
 .ng-show.slide {
     animation-name: searchin;
     animation-duration: 0.4s;
+    animation-timing-function: easein;
     // .recipe-button.ng-enter //,
     // {
     //     animation-name: searchpause;
     // }
 }
+
 .ng-hide.slide {
     animation-name: searchout;
     animation-duration: 0.4s;
+    animation-timing-function: easein;
 }

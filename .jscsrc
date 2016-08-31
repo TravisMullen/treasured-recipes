@@ -51,6 +51,6 @@
     //"requireSpacesInsideImportedObjectBraces": true,
 
     // not sure about these...
-    "requireArrayDestructuring": true,
-    "requireObjectDestructuring": true
+    "requireArrayDestructuring": false,
+    "requireObjectDestructuring": false // http://jscs.info/rule/requireObjectDestructuring
 }

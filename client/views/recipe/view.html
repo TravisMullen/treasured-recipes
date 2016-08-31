@@ -1,46 +1,37 @@
-<!-- slideOutRight -->
-<!-- title: 'Algorithm Collection'
--->
-<!-- todo add search? -->
-<!-- add filter -->
-<!-- add sort by -->
-<article class="grid-block bg-table-cloth align-center">
-    <!--  <article ng-hide="recipe" class="grid-container align-center text-center">
-        <h1>
-		<span ng-include="'views/partials/loader-icon.html'"></span>
-	</h1>
-    </article> -->
-    <!-- {{recipe}} -->
-    <div ng-controller="recipeCtrl" ng-show="recipe" class="fade-in grid-block shrink">
+<article ng-controller="recipeCtrl" class="grid-block bg-table-cloth align-center">
+
+
+    <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div>
+
+
+    <div ng-show="recipe" class="fade-in grid-block shrink">
         <section class="grid-block">
             <div class="grid-content">
                 <div class="old-tablet-seemless">
                     <article class="grid-container">
-                        <button class="float-right large primary button hollow" ng-click="print()" type="button"><span class="icon-print"></span><span class="screen-reader-text">print recipe</span></button>
-
+                      <!--   <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div> -->
+                        <button ng-show="print" class="float-right large primary button hollow" ng-click="print(document)" type="button"><span class="icon-print"></span><span class="screen-reader-text">print recipe</span></button>
                         <!-- <span class="underline"> -->
-                            <h1 class="primary-color" ng-if="!recipe.details.name">{{recipe.title.rendered}}</h1>
-                            <h1 class="primary-color" ng-if="recipe.details.name">{{recipe.details.name}}</h1>
+                        <h1 class="primary-color" ng-if="!recipe.details.name">{{recipe.title.rendered}}</h1>
+                        <h1 class="primary-color" ng-if="recipe.details.name">{{recipe.details.name}}</h1>
                         <!-- </span> -->
-                       
                         <hr>
-
-						<div class="grid-block wrap gutters align-justify">
-							 <div class="grid-block medium-4" ng-if="asset.id == recipe.featured_media" ng-repeat="asset in attachments">
-	                            <div class="grid-content">
-	                                <a ui-sref=".image({imgid: asset.id})" title="View Image">
-	                                	<img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
-	                                </a>	
-	                            </div>
-	                        </div>
-	                        <div class="grid-block medium-4" ng-if="asset.id != recipe.featured_media" ng-repeat="asset in attachments">
-	                            <div class="grid-content">
+                        <div class="grid-block wrap gutters align-justify">
+                            <div class="grid-block medium-4" ng-if="asset.id == recipe.featured_media" ng-repeat="asset in attachments">
+                                <div class="grid-content">
                                     <a ui-sref=".image({imgid: asset.id})" title="View Image">
-    	                                <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
+                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
                                     </a>
-	                            </div>
-	                        </div>
-						</div>
+                                </div>
+                            </div>
+                            <div class="grid-block medium-4" ng-if="asset.id != recipe.featured_media" ng-repeat="asset in attachments">
+                                <div class="grid-content">
+                                    <a ui-sref=".image({imgid: asset.id})" title="View Image">
+                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <hr>
                         <section class="pull-down-1">
                             <h3 class="primary-color">Ingredients</h5>

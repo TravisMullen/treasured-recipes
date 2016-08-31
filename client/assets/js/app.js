@@ -5,7 +5,7 @@
     'use strict';
 
     function config($urlProvider, $locationProvider, $stateProvider) {
-        $urlProvider.otherwise('/home');
+        $urlProvider.otherwise('/search');
 
         $locationProvider.html5Mode({
             enabled: false,
@@ -13,62 +13,86 @@
         });
 
         $stateProvider
-            .state('home', {
-                url: '/home',
+            // .state('home', {
+            //     url: '/',
+            //     controller: function($scope, $timeout) {
+            //         console.log("$timeout",$timeout);
+            //         $scope.title = 'My Contacts';
+            //     },
+
+            //     views: {
+            //         // "header": {
+            //         //     templateUrl: 'partials/splash/header.html'
+            //         // },
+            //         "main": {
+            //             templateUrl: 'home/home.html'
+            //         }
+            //     }
+            // })
+
+        .state('search', {
+            url: '/search',
+
+            views: {
+                // "header": {
+                //     templateUrl: 'partials/splash/header.html'
+                // },
+                "main": {
+                    templateUrl: 'home/home.landing.html'
+                }
+            }
+        })
+
+        .state('search.list', {
+            url: '/list',
+            data: {
+                showList: true
+            }
+        })
+
+        .state('recipe', {
+                url: '/recipe/:slug',
+                // controller: 'recipeCtrl as recipe',
+                // templateUrl: 'recipe/landing.html',
+                // data: {
+                //     slug: false // queue large header/nav
+                // }
 
                 views: {
                     "header": {
-                        templateUrl: 'partials/splash/header.html'
+                        templateUrl: 'partials/interior/header.html'
                     },
                     "main": {
-                        templateUrl: 'home/home.landing.html'
+                        templateUrl: 'recipe/view.html'
+                    },
+                    "footer": {
+                        templateUrl: 'partials/nav.html'
                     }
                 }
+
             })
+            .state('recipe.image', {
+                url: '/image/:imgid',
+                // controller: 'recipeCtrl as recipe',
+                // templateUrl: 'recipe/landing.html'
+                // data: {
+                //     slug: false // queue large header/nav
+                // }
 
-        .state('recipe', {
-            url: '/recipe/:slug',
-            // controller: 'recipeCtrl as recipe',
-            // templateUrl: 'recipe/landing.html',
-            // data: {
-            //     slug: false // queue large header/nav
-            // }
-
-            views: {
-                "header": {
-                    templateUrl: 'partials/interior/header.html'
-                },
-                "main": {
-                    templateUrl: 'recipe/view.html'
-                },
-                "footer": {
-                    templateUrl: 'partials/nav.html'
+                views: {
+                    "modal@recipe": {
+                        templateUrl: 'recipe/image.html'
+                    }
                 }
-            }
 
-        })
-        .state('recipe.image', {
-            url: '/image/:imgid',
-            // controller: 'recipeCtrl as recipe',
-            // templateUrl: 'recipe/landing.html'
-            // data: {
-            //     slug: false // queue large header/nav
-            // }
-
-            views: {
-                "modal@recipe": {
-                    templateUrl: 'recipe/image.html'
-                }
-            }
-
-        })
-        // .state('index', {
-        //     url: '/table-of-contents',
-        //     // controller: 'recipeCtrl as recipe',
-        //     // templateUrl: 'recipe/landing.html',
-        //     // data: {
-        //     //     slug: false // queue large header/nav
-        //     // }
+            })
+            // .state('index', {
+            //     url: '/table-of-contents',
+            //     // controller: 'recipeCtrl as recipe',
+            //     // templateUrl: 'recipe/landing.html',
+            //     // data: {
+            //     //     slug: false // queue large header/nav
+            //     // }
 
         //     views: {
         //         "header": {
@@ -154,7 +178,7 @@
     }
 
     angular.module('application.templates', []);
-    
+
     angular.module('application.services', []);
     angular.module('application.controllers', []);
     angular.module('application.components', []);

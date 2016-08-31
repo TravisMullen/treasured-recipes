@@ -27,6 +27,7 @@
     "angular-base-apps": "^1.2.6"
   },
   "resolutions": {
-    "angular-ui-router": "~0.3.0"
+    "angular-ui-router": "~0.3.0",
+    "angular": "1.5.8"
   }
 }

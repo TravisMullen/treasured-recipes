@@ -6,7 +6,7 @@ angular.module('application.controllers')
 
 function recipeCtrl($scope, $stateParams, $state, recipeService, attachmentService) {
 
-    // angular.extend(this, $controller('DefaultController', { $scope: $scope, $stateParams: $stateParams, $state: $state }));
+    $scope.print = window.print;
 
     $scope.ingredients = [];
     // $scope.attachments = {}

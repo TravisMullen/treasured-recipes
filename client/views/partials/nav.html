@@ -1,5 +1,5 @@
-<ul class="dark menu-bar fade-in" ng-show="showNav" ng-controller="actionNavCtrl">
+<ul class="dark menu-bar fade-in ng-hide" ng-show="showNav" ng-controller="actionNavCtrl">
     <li ng-if="next.slug"><a ui-sref="recipe({slug: next.slug})" ><span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{next.title.rendered}}</span></a></li>
-    <li class="show-for-medium shrink"><a ui-sref="home"><span class="icon-home white"></span></a></li>
+    <li class="show-for-medium shrink"><a ui-sref="search.list"><span><span class="icon-search white"></span>&nbsp;&nbsp;Search Recipes</span></a></li>
     <li ng-if="prev.slug" class="align-right"><a ui-sref="recipe({slug: prev.slug})"><span>{{prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span></a></li>
 </ul>

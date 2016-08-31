@@ -4,7 +4,7 @@
 .fade-in {
     transition: opacity 0.4s;
     &.ng-hide {
-        display: inherit !important;
+        // display: inherit !important;
         opacity: 0;
     }
 }
