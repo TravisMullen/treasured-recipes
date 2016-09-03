@@ -1,4 +1,4 @@
-/* requireObjectDestructuring: false, globals require, __dirname */
+/* globals require, __dirname */
 'use strict';
 // FOUNDATION FOR APPS TEMPLATE GULPFILE
 // -------------------------------------
@@ -95,11 +95,12 @@ gulp.task( 'lint', function() {
     gulp.src( paths.appJS )
         .pipe( $.jshint( '.jshintrc' ) )
         .pipe( $.jshint.reporter( 'jshint-stylish' ) )
-        .pipe( jscs({ fix : true }) )
-        .pipe( jscsStylish() )
+        // .pipe( jscs({ fix : true }) )
+        // .pipe( jscs({ fix : true }) )
+        // .pipe( jscsStylish() )
         // .pipe( jscs.reporter( ) )
-        .pipe( jscs.reporter( 'fail' ) )
-        .pipe( gulp.dest( paths.appJS ) );;
+        .pipe( jscs.reporter( 'fail' ) );
+        // .pipe( gulp.dest( './client/assets/js' ) );
 });
 
 // Copies your app's page templates and generates URLs for them
@@ -191,11 +192,6 @@ gulp.task( 'server', [ 'build' ], function() {
         }) );
 });
 
-gulp.task( 'lint', function() {
-    gulp.src( [ './js/*.js', 'gulpfile.js' ] )
-        .pipe( jshint( '.jshintrc' ) )
-        .pipe( jshint.reporter( 'jshint-stylish' ) );
-});
 
 gulp.task( 'validate', function() {
     gulp.src( [ './js/*.js', 'gulpfile.js' ] )

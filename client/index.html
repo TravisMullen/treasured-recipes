@@ -16,12 +16,12 @@
     <div class="grid-frame vertical">
         <!-- <div class="grid-content shrink collaspe horizontal bg-wood-beam" ui-view="header">
         </div> -->
+        <code>data: {{ngClasses}}</code>
         <div class="grid-content">
-            <div ui-view="main"></div>
+            <div ui-view="dinnertable" class="grid-block bg-table-cloth" ng-class="ngClasses" alt="{{ngClasses}}" preloader="{ activestate: 'main.loading', nextstate: 'main.search' }" ></div>
         </div>
         <div ui-view="footer"></div>
         <!-- <div ui-view="modal"></div>q -->
     </div>
 </body>
-
 </html>

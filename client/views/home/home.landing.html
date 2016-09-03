@@ -1,8 +1,8 @@
-<div class="grid-block bg-table-cloth middle" ng-controller="homeCtrl">
+<div class="grid-block middle" ng-controller="homeCtrl">
     <div class="grid-container">
         <div class="grid-block shrink middle pull-down-4">
             <div class="grid-content">
-
+               isHome: {{home.isHome}} {{home}} {{isHome}}
                 <div class="pull-down-4" ng-hide="recipes.length" ng-include="'partials/loader-icon.html'"></div>
 
                 <header class="grid-block gutters align-center" ng-show="recipes.length">

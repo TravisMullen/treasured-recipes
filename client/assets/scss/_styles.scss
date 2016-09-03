@@ -10,21 +10,25 @@
 body {
     // border-top: rem-calc(6) solid $alert-color;
     // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
-    background-image: url('../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg');
-    background-repeat: repeat;
-    background-position: 0 0;
+
 }
 
-// .bg-cutting-board {
-//     background-image: url('../images/stock-photo-green-chives-with-flowers-chopped-on-a-wood-cutting-board-isolated-on-white-77395993.png');
-//     background-repeat: no-repeat;
-//     background-position: 0 rem-calc(-100);
-//     background-color: transparent;
-//     width: rem-calc(760);
-//     background-size: rem-calc(760);
-//     min-height: rem-calc(711);
-// }
-// 
+.off-screen-preloader {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    height: rem-calc(1);
+    width: rem-calc(1);
+    &.bg-load-success,
+    .bg-load-success & {
+        display: none;
+    }
+}
+
+
 .old-tablet-seemless {
     position: relative;
     filter: drop-shadow(rem-calc(2) rem-calc(4) rem-calc(4) rgba(0, 0, 0, 0.7));
@@ -73,7 +77,40 @@ body {
     // }
 }
 
+
+.bg-table-cloth {
+    background-image: url('../images/treasured-recipes-background-hi-res.jpg');
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    
+        border: 5px solid yellow;
+
+        opacity: 0;
+        transition: opacity 3.5s ease-in;
+        transition-delay: 0.5s;
+    &.bg-load-active,
+    .bg-load-active & {
+        border: 5px solid red;
+    }
+
+    &.bg-load-success,
+    .bg-load-success & {
+        border: 5px solid green;
+        opacity: 1;
+    }
+
+    background-position: center center;
+    transition-delay: 0.7s;
+    transition: background-position 3s ease-in;
+    &.home,
+    .home & {
+        background-position: 0 rem-calc(-975);
+    }
+}
+
 [ui-view="main"] {
+
+
     [type="search"] {
         border: rem-calc(4) solid $primary-color;
         &:hover,
@@ -82,37 +119,39 @@ body {
             border: rem-calc(4) solid $alert-color;
         }
     }
-    // min-height: rem-calc(1223);
-    &.ng-leave {
-        // transition: all ease 0.5s;
-        // .ng-show.fade-in {
-        animation-name: scrollout;
-        animation-duration: 1.2s;
-        animation-timing-function: easein;
+    &.has-recipe {
+            // min-height: rem-calc(1223);
+        &.ng-leave {
+            // transition: all ease 0.5s;
+            // .ng-show.fade-in {
+            animation-name: scrollout;
+            animation-duration: 1.2s;
+            animation-timing-function: easein;
+            // }
+        }
+        // &.ng-leave-active {
+        //     // .old-tablet-seemless {
+        //         animation-name: scrollout;
+        //         animation-duration: 1s;
+        //         animation-timing-function: ease;
+        //     // }
         // }
-    }
-    // &.ng-leave-active {
-    //     // .old-tablet-seemless {
-    //         animation-name: scrollout;
-    //         animation-duration: 1s;
-    //         animation-timing-function: ease;
-    //     // }
-    // }
-    &.ng-enter {
-        // .old-tablet-seemless {
-        // animation-delay: 0.5s;
-        //     animation-name: scrollin;
-        //     animation-duration: 1s;
-        //     animation-timing-function: ease;
-        // }
-    }
-    &.ng-enter {
-        // .ng-show.fade-in {
-        // animation-delay: 0.5s;
-        animation-name: scrollin;
-        animation-duration: 1s;
-        animation-timing-function: easein;
-        // }
+        &.ng-enter {
+            // .old-tablet-seemless {
+            // animation-delay: 0.5s;
+            //     animation-name: scrollin;
+            //     animation-duration: 1s;
+            //     animation-timing-function: ease;
+            // }
+        }
+        &.ng-enter {
+            // .ng-show.fade-in {
+            // animation-delay: 0.5s;
+            animation-name: scrollin;
+            animation-duration: 1s;
+            animation-timing-function: easein;
+            // }
+        }
     }
 }
 
