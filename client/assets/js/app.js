@@ -21,37 +21,30 @@
                     }
                 },
                 data : {
-                    classList : ['go-dark']
+                    classList : ['go-dark'] // set stage
                 }
             })
 
             .state( 'main.loading', {
                 url : '/setting-it-for-you',
+                data : {
+                    classList : ['go-light']  // load actors
+                },
+                views : {
+                    'main' : {
+                        templateUrl: 'partials/loader-icon.html'
+                    }
+                }
+            })
+            .state( 'main.loaded', {
+                url : '/right-this-way',
 
                 data : {
-                    classList : ['go-light']
+                    classList : ['walk-in']  // start actors
                 },
-                // controller: function() {
-                //     this.loading = true; 
-                //     console.log("loading loaded");
-                //     // $scope.testing = function() {}
-                //     //     console.log("testing from search ap.js");
-                //     // ;
-                // },
-                // controllerAs: 'loading',
-                // controller: function($scope,$timeout) {
-                //     // $scope.delayStart = true;
-                //     // $timeout(function() {
-                //     //     $scope.delayStart = false;
-                //     // },2000);
-                // },
                 views : {
-                    "footer": {
-                        templateUrl: 'partials/loader-icon.html'
-                    },
                     'main' : {
-                        template : 'loading: {{loading}}, loading.loading {{loading.loading}} <div class="grid-block align-center middle" ng-include="\'partials/loader-icon.html\'"></div><div class="modal-overlay is-active"></div>'
-                        // template : 'loading: {{loading}}, loading.loading {{loading.loading}} <div class="grid-block align-center middle" ng-include="\'partials/loader-icon.html\'"></div><div class="modal-overlay is-active"></div>'
+                        templateUrl: 'partials/pot.html'
                     }
                 }
             })
@@ -79,14 +72,14 @@
                 }
             })
 
-            .state( 'search.list', {
+            .state( 'main.search.list', {
                 url : '/list',
                 data : {
                     showList : true
                 }
             })
 
-            .state( 'recipe', {
+            .state( 'main.recipe', {
                     url : '/recipe/:slug',
                     // controller: 'recipeCtrl as recipe',
                     // templateUrl: 'recipe/landing.html',
@@ -98,19 +91,19 @@
                         classList : ['recipe']
                     },
                     views : {
-                        'header' : {
-                            templateUrl : 'partials/interior/header.html'
-                        },
+                        // 'header' : {
+                        //     templateUrl : 'partials/interior/header.html'
+                        // },
                         'main' : {
                             templateUrl : 'recipe/view.html'
                         },
-                        'footer' : {
+                        'footer@' : {
                             templateUrl : 'partials/nav.html'
                         }
                     }
 
                 })
-                .state( 'recipe.image', {
+                .state( 'main.recipe.image', {
                     url : '/image/:imgid',
                     // controller: 'recipeCtrl as recipe',
                     // templateUrl: 'recipe/landing.html'

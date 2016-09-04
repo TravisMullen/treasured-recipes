@@ -13,13 +13,18 @@
 </head>
 
 <body>
-    <div class="grid-frame vertical">
+    <div class="grid-frame vertical" state-class>
         <!-- <div class="grid-content shrink collaspe horizontal bg-wood-beam" ui-view="header">
         </div> -->
-        <code>data: {{ngClasses}}</code>
-        <div class="grid-content">
-            <div ui-view="dinnertable" class="grid-block bg-table-cloth" ng-class="ngClasses" alt="{{ngClasses}}" preloader="{ activestate: 'main.loading', nextstate: 'main.search' }" ></div>
-        </div>
+        <!-- <code>data: {{ngClasses}}</code> -->
+        <!-- <div class=""> -->
+            <div class="grid-content bg-table-cloth keepheight" preloader="{ activestate: 'main.loading', nextstate: 'main.loaded', imageClass: '[ui-view=\'dinnertable\']' }" >
+                <!-- {{elm}} -->
+                <!-- <div ng-bind-html="elm"></div> -->
+                <!-- <img image-loader delay-start="4000" /> -->
+                <div ui-view="dinnertable" class="grid-block "></div> 
+            </div>
+        <!-- </div> -->
         <div ui-view="footer"></div>
         <!-- <div ui-view="modal"></div>q -->
     </div>

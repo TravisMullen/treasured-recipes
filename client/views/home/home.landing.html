@@ -26,7 +26,7 @@
                 <!-- </label> -->
                 <!-- <ul> -->
                 <ul class="recipe-list fade-in" ng-show="(searchValue != '' && searchValue != 'undefined') || showList">
-                    <li  class="recipe-button" ng-repeat="recipe in recipes | filter:searchValue:'title.rendered'"><a ui-sref="recipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></a></li>
+                    <li  class="recipe-button" ng-repeat="recipe in recipes | filter:searchValue:'title.rendered'"><a ui-sref="main.recipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></a></li>
                 </ul>
             </div>
         </div>

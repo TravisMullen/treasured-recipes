@@ -2,18 +2,42 @@
 // 
 'use strict';
 angular.module('application.components')
-    .directive('preloader', function($window) {
-        var style; // save it for later
+    // is this bad perf??
+    .directive('stateClass', function($window) {
+        return {
+            restrict: 'A',
+            scope: {
+                stateClass: '@'
+            },
+            controller: ['$scope', '$element', '$state', function stateClassController($scope, $element, $state) {
+                var classTarget = $scope.stateClass || 'classList',
+                    activeClasses = [];
 
-        function getBgUrl(el) {
-            var prop;
-            style = $window.getComputedStyle(el);
+                $scope.$watch(function() {
+                    return $state.current.data;
+                }, function(res) {
+                    if (res) {
+                        if (res[classTarget] && res[classTarget].length) {
+                            for (var i = activeClasses.length - 1; i >= 0; i--) {
+                                var old = activeClasses[i];
+                                $element.removeClass(old);
+                            }
+                            for (var j = $state.current.data[classTarget].length - 1; j >= 0; j--) {
+                                var name = $state.current.data[classTarget][j];
+                                activeClasses.push(name);
+                                $element.addClass(name);
+                            }
 
-            prop = style['background-image']; // try and get inline style
-            console.log("prop", prop);
-            return prop.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
-        }
+                            console.log("activeClasses", activeClasses.length);
+                        }
+                    }
+                });
 
+            }]
+        };
+    })
+    .directive('preloader', function() {
+        // var style; // save it for later
         return {
             restrict: 'A',
             scope: {
@@ -21,116 +45,21 @@ angular.module('application.components')
                 src: '@'
             },
             // replace: true,
-            controller: ['$scope', '$element', '$state', '$timeout', function preloaderController($scope, $element, $state, $timeout) {
+            controller: ['$scope', '$element', '$state', '$compile', '$window', function preloaderController($scope, $element, $state, $compile, $window) {
                 var pldr = this, // namespace
                     settings = $scope.preloader || {},
-                    imageURL,
-                    classes = [],
-                    cb,
-                    loaded = [];
+                    style,
+                    imageURL = false,
+                    elm = '<img image-loader delay-start="4000" />',
+                    cb;
 
-                $scope.ngClasses = classes;
-                // $scope.$on('$viewContentLoaded',
-                //     function(event) {
-                //         console.log("EVERYTHING IS LOADED~!!");
-                //         console.log("$state.current.data.classList",$state.current.data.classList);
-   //              //     });
-   // $scope.$on('$viewContentLoaded', function(event) {
-   //    $timeout(function() {
-   //                      console.log("EVERYTHING IS LOADED~!!");
-   //      // $scope.formData.value = document.getElementById("loginForm").id;
-   //    },0);
-   //  });
-
-                $scope.$watch(function() {
-                    return $state.current.data;
-                }, function(res) {
-                    if (!res) { 
-                        return;
-                    }
-                    if (res.classList && res.classList.length) {
-                        for (var i = classes.length - 1; i >= 0; i--) {
-                        //     classessplice(i, 1);
-                            var name = classes[i];
-                            $element.removeClass(name);
-                        }
-                        // classes.forEach(function(className) {
-                        //     var name = className;
-                        //     console.log("className",name);
-                        //     classes.push(name);
-                        //     $element.addClass(name);
-                        // });
-                        for (var i = $state.current.data.classList.length - 1; i >= 0; i--) {
-                        //     classessplice(i, 1);
-                            var name = $state.current.data.classList[i];
-                            classes.push(name);
-                            $element.addClass(name);
-                        }
-                        // $state.current.data.classList.forEach(function(className) {
-                        //     var name = className;
-                        //     // console.log("className",name);
-                        //     $element.addClass(name);
-                        //     classes.push(name);
-                        // });
-                    }
-                });
-
-               // if ($state.current.data && $state.current.data.classList) {
-                //     $state.current.data.classList.forEach(function() {
-
-                //     });
-                // }
-
-                if (typeof settings === 'object') {
-                    if (settings.activestate) {
-                        // do something
-                        // 
-                    }
-                    if (settings.nextstate) {
-                        console.log("settings.state", settings.nextstate);
-                        cb = function() {
-                            return $state.go(settings.nextstate);
-                        };
-                    }
-                    console.log("$state.current", $state.current);
-                    console.log("$state.current.name", $state.current.name);
-                    console.log("settings.activestate", settings.activestate);
-                    console.log("!settings.activestate || $state.current.name !== settings.activestate", !settings.activestate || $state.current.name !== settings.activestate);
-                    if (!settings.activestate || $state.current.name !== settings.activestate) {
-                        $element.addClass('bg-load-success');
-                        // $scope.
-                        console.log("break - not active state");
-
-                        pldr.getImageURL = function() {
-                            return false;
-                        };
-                        return;
-                    }
-                }
-
-                // $state
-                // $state.addClass()
-
-                $scope.loaded = false;
-                $element.toggleClass('bg-load-active');
-
-                $scope.$watch('loaded', function(res) {
-                    console.log("loaded", res);
-                    $element.removeClass('bg-load-active');
-                    $element.removeClass('bg-load-fail');
-                    $element.removeClass('bg-load-success');
-                    if (res === true) {
-                        $element.addClass('bg-load-success');
-                    } else {
-                        $element.addClass('bg-load-fail');
-                    }
-                });
 
                 pldr.loaded = function() {
                     // if ( typeof($scope.preloader) === 'function') {
                     $scope.loaded = true;
-                    console.log("loaded!");
+                    console.log("prelaoder COMPLETE!");
                     if (typeof cb === 'function') {
+                        console.log("cb", cb);
                         cb();
                     }
                 };
@@ -140,18 +69,78 @@ angular.module('application.components')
                 };
 
                 if ($scope.src) {
-                    element.attr('src', $scope.src);
-                    element.bind('load', function() {
-                        preloaderCtrl.loaded();
+                    $element.bind('load', function() {
+                        pldr.loaded();
                         // this.successfulload = true;
                     });
+                    $element.attr('src', $scope.src);
                     // } else if (settings.target) {
                     //     imageURL = getBgUrl( angular.element(document).find(settings.target) );
-                } else {
-                    // $scope.loaded = false;
-                    console.log("$element[0]", $element[0]);
-                    imageURL = getBgUrl($element[0]);
+                } 
+
+                function getBgUrl(el) {
+                    var prop, 
+                        style = $window.getComputedStyle(el),
+                        deep = 3;
+                    // for (var i = deep.length - 1; i >= 0; i--) {
+                        prop = style['background-image']; // try and get inline style
+                        // if (prop) {
+                        // cl
+                            return prop.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                        // } else {
+                            // validate this!
+                            // style = $window.getComputedStyle(el.parent()[0]);
+                        // }
+                    // }å
                 }
+
+                function checkforBuild(currentName) {
+                    var elm = $element[0],
+                        imageClass;
+                    console.log("checkforBuild",currentName);
+                    if (typeof settings === 'object') {
+                        console.log("settings.nextstate", settings.nextstate);
+               
+                        if (settings.nextstate) {
+                            console.log("settings.state", settings.nextstate);
+                            cb = function() {
+                                $state.go(settings.nextstate);
+                            };
+                        }
+
+                        console.log("settings.imageClass",settings.imageClass);
+                        if (settings.imageClass) {
+                            elm = $window.document.querySelector(settings.imageClass) || elm;
+                        }
+                        imageURL = getBgUrl( elm );
+                        console.log("imageURL",imageURL);
+
+                        console.log("settings.activestate && currentName === settings.activestate",settings.activestate && currentName === settings.activestate);
+                        if (settings.activestate && currentName === settings.activestate) {
+                            buildLoader();
+                        }
+                    } else if (typeof settings === 'function') {
+                        cb = settings;
+                    }
+                }
+
+                function buildLoader() {
+                    console.log("building a loeader!");
+                    // to do make this work
+                    $element.append(elm);
+                    $compile($element.contents())($scope);
+                }
+
+                $scope.$watch(function() {
+                    return $state.current.name;
+                }, function( name ) {
+                    if (name) {
+                        console.log("$watch name",name);
+                        checkforBuild( name );
+                    }
+                });
+
+
             }]
         };
     })
@@ -160,49 +149,32 @@ angular.module('application.components')
             require: '^^preloader',
             restrict: 'A',
             replace: true,
-            scope: {
-                delayStart: '=',
-            },
+            // scope: {
+            //     delayStart: '=',
+            // },
             // transclude: true,
-            template: '<img alt="checking image." class="off-screen-preloader" />',
+            template: '<img alt="{{alt}}" class="off-screen-preloader" />',
             link: function(scope, element, attrs, preloaderCtrl) {
-                var loaded = false,
-                    url,
-                    delay = 0;
+                var loaded = false;
+
+                scope.alt = 'loaded from controller';
+                console.log("loaded imageLoader");
                 console.log("preloaderCtrl", preloaderCtrl);
-                console.log("preloaderCtrl.getImageURL", preloaderCtrl.getImageURL);
-                // console.log("attrs",attrs);
-                // console.log("scope",scope);
-                // if no parent controller, remove 
-                if (typeof(preloaderCtrl) === 'undefined') {
-                    element.remove();
+                if (typeof(preloaderCtrl) === 'undefined' ||
+                    typeof(preloaderCtrl.getImageURL) !== 'function' ||
+                    typeof(preloaderCtrl.loaded) !== 'function') {
+                    // element.remove();
                     return;
                 }
-                url = preloaderCtrl.getImageURL();
-                if (url === false) {
-                    element.remove();
-                    return;
-                }
-                // if if delay
-                // if (typeof (scope.delayStart) === 'number') {
-                //     delay = scope.delayStart;
-                //     $timeout(function() {
-                //         if (loaded) {
-                //             preloaderCtrl.loaded();
-                //         }
-                //         console.log("fired! scope.delayStart",scope.delayStart);
-                //     },delay);
-                // }
+
 
                 // bind load even and set source
                 element.bind('load', function() {
                     loaded = true;
-                    if (delay === 0) {
-                        preloaderCtrl.loaded();
-                        element.remove();
-                    }
+                    preloaderCtrl.loaded();
+                    // element.remove();
                 });
-                element.attr('src', url);
+                element.attr('src', preloaderCtrl.getImageURL());
             }
         };
 

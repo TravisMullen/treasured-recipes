@@ -41,8 +41,14 @@ function recipeCtrl($scope, $stateParams, $state, recipeService, attachmentServi
     }
 
             // $scope.prev = recipeService.prev();
-
-        
+        // $scope.$watch('$viewContentLoaded', function()
+        // {
+        //     alert($state.current.data.classList);
+        // });
+        // $scope.$on('$viewContentLoaded', function()
+        // {
+        //     alert("on blah");
+        // });
     // $http({
     //     method: 'GET', // read only 
     //     url: 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe' // path or JSON API or file ('/assets/data/json/example1.json')

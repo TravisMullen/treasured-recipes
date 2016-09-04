@@ -6,9 +6,9 @@ angular.module( 'application.controllers' )
 
 function homeCtrl( $scope, $state, $filter, recipeService ) {
 
-    $scope.showList = $state.current.data 
-                            ? $state.current.data.showList 
-                            : false;
+    $scope.showList = $state.current.data ?
+                        $state.current.data.showList :
+                        false;
 	$scope.searchValue = '';
 
     recipeService.recipes().then( function( results ) {

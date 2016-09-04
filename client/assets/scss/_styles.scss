@@ -13,6 +13,13 @@ body {
 
 }
 
+.large-image {
+    // height: 60%;
+    // 
+    height: 60vh;
+    width: auto;
+}
+
 .off-screen-preloader {
     display: block;
     overflow: hidden;
@@ -22,10 +29,10 @@ body {
     z-index: 9999;
     height: rem-calc(1);
     width: rem-calc(1);
-    &.bg-load-success,
-    .bg-load-success & {
-        display: none;
-    }
+    // &.bg-load-success,
+    // .bg-load-success & {
+    //     display: none;
+    // }
 }
 
 
@@ -78,39 +85,9 @@ body {
 }
 
 
-.bg-table-cloth {
-    background-image: url('../images/treasured-recipes-background-hi-res.jpg');
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    
-        border: 5px solid yellow;
-
-        opacity: 0;
-        transition: opacity 3.5s ease-in;
-        transition-delay: 0.5s;
-    &.bg-load-active,
-    .bg-load-active & {
-        border: 5px solid red;
-    }
-
-    &.bg-load-success,
-    .bg-load-success & {
-        border: 5px solid green;
-        opacity: 1;
-    }
-
-    background-position: center center;
-    transition-delay: 0.7s;
-    transition: background-position 3s ease-in;
-    &.home,
-    .home & {
-        background-position: 0 rem-calc(-975);
-    }
-}
-
-[ui-view="main"] {
 
 
+// [ui-view="main"] {
     [type="search"] {
         border: rem-calc(4) solid $primary-color;
         &:hover,
@@ -119,41 +96,7 @@ body {
             border: rem-calc(4) solid $alert-color;
         }
     }
-    &.has-recipe {
-            // min-height: rem-calc(1223);
-        &.ng-leave {
-            // transition: all ease 0.5s;
-            // .ng-show.fade-in {
-            animation-name: scrollout;
-            animation-duration: 1.2s;
-            animation-timing-function: easein;
-            // }
-        }
-        // &.ng-leave-active {
-        //     // .old-tablet-seemless {
-        //         animation-name: scrollout;
-        //         animation-duration: 1s;
-        //         animation-timing-function: ease;
-        //     // }
-        // }
-        &.ng-enter {
-            // .old-tablet-seemless {
-            // animation-delay: 0.5s;
-            //     animation-name: scrollin;
-            //     animation-duration: 1s;
-            //     animation-timing-function: ease;
-            // }
-        }
-        &.ng-enter {
-            // .ng-show.fade-in {
-            // animation-delay: 0.5s;
-            animation-name: scrollin;
-            animation-duration: 1s;
-            animation-timing-function: easein;
-            // }
-        }
-    }
-}
+// }
 
 // .main-leave {
 //     animation-name: scrollout;
@@ -320,6 +263,13 @@ li:before {
     color: #93311B; // note card red
     // color: #008542; // lime
 }
+
+
+
+
+
+// FOOTER ANIMATION STYLES
+
 
 // }
 // 
