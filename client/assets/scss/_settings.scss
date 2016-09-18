@@ -31,6 +31,13 @@
 
 @import "../../../bower_components/angular-base-apps/scss/helpers/functions";
 
+
+// Animations
+// - - - - - - - - - - - - - - -
+// 
+$animation-duration-default: 800ms;
+
+
 // 1. CSS Exports
 // - - - - - - - - - - - - - - -
 
@@ -303,7 +310,7 @@ $button-tag-selector: false;
 // $actionsheet-background: white;
 // $actionsheet-border-color: #ccc;
 // $actionsheet-animate: transform opacity;
-// $actionsheet-animation-speed: 0.25s;
+$actionsheet-animation-speed: 0.25s;
 // $actionsheet-width: 300px;
 // $actionsheet-radius: 4px;
 // $actionsheet-shadow: 0 -3px 10px rgba(black, 0.25);
@@ -510,7 +517,7 @@ $input-cursor-disabled: not-allowed;
 // $motion-spin-and-fade: true;
 
 // Default speed for transitions and animations
-// $motion-duration-default: 500ms;
+$motion-duration-default: $animation-duration-default;
 
 // Slow and fast modifiders
 // $motion-duration-slow: 750ms;

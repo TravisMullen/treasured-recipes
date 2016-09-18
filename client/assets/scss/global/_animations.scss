@@ -8,7 +8,8 @@
 // }
 // =============================================================================
 // base animation speed // to keep pace the same
-$animation-speed: 2s !default;
+$animation-duration-default: 2s !default;
+
 // start animation
 @include keyframes( pulse) {
     0%,

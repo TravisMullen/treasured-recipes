@@ -1,9 +1,16 @@
 'use strict';
-angular.module('application.services').factory('recipeService', ['$q', '$http', 'webStorage',
+angular.module('TreasuredRecipesApp.services').factory('recipeService', ['$q', '$http', 'webStorage',
     function($q, $http, webStorage) {
         var
             recipes,
             slugHash = {},
+            nameSpace = 'treasured-recipes',
+
+            storageKeys = {
+                lastreq: nameSpace+':lastreq',
+                collection: nameSpace+':collection',
+                selected: storageKeys+':selected'
+            },
 
             cachePrev,
             cacheNext,
@@ -41,36 +48,36 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
             return recipes;
         }
 
+        function remainingTime() {
+            var cacheTime = +(new Date()) - cache,
+                req = webStorage.get(storageKeys.lastreq);
+            return req ? (req - cacheTime) : false;
+        }
+
         function getRecipes(bustCache) {
-            var deferred = $q.defer(),
-                cacheTime = bustCache ? 0 : +(new Date()) - cache;
+            var deferred = $q.defer();
 
+            if ( remainingTime() ) {
+                // first check to see if in memory and not too old
+                if (recipes) {
+                    console.log("Loaded from Memory");
+                    deferred.resolve(recipes);
 
+                // second check to see if in localstorage and not too old
+                } else {
 
-            console.log("getRecipes (data expires in sec) ", (webStorage.get('treasuredrecipes:lastreq') - cacheTime) / 1000);
+                    console.log("Loaded from Storage");
 
-            // first check to see if in memory and not too old
-            if (recipes && (lastreq > cacheTime)) {
-                deferred.resolve(recipes);
-            // }
-            // } else if {
+                    recipes = webStorage.get(storageKeys.collection);
+                    // rebuild lost hash
+                    for (var i = 0; i < recipes.length; i++) {
+                        slugHash[ recipes[i].slug ] = true;
+                    }
 
-            // second check to see if in localstorage and not too old
-            } else if (webStorage.get('treasuredrecipes:lastreq') > cacheTime) {
-            // } else if (webStorage.get('treasuredrecipes:lastreq') > cacheTime) {
+                    // lastreq = webStorage.get(storageKeys.lastreq);
 
-                console.log("Loaded from Storage");
-
-                recipes = webStorage.get('treasuredrecipes:collection');
-                // rebuild lost hash
-                for (var i = 0; i < recipes.length; i++) {
-                    slugHash[ recipes[i].slug ] = true;
+                    deferred.resolve(recipes);
                 }
-
-                lastreq = webStorage.get('treasuredrecipes:lastreq');
-
-                deferred.resolve(recipes);
-
             } else {
 
             // third get a fresh copy
@@ -86,8 +93,8 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
                     // set to global of `data`
                     recipes = filterJSONfromRecipe(response.data);
 
-                    webStorage.set('treasuredrecipes:collection', recipes);
-                    webStorage.set('treasuredrecipes:lastreq', +(new Date()));
+                    webStorage.set(storageKeys.collection, recipes);
+                    webStorage.set(storageKeys.lastreq, +(new Date()));
 
                     deferred.resolve(recipes);
 
@@ -109,7 +116,6 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
 
         function getRecipeBySlug( slug ) {
             var deferred = $q.defer();
-
             getRecipes().then(function() {
 
                 if (!slug) {
@@ -120,8 +126,8 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
                     if (recipes[i].slug === slug) {
                         selected = recipes[i];
 
-                        webStorage.set('treasuredrecipes:selected', selected);
-
+                        webStorage.set(storageKeys.selected, selected);
+                        
                         deferred.resolve(selected);
                         return;
                     } else if ( i === 0 ) {
@@ -168,7 +174,7 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
 
         function lastRecipe() {
             var deferred = $q.defer(),
-                last = webStorage.get('treasuredrecipes:selected');
+                last = webStorage.get(storageKeys.selected);
 
             getRecipes().then(function() {
                if (last && slugHash[last.slug]) {
@@ -179,6 +185,14 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
             });
 
             return deferred.promise;
+        }
+
+        function isStored() {
+            var value = false;
+            if ( webStorage.get(storageKeys.collection ) ) {
+                value = true;
+            } 
+            return value;
         }
 
         service.recipes = getRecipes;
@@ -194,6 +208,12 @@ angular.module('application.services').factory('recipeService', ['$q', '$http', 
         service.cacheNext = cacheNext;
 
         service.last = lastRecipe;
+        service.storageKeys = storageKeys;
+
+        service.isStored = isStored;
+        service.isCached = remainingTime;
+        service.cache = cache;
+
 
         return service;
 

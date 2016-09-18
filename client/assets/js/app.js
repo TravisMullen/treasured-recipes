@@ -1,8 +1,7 @@
-// require('bower_components/angular-webstorage/angular-webstorage');
 
-/* globals angular, FastClick */
-( function() {
     'use strict';
+/* globals angular, FastClick */
+// ( function() {
 
     function config( $urlProvider, $locationProvider, $stateProvider ) {
         $urlProvider.otherwise( '/table/setting-it-for-you' );
@@ -13,26 +12,26 @@
         });
 
         $stateProvider
-            .state('main', {
-                url: '/table',
+            .state( 'main', {
+                url : '/table',
                 views : {
                     'dinnertable' : {
-                        templateUrl: 'partials/table.html'
+                        templateUrl : 'partials/table.html'
                     }
                 },
                 data : {
-                    classList : ['go-dark'] // set stage
+                    classList : [ 'go-dark' ] // set stage
                 }
             })
 
             .state( 'main.loading', {
                 url : '/setting-it-for-you',
                 data : {
-                    classList : ['go-light']  // load actors
+                    classList : [ 'go-light' ]  // load actors
                 },
                 views : {
                     'main' : {
-                        templateUrl: 'partials/loader-icon.html'
+                        templateUrl : 'partials/loader-icon.html'
                     }
                 }
             })
@@ -40,11 +39,11 @@
                 url : '/right-this-way',
 
                 data : {
-                    classList : ['walk-in']  // start actors
+                    classList : [ 'walk-in' ]  // start actors
                 },
                 views : {
                     'main' : {
-                        templateUrl: 'partials/pot.html'
+                        templateUrl : 'partials/pot.html'
                     }
                 }
             })
@@ -52,7 +51,7 @@
                 url : '/search',
 
                 data : {
-                    classList : ['home']
+                    classList : [ 'home' ]
                 },
                 // controller: function() {
                 //     this.isHome = true; 
@@ -88,7 +87,7 @@
                     // }
 
                     data : {
-                        classList : ['recipe']
+                        classList : [ 'recipe' ]
                     },
                     views : {
                         // 'header' : {
@@ -209,23 +208,27 @@
         // FastClick.attach(document.body);
     }
 
-    angular.module( 'application.templates', [] );
+    angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] );
 
-    angular.module( 'application.services', [] );
-    angular.module( 'application.controllers', [] );
-    angular.module( 'application.components', [] );
+    angular.module( 'TreasuredRecipesApp.templates', [] );
 
-    angular.module( 'application', [
+    angular.module( 'TreasuredRecipesApp.services', [] );
+    angular.module( 'TreasuredRecipesApp.controllers', [] );
+    angular.module( 'TreasuredRecipesApp.components', [] );
+
+    angular.module( 'TreasuredRecipesApp', [
             'ui.router',
             'ngAnimate',
 
             'webStorageModule',
 
-            'application.templates',
+            'TreasuredRecipesApp.animations',
+            
+            'TreasuredRecipesApp.templates',
 
-            'application.services',
-            'application.controllers',
-            'application.components'
+            'TreasuredRecipesApp.services',
+            'TreasuredRecipesApp.controllers',
+            'TreasuredRecipesApp.components'
 
             // //foundation
             // 'foundation',
@@ -239,4 +242,4 @@
     config.$inject = [ '$urlRouterProvider', '$locationProvider', '$stateProvider' ];
 
 
-})();
+// })();

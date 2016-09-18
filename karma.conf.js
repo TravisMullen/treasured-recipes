@@ -10,25 +10,25 @@ module.exports = function(config) {
         // browsers: ['PhantomJS','PhantomJS_custom'],
 
         files: [
-            // libs (if ever used)
-            // 'libs/jquery-1.11.3.min.js',
+            // libs 
+            // 
+            'build/assets/js/libs.js',
 
-            // mockument
-            // 'spec/mockument/mockument.js',
-            // // 'spec/mockument/mockumentSpec.js'
+            // mock requirement
+            'bower_components/angular-mocks/angular-mocks.js',
 
-            // // Metabiosis // mBss
-            // 'js/mbss.action.service.js',
-            // 'js/mbss.event.service.js',
+            // founation templates
+            'build/assets/js/templates.js',
 
+            // app (modules)
+            'build/assets/js/app.js',
 
-            // // spec config
-            // 'spec/config.js',
+            // app (templates)
+            'build/assets/js/treasured-recipes-templates.js',
 
-            // // spec tests
-            // 'spec/actionServicePathSpec.js'
-            // 'spec/actionServiceSpec.js',
-            // 'spec/eventServiceSpec.js'
+            // spec tests
+            'bower_components/lodash/dist/lodash.js',
+            'spec/**/*.js',
         ],
 
 

@@ -109,51 +109,10 @@ body {
 //     animation-duration: 1s;
 //     animation-timing-function: ease;
 // }
-[ui-view="footer"] {
-    border-top: 1px solid $black;
-    background-color: rgba($black, 0.2);
-    // position: fixed;
-    // bottom: 0;
-    // position: fixed;
-    // bottom: 0;
-    // .ng-leave &,
-    // .ng-move,
-    // .ng-hide {
-    //     animation-name: slideout;
-    //     animation-duration: 1s;
-    //     animation-timing-function: ease;
-    // }
-    // .ng-enter &,
-    // .ng-move-active,
-    // .ng-show {
-    //     animation-delay: 0.5s;
-    //     animation-name: slidein;
-    //     animation-duration: 1s;
-    //     animation-timing-function: ease;
-    // }
-    // .fade-in {
-    // 
-    .menu-bar {
-        // border: 1px solid red;
-        // animation-duration: 1s;
-        &.ng-hide {
-            animation-name: slideout;
-            animation-delay: 0;
-            animation-duration: 1s;
-            animation-timing-function: easein;
-        }
-        // &.ng-show {
-        animation-name: slidein;
-        // animation-delay: 2s;
-        animation-duration: 0.2s;
-        animation-timing-function: easein;
-        // }
-    }
-}
 
 [ui-view="modal"] {
     &.ng-enter {
-        transition: opacity ease 0.4s;
+        transition: opacity ease-in $animation-duration-default/2;
         opacity: 0;
     }
     &.ng-enter-active {
@@ -161,11 +120,11 @@ body {
     }
     .modal {
         animation-name: scrollin;
-        animation-duration: 1s;
+        animation-duration: $animation-duration-default*2;
         animation-timing-function: easein;
     }
     &.ng-leave {
-        transition: opacity ease 0.4s;
+        transition: opacity ease-out $animation-duration-default/2;
     }
     &.ng-leave-active {
         opacity: 0;
@@ -188,19 +147,6 @@ body {
     cursor: pointer;
 }
 
-.bg-wood-beam {
-    background-image: url("../images/stock-photo-seamless-beech-texture-156113486.jpg");
-    background-color: #5C280A;
-    background-repeat: repeat;
-    background-position: 0 0;
-    border-bottom: 1px solid #592237;
-    // box-shadow: 0 0 1em black;
-}
-
-// .grid-container {
-//  background-color: #fff;
-// }
-// 
 // // animate `ng-show`
 // and all children of elm that have `ng-show` used
 // [ng-show].fade-in,
@@ -260,70 +206,10 @@ li:before {
     padding-right: rem-calc(8);
     top: rem-calc(-3.5);
     // color: blue; /* Or a color you prefer */
-    color: #93311B; // note card red
+    // color: #93311B; // note card red
     // color: #008542; // lime
 }
 
 
 
 
-
-// FOOTER ANIMATION STYLES
-
-
-// }
-// 
-// 
-// 
-// 
-.recipe-button {
-    // line-height: 30px;
-    // list-style: none;
-    // box-sizing: border-box;
-}
-
-.recipe-button.ng-move,
-.recipe-button.ng-enter,
-.recipe-button.ng-leave {
-    // transition: all ease 0.5s;
-}
-
-.recipe-button.ng-leave //,
-// .recipe-list.ng-hide
-// .recipe-button.ng-move,
-// .recipe-button.ng-enter 
-{
-    animation-name: searchout;
-    animation-duration: 0.8s;
-    animation-timing-function: easein;
-    // opacity: 0;
-    // max-height: 0;
-}
-
-// .recipe-button.ng-leave,
-// .recipe-button.ng-move.ng-move-active,
-.recipe-button.ng-enter //,
-// .recipe-list.ng-show 
-{
-    // opacity: 1;
-    // max-height: 30px;
-    animation-name: searchin;
-    animation-duration: 0.8s;
-    animation-timing-function: easein;
-}
-
-.ng-show.slide {
-    animation-name: searchin;
-    animation-duration: 0.4s;
-    animation-timing-function: easein;
-    // .recipe-button.ng-enter //,
-    // {
-    //     animation-name: searchpause;
-    // }
-}
-
-.ng-hide.slide {
-    animation-name: searchout;
-    animation-duration: 0.4s;
-    animation-timing-function: easein;
-}

@@ -25,6 +25,9 @@ var
     jscsStylish = require( 'gulp-jscs-stylish' ),
     karma = require( 'karma' ),
 
+    // constants
+    config = require( './package.json' ),
+
     // globals
     Server, // for karma
 
@@ -33,9 +36,11 @@ var
     hadWarns = false,
     hadErrors = false;
 
+
     // declare `Server` jawn.
     Server = karma.Server;
 
+console.log( 'config', config );
 
 // Check for --production flag
 var isProduction = !!( argv.production );
@@ -70,7 +75,12 @@ var paths = {
     ],
     // These files are for your app's JavaScript
     appJS : [
-        'client/assets/js/**/*.js'
+        'client/assets/js/app.js',
+        'client/assets/js/*/*.js'//,
+        // 'client/assets/js/app.js'
+    ],
+    spec : [  
+        './spec/**/*.js'
     ]
 }
 
@@ -82,6 +92,11 @@ gulp.task( 'clean', function( cb ) {
     rimraf( './build', cb );
 });
 
+// // Cleans the build directory
+// gulp.task( 'clean', function( cb ) {
+//     rimraf( './build', cb );
+// });
+
 // Copies everything in the client folder except templates, Sass, and JS
 gulp.task( 'copy', function() {
     return gulp.src( paths.assets, {
@@ -91,18 +106,6 @@ gulp.task( 'copy', function() {
 });
 
 
-gulp.task( 'lint', function() {
-    gulp.src( paths.appJS )
-        .pipe( $.jshint( '.jshintrc' ) )
-        .pipe( $.jshint.reporter( 'jshint-stylish' ) )
-        // .pipe( jscs({ fix : true }) )
-        // .pipe( jscs({ fix : true }) )
-        // .pipe( jscsStylish() )
-        // .pipe( jscs.reporter( ) )
-        .pipe( jscs.reporter( 'fail' ) );
-        // .pipe( gulp.dest( './client/assets/js' ) );
-});
-
 // Copies your app's page templates and generates URLs for them
 gulp.task( 'copy:templates', function() {
     return gulp.src( './client/views/**/*.html' )
@@ -111,8 +114,8 @@ gulp.task( 'copy:templates', function() {
         //   root: 'client'
         // }))
         .pipe( tplcache({
-            module : 'application.templates',
-            filename : 'templates-custom.js'
+            module : config.nameSpace+'.templates',
+            filename : config.name+'-templates.js'
         }) )
         .pipe( gulp.dest( './build/assets/js' ) );
 });
@@ -192,16 +195,6 @@ gulp.task( 'server', [ 'build' ], function() {
         }) );
 });
 
-
-gulp.task( 'validate', function() {
-    gulp.src( [ './js/*.js', 'gulpfile.js' ] )
-        .pipe( jshint( '.jshintrc' ) ) // check the quality
-
-    .pipe( jscs({ fix : false }) ) // enforce style guide
-        .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
-
-    .pipe( jshint.reporter( 'jshint-stylish' ) );
-});
 
 gulp.task( 'watch', function() {
     watch( './js/*.js', function( file ) {
@@ -288,95 +281,68 @@ gulp.task( 'watch', function() {
     });
 });
 
-gulp.task( 'clean', function() {
-    // clean that shit up!
-    gulp.src( './js/*.js' )
-        .pipe( jscs({ fix : true }) )
-        .pipe( jscsStylish() )
+
+
+// Validation and Style.
+// - - - - - - - - - - - - - - -
+
+gulp.task( 'validate:lint', function() {
+    gulp.src( paths.appJS )
+        .pipe( $.jshint( '.jshintrc' ) )
+        .pipe( $.jshint.reporter( 'jshint-stylish' ) )
+        // .pipe( jscs({ fix : true }) )
+        // .pipe( jscs({ fix : true }) )
+        // .pipe( jscsStylish() )
         // .pipe( jscs.reporter( ) )
+        .pipe( jscs.reporter( 'fail' ) );
+        // .pipe( gulp.dest( './client/assets/js' ) );
+});
+
+
+
+gulp.task( 'validate:jshint:jscs', function() {
+    gulp.src( paths.appJS )
+        .pipe( $.jshint( '.jshintrc' ) ) // check the quality
+
+    .pipe( jscs({ fix : false }) ) // enforce style guide
+        .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
+
+    .pipe( $.jshint.reporter( 'jshint-stylish' ) );
+});
+
+
+gulp.task( 'validate:style:jscs', function() {
+    // clean that shit up!
+    gulp.src( paths.appJS )
+        .pipe( $.jscs({ fix : true }) )
+        .pipe( $.jshint.reporter( 'jshint-stylish' ) )
         .pipe( jscs.reporter( 'fail' ) )
-        .pipe( gulp.dest( './js' ) );
+        .pipe( gulp.dest( './client/assets/js' ) );
 
 });
 
-gulp.task( 'clean-gulpfile', function() {
+gulp.task( 'style:gulpfile', function() {
     // might as well clean that gulpfile up, too!
     gulp.src( 'gulpfile.js' )
-        .pipe( jscs({ fix : true }) )
-        .pipe( jscsStylish() )
+        .pipe( $.jscs({ fix : true }) )
+        .pipe( $.jscsStylish() )
         .pipe( jscs.reporter( 'fail' ) )
         .pipe( gulp.dest( './' ) );
 });
 
-gulp.task( 'test-lint', function() {
-
-    gulp.src( [ './spec/**/*.js' ] )
-        .pipe( jshint( '.jshintrc' ) )
-        // .pipe(jshint({ predef: 'jasmine '}))
-        .pipe( jshint({
-            predef : [
-                'describe',
-                'beforeEach', 
-                'it', 
-                'expect', 
-                'afterEach'
-            ]
-        }) )
-        .pipe( jshint.reporter( 'jshint-stylish' ) );
-
-});
-
-gulp.task( 'test-style', function() {
-
-    // clean that shit up!
-    // gulp.src( './spec/*.js' )
-    //     .pipe( jscs({ fix : true }) )
-    //     .pipe( jscsStylish() )
-    //     .pipe( gulp.dest( './spec' ) );
-
-    gulp.src( './spec/*.js' )
-        // .pipe( jscs({ fix : true }) )
-        .pipe( jscsStylish() )
-        // .pipe( jscs.reporter( ) )
-        .pipe( jscs.reporter( 'fail' ) )
-        .pipe( gulp.dest( './spec' ) );
-
-});
-
-// gulp.task('test-jasmine', function() {
-// gulp.src('spec/test.js')
-//     // gulp-jasmine works on filepaths so you can't have any plugins before it 
-//     .pipe(jasmine());
-
-// });
-
-gulp.task( 'test-run', function( done ) {
-    return new Server({
-        configFile : __dirname + '/karma.conf.js',
-        singleRun : true
-    }, done ).start();
-});
 
 
-gulp.task( 'test-watch', function( done ) {
-    return new Server({
-        configFile : __dirname + '/karma.conf.js'
-    }, done ).start();
-});
 
-gulp.task( 'test-watch-chrome', function( done ) {
-    return new Server({
-        configFile : __dirname + '/karma.conf.js',
-        browsers : [ 'Chrome' ]
-    }, done ).start();
-});
+// Build.
+// - - - - - - - - - - - - - - -
+// 
 // Builds your entire app once, without starting a server
 gulp.task( 'build', function( cb ) {
     sequence( 'clean', [ 'copy', 'copy:foundation', 'sass', 'uglify' ], 'copy:templates', cb );
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
-gulp.task( 'default', [ 'lint', 'server' ], function() {
+gulp.task( 'default', [ 'validate:jshint:jscs', 'server' ], function() {
     // Watch Sass
     gulp.watch( [ './client/assets/scss/**/**/*', './scss/**/*' ], [ 'sass' ] );
 
@@ -393,12 +359,81 @@ gulp.task( 'default', [ 'lint', 'server' ], function() {
 
 
 
+// Test.
+// - - - - - - - - - - - - - - -
 
-gulp.task( 'clean-gulpfile', function() {
-    // might as well clean that gulpfile up, too!
-    gulp.src( 'gulpfile.js' )
-        .pipe( jscs({ fix : true }) )
+gulp.task( 'test:lint', function() {
+
+    gulp.src( paths.spec )
+        .pipe( $.jshint( '.jshintrc' ) )
+        // .pipe(jshint({ predef: 'jasmine '}))
+        .pipe( $.jshint({
+            predef : [
+                // lodash
+                '_',
+                // jasmine
+                'jasmine',
+                'describe',
+                'beforeEach', 
+                'it', 
+                'expect', 
+                'afterEach',
+                // angular
+                'inject',
+                'module'
+            ]
+        }) )
+    // .pipe( jscs({ fix : false }) ) // enforce style guide
+    //     .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
+
+    .pipe( $.jshint.reporter( 'jshint-stylish' ) );
+
+});
+
+gulp.task( 'test:style', function() {
+
+    // clean that shit up!
+    // gulp.src( './spec/*.js' )
+    //     .pipe( jscs({ fix : true }) )
+    //     .pipe( jscsStylish() )
+    //     .pipe( gulp.dest( './spec' ) );
+
+    gulp.src( paths.spec )
+        // .pipe( jscs({ fix : true }) )
         .pipe( jscsStylish() )
+        .pipe( jscs.reporter( ) )
         .pipe( jscs.reporter( 'fail' ) )
-        .pipe( gulp.dest( './' ) );
+    // .pipe( jscs({ fix : false }) ) // enforce style guide
+    //     .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
+        .pipe( gulp.dest( './spec' ) );
+
+});
+
+// gulp.task('test-jasmine', function() {
+// gulp.src('spec/test.js')
+//     // gulp-jasmine works on filepaths so you can't have any plugins before it 
+//     .pipe(jasmine());
+
+// });
+
+gulp.task( 'test:run', function( done ) {
+    return new Server({
+        configFile : __dirname + '/karma.conf.js',
+        singleRun : true
+    }, done ).start();
+});
+
+
+gulp.task( 'test:watch', function( done ) {
+    return new Server({
+        configFile : __dirname + '/karma.conf.js'
+    }, done ).start();
+});
+
+// TEST!
+gulp.task( 'test', function( cb ) {
+    sequence( ['build', 'test:lint' ], 'test:run', cb );
+});
+gulp.task( 'test:dev', function( cb ) {
+    sequence( ['build', 'test:lint' ], 'test:watch', cb );
 });

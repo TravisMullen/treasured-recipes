@@ -1,111 +1,239 @@
+$animation-duration-default: 800ms !default;
+%ease {
+    /* The default, as in, you get this without defining anything */
+    transition-timing-function: ease;
+    /* Also the same as */
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+%examples {
+    transition-timing-function: linear;
+    transition-timing-function: cubic-bezier(0, 0, 1, 1);
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: ease-in-out;
+    transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+    transition-timing-function: ease-in;
+    transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    transition-timing-function: ease-out;
+    transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+}
+
 [ui-view="dinnertable"] {
-    position: relative;
-// .bg-table-cloth {
+    background-color: transparent;
+    //     position: relative;
+    // // .bg-table-cloth {
+    //     background-image: url('../images/treasured-recipes-background-hi-res.jpg');
+    //     background-repeat: no-repeat;
+    //     min-height: 100vh;
+    //     padding-bottom: rem-calc(100);
+    //         border: 5px solid purple;
+    //         opacity: 0;
+    //         transition: opacity 5s, background-image 3s ease-in;
+    //         // transition-delay: 0.5s;
+    //     // &.bg-load-active,
+    //     // .bg-load-active & {
+    //     //     border: 5px solid yellow;
+    //     //     // background-image: none;
+    //     // }
+    //     // &.bg-load-fail,
+    //     // .bg-load-fail & {
+    //     //     border: 5px solid red;
+    //     // }
+    //     // &.bg-load-success,
+    //     // .bg-load-success & {
+    //     //     border: 5px solid green;
+    //     //     opacity: 1;
+    //     // }
+    //     background-position: right bottom;
+    //     transition-delay: 0.7s;
+    //     transition: background-position 3s ease-in;
+    //     &.go-dark,
+    //     .go-dark & {
+    //         opacity: 0;
+    //         background-position: center center;
+    //         // background-position: rem-calc(-2575) center;
+    //     }
+    //     &.go-light,
+    //     .go-light & {
+    //         opacity: 1;
+    //         background-position: rem-calc(-2575) center;
+    //     }
+    //     &.walk-in,
+    //     .walk-in & {
+    //         opacity: 1;
+    //         background-position: bottom right;
+    //     }
+    //     &.home,
+    //     .home & {
+    //         opacity: 1;
+    //         background-position: 0 rem-calc(-975);
+    //     }
+    //     &.recipe,
+    //     .recipe & {
+    //         opacity: 1;
+    //         background-position: 0 right;
+    //     }
+    // // }
+    //     // &.ng-enter,
+    //     // &.ng-leave {
+    //     //     position: absolute;
+    //     //     width: 100%;
+    //     //     transition: all 5s ease-in;
+    //     // }
+    //     // &.ng-enter {
+    //     //     transform: translate3d(100%, 0, 0);
+    //     // }
+    //     // &.ng-enter-active {
+    //     //     transform: translate3d(0, 0, 0);
+    //     // }
+    //     // &.ng-leave {
+    //     //     transform: translate3d(0, 0, 0);
+    //     // }
+    //     // &.ng-leave-active {
+    //     //     transform: translate3d(-100%, 0, 0);
+    //     // }
+}
+
+.grid-frame {}
+
+.background-wrapper {
+    z-index: -1;
+    // border: 10px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100vw;
+    // width: 100%;
+    height: 100vh;
+    // height: 100%;
+    .mask {
+        // animate mask here
+    }
+    .background-elm {
+        position: absolute;
+        display: block;
+    }
+}
+
+$width: rem-calc(5400);
+$height: rem-calc(3600);
+.background-elm {
     background-image: url('../images/treasured-recipes-background-hi-res.jpg');
     background-repeat: no-repeat;
-    min-height: 100vh;
-
-    padding-bottom: rem-calc(100);
-    
-        border: 5px solid purple;
-
-        opacity: 0;
-        transition: opacity 5s, background-image 3s ease-in;
-        // transition-delay: 0.5s;
-    // &.bg-load-active,
-    // .bg-load-active & {
-    //     border: 5px solid yellow;
-    //     // background-image: none;
-    // }
-    // &.bg-load-fail,
-    // .bg-load-fail & {
-    //     border: 5px solid red;
-    // }
-
-    // &.bg-load-success,
-    // .bg-load-success & {
-    //     border: 5px solid green;
-    //     opacity: 1;
-    // }
-    
-
-    background-position: right bottom;
-    transition-delay: 0.7s;
-    transition: background-position 3s ease-in;
-    &.go-dark,
-    .go-dark & {
-        opacity: 0;
-        background-position: center center;
-        // background-position: rem-calc(-2575) center;
-    }
+    width: $width;
+    height: $height;
+    transform-origin: -50% -50% 0;
+    transition: transform $animation-duration-default*5 ease(in-sine);
+    // transition-speed: 
+    opacity: 0;
+   
     &.go-light,
     .go-light & {
         opacity: 1;
-        background-position: rem-calc(-2575) center;
+        transform: translate(calc(100vw - #{$width}),calc(100vh - #{$height}));
+        // background-position: rem-calc(-2575) center;
     }
     &.walk-in,
     .walk-in & {
         opacity: 1;
-        background-position: bottom right;
+        transform: translate(calc(100vw - #{$width}),calc(100vh - #{$height}));
+        // background-position: bottom right;
     }
     &.home,
     .home & {
         opacity: 1;
-        background-position: 0 rem-calc(-975);
+        $margin: rem-calc(175);
+        // transform: translate(calc(10vw - #{$margin}), rem-calc(-1075));
+        transform: translate(calc(-5vw - #{$margin}),rem-calc(-1075));
+        // background-position: 0 rem-calc(-975);
     }
     &.recipe,
     .recipe & {
         opacity: 1;
-        background-position: 0 right;
+        // transform: translate(0, calc(100% - 100vw));
+        transform: translate(calc(100vw - #{$width}),0);
+        // background-position: 0 right;
     }
-// }
-    // &.ng-enter,
-    // &.ng-leave {
-    //     position: absolute;
-    //     width: 100%;
-    //     transition: all 5s ease-in;
-    // }
-    // &.ng-enter {
-    //     transform: translate3d(100%, 0, 0);
-    // }
-    // &.ng-enter-active {
-    //     transform: translate3d(0, 0, 0);
-    // }
-    // &.ng-leave {
-    //     transform: translate3d(0, 0, 0);
-    // }
-    // &.ng-leave-active {
-    //     transform: translate3d(-100%, 0, 0);
-    // }
 }
 
 [ui-view="main"] {
-    &.ng-enter,
-    &.ng-leave {
-        // position: absolute;
-        // width: 100%;
-        // transition: all 2s ease-in;
-    }
-    // &.ng-enter {
-    //     transform: translate3d(100%, 0, 0);
-    // }
-    // &.ng-enter-active {
-    //     transform: translate3d(0, 0, 0);
-    // }
-    // &.ng-leave {
-    //     transform: translate3d(0, 0, 0);
-    // }
-    // &.ng-leave-active {
-    //     transform: translate3d(-100%, 0, 0);
-    // }
-    &.ng-leave {
-        // transition: all ease 0.5s;
-        // .ng-show.fade-in {
-        animation-name: scrollout;
-        animation-duration: 1.2s;
-        animation-timing-function: easein;
+    // config
+    // use this to set transition/anim 
+    &.ng-animate {
+        // transition: $animation-duration-default ease(in-cubic) opacity;
+        // animation: 1s ease-in all;
+        // animation-duration: 1.2s;
+        // 
+        // .state-class-active & {
+        //     border: 5px solid red;
+        //     transition-delay: $animation-duration-default*7;
+        //     transition-duration: 0s;
         // }
     }
+    // before the animation starts:
+    // 
+    // added as soon as an animation is initialized, but 
+    // removed before the actual animation start
+    // &.ng-enter-prepare {
+    //   opacity: 0;
+    // }
+    // &.ng-enter,
+    // &.ng-leave {
+    // position: absolute;
+    // width: 100%;
+    // transition: all 2s ease-in;
+    // }
+    &.ng-recipe-enter,
+    &.ng-enter {
+        transition: $animation-duration-default*4 ease(out-cubic) transform;
+        transform: translateY(rem-calc(-4000));
+        // transform: translate3d(100%, 0, 0);
+    }
+    &.ng-recipe-enter-stagger,
+    &.ng-enter-stagger {
+        .state-class-active & {
+        /* this will have a 100ms delay between each successive leave animation */
+        transition-delay: $animation-duration-default*2;
+        /* As of 1.4.4, this must always be set: it signals ngAnimate
+        to not accidentally inherit a delay property from another CSS class */
+        transition-duration: 0s;
+        }
+    }
+    &.ng-recipe-enter-active,
+    &.ng-enter-active {
+        .state-class-active & {
+            transform: translateY(0);
+        }
+        // transform: translate3d(0, 0, 0);
+    }
+    &.ng-recipe-leave,
+    &.ng-leave {
+        transition: $animation-duration-default*2 ease(in-cubic) transform;
+        // opacity: 1;
+        // transition: $animation-duration-default*4 ease-in transform;
+        // transition: $animation-duration-default ease(in-cubic) transform;
+        transform: translateY(0);
+        // transform: translate3d(0, 0, 0);
+    }
+    &.ng-recipe-leave-active,
+    &.ng-leave-active {
+        // opacity: 0;
+        .state-class-active & {
+            transform: translateY(rem-calc(4000));
+        }
+        // transform: translate3d(-100%, 0, 0);
+    }
+    // &.ng-leave,
+    // &.scroll-leave {
+    //     // transition: all ease 0.5s;s
+    //     // 
+    //     // .ng-show.fade-in {
+    //     animation-name: scrollout;
+    //     animation-timing-function: easein;
+    //     // }
+    // }
     // &.ng-leave-active {
     //     // .old-tablet-seemless {
     //         animation-name: scrollout;
@@ -113,20 +241,107 @@
     //         animation-timing-function: ease;
     //     // }
     // }
-    &.ng-enter {
-        // .old-tablet-seemless {
-        // animation-delay: 0.5s;
-        //     animation-name: scrollin;
-        //     animation-duration: 1s;
-        //     animation-timing-function: ease;
-        // }
-    }
-    &.ng-enter {
-        // .ng-show.fade-in {
-        // animation-delay: 0.5s;
-        animation-name: scrollin;
-        animation-duration: 1s;
+    // &.ng-enter {
+    //     // .old-tablet-seemless {
+    //     // animation-delay: 0.5s;
+    //     //     animation-name: scrollin;
+    //     //     animation-duration: 1s;
+    //     //     animation-timing-function: ease;
+    //     // }
+    // }
+    // &.ng-enter,
+    // &.scroll-enter {
+    //     // .ng-show.fade-in {
+    //     // animation-delay: 0.5s;
+    //     animation-name: scrollin;
+    //     // animation-duration: 1s;
+    //     animation-timing-function: easein;
+    //     // }
+    // }
+}
+
+// 
+[ui-view="footer"] {
+    border-top: 1px solid $black;
+    background-color: rgba($black, 0.2);
+    // position: fixed;
+    // bottom: 0;
+    // position: fixed;
+    // bottom: 0;
+    // .ng-leave &,
+    // .ng-move,
+    // .ng-hide {
+    //     animation-name: slideout;
+    //     animation-duration: 1s;
+    //     animation-timing-function: ease;
+    // }
+    // .ng-enter &,
+    // .ng-move-active,
+    // .ng-show {
+    //     animation-delay: 0.5s;
+    //     animation-name: slidein;
+    //     animation-duration: 1s;
+    //     animation-timing-function: ease;
+    // }
+    // .fade-in {
+    // 
+    .menu-bar {
+        // border: 1px solid red;
+        // animation-duration: 1s;
+        &.ng-hide {
+            animation-name: slideout;
+            animation-delay: 0;
+            animation-duration: 1s;
+            animation-timing-function: easein;
+        }
+        // &.ng-show {
+        animation-name: slidein;
+        // animation-delay: 2s;
+        animation-duration: 0.2s;
         animation-timing-function: easein;
         // }
     }
+}
+
+// FOOTER ANIMATION STYLES
+// }
+// 
+// 
+.recipe-button {
+    animation-duration: 0.8s;
+    &.ng-enter //,
+    // .recipe-list.ng-show 
+    {
+        // opacity: 1;
+        // max-height: 30px;
+        animation-name: searchin;
+        animation-timing-function: easein;
+    }
+    &.ng-leave //,
+    // .recipe-list.ng-hide
+    // .recipe-button.ng-move,
+    // .recipe-button.ng-enter 
+    {
+        animation-name: searchout;
+        animation-timing-function: easein;
+        // opacity: 0;
+        // max-height: 0;
+    }
+}
+
+// .recipe-button.ng-le
+.ng-show.slide {
+    animation-name: searchin;
+    animation-duration: 0.4s;
+    animation-timing-function: easein;
+    // .recipe-button.ng-enter //,
+    // {
+    //     animation-name: searchpause;
+    // }
+}
+
+.ng-hide.slide {
+    animation-name: searchout;
+    animation-duration: 0.4s;
+    animation-timing-function: easein;
 }

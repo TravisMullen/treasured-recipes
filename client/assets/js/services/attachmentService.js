@@ -1,5 +1,6 @@
 'use strict';
-angular.module('application.services').factory('attachmentService', ['$q', '$http', 'webStorage',
+angular.module('TreasuredRecipesApp.services')
+.factory('attachmentService', ['$q', '$http', 'webStorage',
     function($q, $http, webStorage) {
         var
             attachments,
@@ -36,10 +37,10 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
                 deferred.resolve(attachments);
             // }
             // second check to see if in localstorage and not too old
-            } else if (webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':lastreq') > cacheTime) {
+            } else if (webStorage.get('TreasuredRecipesApp:wp-attachments:'+recipeId+':lastreq') > cacheTime) {
 
-                attachments = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':collection');
-                lastreq = webStorage.get('treasuredrecipes:wp-attachments:'+recipeId+':lastreq');
+                attachments = webStorage.get('TreasuredRecipesApp:wp-attachments:'+recipeId+':collection');
+                lastreq = webStorage.get('TreasuredRecipesApp:wp-attachments:'+recipeId+':lastreq');
                 // if (attachments.length !== Object.keys(idHash).length) {
                     buildHash();
                 // }
@@ -52,7 +53,7 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
 
                 $http({
                     method: 'GET', // read only 
-                    url: 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/media',
+                    url: 'http://www.TreasuredRecipesApp.info/mullen-family/wp-json/wp/v2/media',
                     params: { parent: recipeId }
                 }).then(function successCallback(response) {
                     // this callback will be called asynchronously
@@ -62,8 +63,8 @@ angular.module('application.services').factory('attachmentService', ['$q', '$htt
                     attachments = response.data;
                     buildHash();
 
-                    webStorage.set('treasuredrecipes:wp-attachments:'+recipeId+':collection', attachments);
-                    webStorage.set('treasuredrecipes:wp-attachments:'+recipeId+':lastreq', +(new Date()));
+                    webStorage.set('TreasuredRecipesApp:wp-attachments:'+recipeId+':collection', attachments);
+                    webStorage.set('TreasuredRecipesApp:wp-attachments:'+recipeId+':lastreq', +(new Date()));
 
                     deferred.resolve(attachments);
 

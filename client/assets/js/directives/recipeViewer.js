@@ -1,5 +1,5 @@
 'use strict';
-angular.module('application.components')
+angular.module('TreasuredRecipesApp.components')
     .directive('familyRecipe', function() {
         return {
         	scope: {

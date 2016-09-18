@@ -1,9 +1,5 @@
 // info: http://foundation.zurb.com/apps/docs/#!/angular
 'use strict';
-angular.module( 'application.controllers' )
-    .controller( 'homeCtrl', homeCtrl );
-
-
 function homeCtrl( $scope, $state, $filter, recipeService ) {
 
     $scope.showList = $state.current.data ?
@@ -35,5 +31,8 @@ function homeCtrl( $scope, $state, $filter, recipeService ) {
 	};
 
 }
+
+angular.module( 'TreasuredRecipesApp.controllers' )
+    .controller( 'homeCtrl', homeCtrl );
 
 homeCtrl.$inject = [ '$scope', '$state', '$filter', 'recipeService' ];

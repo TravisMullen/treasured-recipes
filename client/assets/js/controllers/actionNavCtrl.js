@@ -1,9 +1,5 @@
 // info: http://foundation.zurb.com/apps/docs/#!/angular
 'use strict';
-angular.module( 'application.controllers' )
-    .controller( 'actionNavCtrl', actionNavCtrl );
-
-
 function actionNavCtrl( $scope, $state, $timeout, recipeService ) {
     $scope.$watchCollection( function() {
         return $state.params;
@@ -27,5 +23,9 @@ function actionNavCtrl( $scope, $state, $timeout, recipeService ) {
         }
     });
 }
+
+angular.module( 'TreasuredRecipesApp.controllers' )
+    .controller( 'actionNavCtrl', actionNavCtrl );
+
 
 actionNavCtrl.$inject = [ '$scope', '$state', '$timeout', 'recipeService' ];
