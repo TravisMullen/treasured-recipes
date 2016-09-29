@@ -5,7 +5,7 @@ function homeCtrl( $scope, $state, $filter, recipeService ) {
     $scope.showList = $state.current.data ?
                         $state.current.data.showList :
                         false;
-	$scope.searchValue = '';
+    $scope.searchValue = '';
 
     recipeService.recipes().then( function( results ) {
         $scope.recipes = results;
@@ -24,11 +24,11 @@ function homeCtrl( $scope, $state, $filter, recipeService ) {
     //     });
 
     $scope.searchRecipes = function ( recipes ) {
-    	if ( $scope.searchValue && $scope.searchValue !== '' ) {
-        	console.log( '$scope.searchValue', $scope.searchValue ); 
-	    	return $filter( 'search' )( recipes, $scope.searchValue );
-	    }
-	};
+        if ( $scope.searchValue && $scope.searchValue !== '' ) {
+            console.log( '$scope.searchValue', $scope.searchValue ); 
+            return $filter( 'search' )( recipes, $scope.searchValue );
+        }
+    };
 
 }
 

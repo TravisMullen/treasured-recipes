@@ -1,7 +1,7 @@
 'use strict';
-angular.module('TreasuredRecipesApp.services')
-    .factory('animateScroll', ['$q', '$timeout', '$interval',
-        function($q, $timeout, $interval) {
+angular.module( 'TreasuredRecipesApp.services' )
+    .factory( 'animateScroll', [ '$q', '$timeout', '$interval',
+        function( $q, $timeout, $interval ) {
             var service = {},
 
                 runTime = 0,
@@ -29,20 +29,20 @@ angular.module('TreasuredRecipesApp.services')
                 // runTime
                 runTime += animationSpeed;
 
-                animateScroll = $timeout(function() {
-                    stageView.scrollTop = (stageView.scrollTop - Math.round(stageView.scrollTop*0.01));
-                    if (anchor.top <= bufferArea) {
+                animateScroll = $timeout( function() {
+                    stageView.scrollTop = ( stageView.scrollTop - Math.round( stageView.scrollTop*0.01 ) );
+                    if ( anchor.top <= bufferArea ) {
                         moveScroller()
                     } else {
                         lastTop = anchor.top;
-                        console.log("runTime",runTime);
-                        $timeout(function(argument) {
-                            console.log("anticiplated animation  compelt!!");
-                        }, animationSpeed);
+                        console.log( 'runTime', runTime );
+                        $timeout( function( argument ) {
+                            console.log( 'anticiplated animation  compelt!!' );
+                        }, animationSpeed );
                         runTime= 0;
                         animationDeffered.resolve( lastTop );
                     }
-                }, animationSpeed);
+                }, animationSpeed );
 
                 return animationDeffered.promise;
             }
@@ -57,26 +57,26 @@ angular.module('TreasuredRecipesApp.services')
 
                 // ANIMATE SCROLL TO TITLE
                 // if if target if off screen by more than buffer, then scroll to it
-                if (anchorElm.top < -(anchorElm.height + topMargin)) {
-                    $timeout(function() {
+                if ( anchorElm.top < -( anchorElm.height + topMargin ) ) {
+                    $timeout( function() {
                         // deferred.resolve(t);
-                        var t = moveScroller().then(function(data) {
+                        var t = moveScroller().then( function( data ) {
                             queueAnim.resolve( data );
                         });
-                    }, stagger); // wait for ng-enter/ng-leave to complete
+                    }, stagger ); // wait for ng-enter/ng-leave to complete
                 }
 
                 return queueAnim.promise;
             }
 
-            function getElements(anchorTarget, scrollTarget) {
-                stageView = document.querySelector(anchorTarget);
-                targetToView = document.querySelector(scrollTarget);
+            function getElements( anchorTarget, scrollTarget ) {
+                stageView = document.querySelector( anchorTarget );
+                targetToView = document.querySelector( scrollTarget );
                 return animateScrollPosition();
             }
 
             function cancelScroll() {
-                return $interval.cancel(animateScroll);
+                return $interval.cancel( animateScroll );
             }
 
             // service
@@ -87,4 +87,4 @@ angular.module('TreasuredRecipesApp.services')
             return service;
 
         }
-    ]);
+    ] );

@@ -36,7 +36,7 @@ angular.module( 'vpower.directives' )
         'use strict';
 
         return {
-            restrict: 'E',
+            restrict: 'EA',
             controller: 'imageSectionCtrl'
         };
     }]

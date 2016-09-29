@@ -9,28 +9,35 @@ module.exports = function(config) {
 
         // browsers: ['PhantomJS','PhantomJS_custom'],
 
-        files: [
-            // libs 
-            // 
-            'build/assets/js/libs.js',
+        // 
+        // MAINTAINED IN `gulpfile.js`
+        // 
+        // files: [
+        //     // libs 
+        //     // 
+        //     'build/assets/js/libs.js',
 
-            // mock requirement
-            'bower_components/angular-mocks/angular-mocks.js',
+        //     // mock requirement
+        //     'bower_components/angular-mocks/angular-mocks.js',
 
-            // founation templates
-            'build/assets/js/templates.js',
+        //     // founation templates
+        //     'build/assets/js/templates.js',
 
-            // app (modules)
-            'build/assets/js/app.js',
+        //     // app (modules)
+        //     'build/assets/js/app.js',
 
-            // app (templates)
-            'build/assets/js/treasured-recipes-templates.js',
+        //     // app (templates)
+        //     'build/assets/js/treasured-recipes-templates.js',
 
-            // spec tests
-            'bower_components/lodash/dist/lodash.js',
-            // 'spec/**/*.js'
-            'spec/directives/imagePreloaderDirectiveSpec.js'
-        ],
+        //     // spec tests
+        //     'bower_components/lodash/dist/lodash.js',
+
+        //     // exclude broken shit!
+        //     'spec/**/*.js',
+
+        //     '!spec/directives/imagePreloaderDirectiveSpec.js'
+
+        // ],
 
 
         // // you can define custom flags 

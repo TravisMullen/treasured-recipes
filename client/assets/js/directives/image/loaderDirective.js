@@ -33,7 +33,7 @@ angular.module( 'vpower.directives' ).directive( 'imageLoader',
         }
 
         return {
-            restrict: 'E',
+            restrict: 'EA',
             require: ['^imageSection'],
             scope : {
                 'onLoad' : '=onLoad'

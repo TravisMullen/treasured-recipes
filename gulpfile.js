@@ -79,10 +79,59 @@ var paths = {
         'client/assets/js/*/*.js'//,
         // 'client/assets/js/app.js'
     ],
-    spec : [  
-        './spec/**/*.js'
-    ]
-}
+    spec : {  
+        dir: [ 
+
+            'spec/**/*.js',
+            // './spec/**/*.js',
+            
+            // exclude broken shit!
+            '!spec/directives/imagePreloaderDirectiveSpec.js'
+
+         ],
+        libs: [
+            // libs 
+            // 
+            'build/assets/js/libs.js',
+
+            // mock requirement
+            'bower_components/angular-mocks/angular-mocks.js',
+
+            // founation templates
+            'build/assets/js/templates.js',
+
+            // app (modules)
+            'build/assets/js/app.js',
+
+            // app (templates)
+            'build/assets/js/treasured-recipes-templates.js',
+
+            // spec tests
+            'bower_components/lodash/dist/lodash.js',
+
+
+
+        ],
+        // globals for test files (pass lint)
+        globals: [
+            // lodash
+            '_',
+            // jasmine
+            // 
+            'jasmine',
+            'describe',
+            'beforeEach', 
+            'it', 
+            'expect', 
+            'afterEach',
+            'spyOn',
+            // angular
+            'angular',
+            'inject',
+            'module'
+        ]
+    }
+};
 
 // 3. TASKS
 // - - - - - - - - - - - - - - -
@@ -304,10 +353,12 @@ gulp.task( 'validate:jshint:jscs', function() {
     gulp.src( paths.appJS )
         .pipe( $.jshint( '.jshintrc' ) ) // check the quality
 
-    .pipe( jscs({ fix : false }) ) // enforce style guide
+    .pipe( jscs({ fix : true }) ) // enforce style guide
         .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
 
-    .pipe( $.jshint.reporter( 'jshint-stylish' ) );
+    .pipe( $.jshint.reporter( 'jshint-stylish' ) )
+        
+        .pipe( gulp.dest( './client/assets/js' ) );
 });
 
 
@@ -364,51 +415,22 @@ gulp.task( 'default', [ 'validate:jshint:jscs', 'server' ], function() {
 
 gulp.task( 'test:lint', function() {
 
-    gulp.src( paths.spec )
+    gulp.src( paths.spec.dir )
         .pipe( $.jshint( '.jshintrc' ) )
         // .pipe(jshint({ predef: 'jasmine '}))
         .pipe( $.jshint({
-            predef : [
-                // lodash
-                '_',
-                // jasmine
-                'jasmine',
-                'describe',
-                'beforeEach', 
-                'it', 
-                'expect', 
-                'afterEach',
-                // angular
-                'angular',
-                'inject',
-                'module'
-            ]
+            predef : paths.spec.globals
         }) )
-    // .pipe( jscs({ fix : false }) ) // enforce style guide
-    //     .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
 
-    .pipe( $.jshint.reporter( 'jshint-stylish' ) );
+    .pipe( jscs({ fix : true }) ) // enforce style guide
+        .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
 
-});
+    .pipe( $.jshint.reporter( 'jshint-stylish' ) )
 
-gulp.task( 'test:style', function() {
-
-    // clean that shit up!
-    // gulp.src( './spec/*.js' )
-    //     .pipe( jscs({ fix : true }) )
-    //     .pipe( jscsStylish() )
-    //     .pipe( gulp.dest( './spec' ) );
-
-    gulp.src( paths.spec )
-        // .pipe( jscs({ fix : true }) )
-        .pipe( jscsStylish() )
-        .pipe( jscs.reporter( ) )
-        .pipe( jscs.reporter( 'fail' ) )
-    // .pipe( jscs({ fix : false }) ) // enforce style guide
-    //     .pipe( jscsStylish.combineWithHintResults() ) // combine with jshint results 
-        .pipe( gulp.dest( './spec' ) );
+    .pipe( gulp.dest( './spec' ) );
 
 });
+
 
 // gulp.task('test-jasmine', function() {
 // gulp.src('spec/test.js')
@@ -417,18 +439,19 @@ gulp.task( 'test:style', function() {
 
 // });
 
+var karmaConfig = {
+    configFile : __dirname + '/karma.conf.js',
+    files: paths.spec.libs.concat(paths.spec.dir)
+};
+
 gulp.task( 'test:run', function( done ) {
-    return new Server({
-        configFile : __dirname + '/karma.conf.js',
-        singleRun : true
-    }, done ).start();
+    karmaConfig.singleRun = true;
+    return new Server(karmaConfig, done ).start();
 });
 
 
 gulp.task( 'test:watch', function( done ) {
-    return new Server({
-        configFile : __dirname + '/karma.conf.js'
-    }, done ).start();
+    return new Server(karmaConfig, done ).start();
 });
 
 // TEST!
