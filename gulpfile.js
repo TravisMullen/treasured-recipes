@@ -379,6 +379,7 @@ gulp.task( 'test:lint', function() {
                 'expect', 
                 'afterEach',
                 // angular
+                'angular',
                 'inject',
                 'module'
             ]

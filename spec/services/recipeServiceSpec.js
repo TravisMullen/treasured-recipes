@@ -1,4 +1,5 @@
 'use strict';
+// https://www.sitepoint.com/mocking-dependencies-angularjs-tests/
 describe('RecipeService', function() {
 
     var service,
@@ -16,7 +17,7 @@ describe('RecipeService', function() {
     beforeEach(function() {
         jasmine.clock().install();
     });
-    
+
     afterEach(function() {
         jasmine.clock().uninstall();
     });
@@ -82,7 +83,7 @@ describe('RecipeService', function() {
 
 
 
-    beforeEach(inject(function(recipeService, _$httpBackend_, _webStorage_, $q) {
+    beforeEach(inject(function(recipeService, _webStorage_, $q) {
         $def = $q;
 
         api = {};
@@ -105,7 +106,6 @@ describe('RecipeService', function() {
         webStorage.clear(true); // clear that old shit out!
 
         service = recipeService;
-        $httpBackend = _$httpBackend_;
 
         fooData = [{ // taken from wordpress plig-in example as what *should* be returned
             "id": 5,
@@ -257,15 +257,7 @@ describe('RecipeService', function() {
             "_links": { "self": [{ "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/recipe\/18" }], "collection": [{ "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/recipe" }], "about": [{ "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/types\/recipe" }], "author": [{ "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/users\/1" }], "replies": [{ "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/comments?post=18" }], "wp:featuredmedia": [{ "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/media\/20" }], "wp:attachment": [{ "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/media?parent=18" }], "wp:term": [{ "taxonomy": "category", "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/categories?post=18" }, { "taxonomy": "post_tag", "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/tags?post=18" }, { "taxonomy": "ingredient", "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/ingredient?post=18" }, { "taxonomy": "course", "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/course?post=18" }, { "taxonomy": "cuisine", "embeddable": true, "href": "http:\/\/www.treasuredrecipes.info\/mullen-family\/wp-json\/wp\/v2\/cuisine?post=18" }], "curies": [{ "name": "wp", "href": "https:\/\/api.w.org\/{rel}", "templated": true }] }
         }];
 
-        // this test will be repeated for all other tests to have fesh data
-        $httpBackend.expectGET(api.url + '/recipe') // get recipes!
-            .respond(fooData);
 
-        service.recipes().then(function(data) {
-            recipeResults = data;
-        });
-
-        $httpBackend.flush();
 
 
     }));
@@ -279,24 +271,62 @@ describe('RecipeService', function() {
     //     expect(service.next).toBeDefined();
     //     expect(service.prev).toBeDefined();
     // });
-
     describe('Requesting a collection of recipes', function() {
-        var results;
-        beforeEach(inject(function() {
-            // reset local for each test
-            results = recipeResults;
+        beforeEach(inject(function(_$httpBackend_) {
+            $httpBackend = _$httpBackend_;
         }));
 
         it('should return an array of recipes', function() {
+            var results;
+
+            $httpBackend.expectGET(api.url + '/recipe') // get recipes!
+                .respond(fooData);
+
+            service.recipes().then(function(data) {
+                results = data;
+            });
+
+            $httpBackend.flush();
+
             expect(results).toBeDefined();
             expect(results.length).toBeGreaterThan(0);
         });
 
+        it('should set values in storage.', function() {
+
+            $httpBackend.expectGET(api.url + '/recipe') // get recipes!
+                .respond(fooData);
+
+            service.recipes();
+
+
+            spyOn(webStorage, 'get');
+            spyOn(webStorage, 'set');
+
+            $httpBackend.flush();
+
+            expect(webStorage.set).toHaveBeenCalled();
+            expect(webStorage.get).not.toHaveBeenCalled();
+
+        });
+
+
         it('should augment recipe data to be filtered by the view', function() {
-            var seq = 0; // which recipe?
+            var results,
+                seq = 0; // which recipe?
+
+            $httpBackend.expectGET(api.url + '/recipe') // get recipes!
+                .respond(fooData);
+
+            service.recipes().then(function(data) {
+                results = data;
+            });
+
+            $httpBackend.flush();
+
             // run test against each attrib/property
             for (var i = 0; i < viewRequirements.length; i++) {
-                expect( results[seq] ).hasRequiredAttribute(viewRequirements[i]);
+                expect(results[seq]).hasRequiredAttribute(viewRequirements[i]);
             }
         });
 
@@ -315,7 +345,7 @@ describe('RecipeService', function() {
             service.get(data[attribute]).then(function(res) {
                 expect(res).toBeDefined();
                 for (var i = 0; i < viewRequirements.length; i++) {
-                    expect( res ).hasRequiredAttribute(viewRequirements[i]);
+                    expect(res).hasRequiredAttribute(viewRequirements[i]);
                 }
             });
 
@@ -326,14 +356,14 @@ describe('RecipeService', function() {
 
             data = fooData[seq];
 
-            promise = $def.all({ 
+            promise = $def.all({
                 get: service.get(data[attribute]),
                 last: service.last()
             });
             promise.then(function(res) {
-                expect( res.last ).toBeDefined();
-                expect( res.last ).hasRequiredAttribute('id');
-                expect( res.last ).hasRequiredAttribute('slug');
+                expect(res.last).toBeDefined();
+                expect(res.last).hasRequiredAttribute('id');
+                expect(res.last).hasRequiredAttribute('slug');
             });
         });
     });
@@ -355,25 +385,25 @@ describe('RecipeService', function() {
 
         it('should return a valid item.', function() {
             promise.then(function(res) {
-                expect( res ).toBeDefined();
-                expect( res ).hasRequiredAttribute('id');
-                expect( res ).hasRequiredAttribute('slug');
+                expect(res).toBeDefined();
+                expect(res).hasRequiredAttribute('id');
+                expect(res).hasRequiredAttribute('slug');
             });
         });
 
         it('should return next item in array.', function() {
             var index,
                 test,
-                filter = function(value,key) {
-                    if (value[attribute] === data[attribute]){
+                filter = function(value, key) {
+                    if (value[attribute] === data[attribute]) {
                         return value;
                     }
                 };
 
             promise.then(function(res) {
                 index = recipes.indexOf(res);
-                test = _.findIndex(recipes,filter);
-                expect(index).toBe(test+1);
+                test = _.findIndex(recipes, filter);
+                expect(index).toBe(test + 1);
             });
         });
     });
@@ -395,17 +425,17 @@ describe('RecipeService', function() {
 
         it('should return a valid item.', function() {
             promise.then(function(res) {
-                expect( res ).toBeDefined();
-                expect( res ).hasRequiredAttribute('id');
-                expect( res ).hasRequiredAttribute('slug');
+                expect(res).toBeDefined();
+                expect(res).hasRequiredAttribute('id');
+                expect(res).hasRequiredAttribute('slug');
             });
         });
 
         it('should return previous (or last) item in array.', function() {
             var index,
                 test,
-                filter = function(value,key) {
-                    if (value[attribute] === data[attribute]){
+                filter = function(value, key) {
+                    if (value[attribute] === data[attribute]) {
                         return value;
                     }
                 };
@@ -413,7 +443,7 @@ describe('RecipeService', function() {
             promise.then(function(res) {
                 index = recipes.indexOf(res);
                 test = recipes.length;
-                expect(index).toBe(test-1);
+                expect(index).toBe(test - 1);
             });
         });
     });
@@ -425,27 +455,39 @@ describe('RecipeService', function() {
             seq = 0,
             attribute = 'slug';
 
+        beforeEach(inject(function(_$httpBackend_) {
+
+            $httpBackend = _$httpBackend_;
+            // reset local for each test        // this test will be repeated for all other tests to have fesh data
+            $httpBackend.expectGET(api.url + '/recipe') // get recipes!
+                .respond(fooData);
+
+            service.recipes();
+
+            $httpBackend.flush();
+
+        }));
+
         beforeEach(inject(function() {
-            recipes = recipeResults;
             data = fooData[seq];
-            promise = $def.all({ 
+            promise = $def.all({
                 get: service.get(data[attribute]),
                 last: service.last(),
                 prev: service.prev()
             });
-
         }));
 
-       
         it('should not request another HTTP request.', function() {
+            // $httpBackend.flush();
             promise.then(function(res) {
                 service.recipes().then(function(ores) {
-                    expect( ores ).toBeDefined();
-                    expect( ores.length ).toBeGreaterThan(0);
+                    expect(ores).toBeDefined();
+                    expect(ores.length).toBeGreaterThan(0);
                 });
             });
+            // expect(webStorage.set).not.toHaveBeenCalled();
+            // expect(webStorage.get).toHaveBeenCalled();
         });
-
         it('if storage is cleared should request another HTTP request.', function() {
 
             webStorage.clear(true); // remove that old data
@@ -456,14 +498,45 @@ describe('RecipeService', function() {
 
             promise.then(function(res) {
                 service.recipes().then(function(ores) {
-                    expect( ores ).toBeDefined();
-                    expect( ores.length ).toBeGreaterThan(0);
+                    expect(ores).toBeDefined();
+                    expect(ores.length).toBeGreaterThan(0);
                 });
             });
 
             $httpBackend.flush();
         });
+        // it('should set values in storage.', function() {
+        //     var results;
 
+
+        //     $httpBackend.expectGET(api.url + '/recipe') // get recipes!
+        //         .respond(fooData);
+
+        //     service.recipes();
+
+
+        //     spyOn(webStorage, 'get');
+        //     spyOn(webStorage, 'set');
+
+        //     $httpBackend.flush();
+
+        //     expect(webStorage.set).toHaveBeenCalled();
+        //     expect(webStorage.get).not.toHaveBeenCalled();
+
+        // });
+        // it('should resolve promise', function() {
+        //   passPromise = true;
+
+        //   var items;
+
+        //   dataSvcObj.getData().then(function(data) {
+        //     items=data;
+        //   });
+        //   rootScope.$digest();
+
+        //   expect(mockDataSourceSvc.getAllItems).toHaveBeenCalled();
+        //   expect(items).toEqual([]);
+        // });
         // it('if cache expired should request another HTTP request.', function() {
         //     var rate = service.cache;
 

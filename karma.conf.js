@@ -28,7 +28,8 @@ module.exports = function(config) {
 
             // spec tests
             'bower_components/lodash/dist/lodash.js',
-            'spec/**/*.js',
+            // 'spec/**/*.js'
+            'spec/directives/imagePreloaderDirectiveSpec.js'
         ],
 
 

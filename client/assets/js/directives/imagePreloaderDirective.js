@@ -19,7 +19,7 @@ angular.module('TreasuredRecipesApp.components')
                     elm = '<img image-loader delay-start="4000" />',
                     cb;
 
-
+                console.log("loading preloader!");
                 pldr.loaded = function() {
                     // if ( typeof($scope.preloader) === 'function') {
                     $scope.loaded = true;
@@ -31,6 +31,7 @@ angular.module('TreasuredRecipesApp.components')
                 };
 
                 pldr.getImageURL = function() {
+                    console.log("from directive URL",imageURL);
                     return imageURL;
                 };
 
@@ -46,8 +47,7 @@ angular.module('TreasuredRecipesApp.components')
 
                 function getBgUrl(el) {
                     var prop,
-                        style = $window.getComputedStyle(el),
-                        deep = 3;
+                        style = $window.getComputedStyle(el);
                     // for (var i = deep.length - 1; i >= 0; i--) {
                     prop = style.backgroundImage || style['background-image']; // try and get inline style
                     // if (prop) {
@@ -141,6 +141,7 @@ angular.module('TreasuredRecipesApp.components')
                     // element.remove();
                 });
                 scope.alt = 'loading... ' + preloaderCtrl.getImageURL();
+                console.log("scope.alt",scope.alt);
                 element.attr('src', scope.alt);
             }
         };
