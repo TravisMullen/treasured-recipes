@@ -1,8 +1,8 @@
 // info: http://foundation.zurb.com/apps/docs/#!/angular
-'use strict';
 
 function recipeCtrl( $q, $scope, $stateParams, $state, $timeout, $interval, $window,
     recipeService, attachmentService, animateScroll ) {
+'use strict';
     
     // animateScroll.run('.stage', '[ng-click="print(document)"]').then(function(res) {
     //     // console.log("res", res);

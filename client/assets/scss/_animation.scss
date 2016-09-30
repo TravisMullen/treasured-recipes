@@ -125,7 +125,7 @@ $height: rem-calc(3600);
     width: $width;
     height: $height;
     transform-origin: -50% -50% 0;
-    transition: transform $animation-duration-default*5 ease(in-sine);
+    transition: transform $animation-duration-default*2 ease(in-sine);
     // transition-speed: 
     opacity: 0;
    

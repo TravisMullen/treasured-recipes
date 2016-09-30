@@ -1,6 +1,7 @@
-'use strict';
 angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] )
     .animation( '.keep-heigt', [ '$animateCss', '$window', function( $animateCss, $window ) {
+        'use strict';
+
         console.log( 'keepheight loaded' );
         var lastElm;
         return {

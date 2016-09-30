@@ -30,11 +30,14 @@
 
         <!-- <div ui-view="modal"></div>q -->
     </div>
-    <image-section class="background-wrapper" ng-controller="">
+    <image-section class="background-wrapper" ng-controller="backgroundCtrl">
+
         <image-loader 
-            src="bgImage"
-            class="bg-table-cloth background-elm" 
-            on-load="'asd'"
+            ng-show="ready"
+            src="{{img.src}}"
+            class="fade-in bg-table-cloth background-elm" 
+            background-replace="true"
+            on-load="complete"
             ></image-loader>
             <!-- preloader="{ activestate: 'main.loading', nextstate: 'main.loaded' }" -->
     </image-section>

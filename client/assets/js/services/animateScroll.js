@@ -1,7 +1,8 @@
-'use strict';
 angular.module( 'TreasuredRecipesApp.services' )
     .factory( 'animateScroll', [ '$q', '$timeout', '$interval',
         function( $q, $timeout, $interval ) {
+            'use strict';
+
             var service = {},
 
                 runTime = 0,
@@ -37,9 +38,9 @@ angular.module( 'TreasuredRecipesApp.services' )
                         lastTop = anchor.top;
                         console.log( 'runTime', runTime );
                         $timeout( function( argument ) {
-                            console.log( 'anticiplated animation  compelt!!' );
+                            console.log( 'animateScroll complete!!' );
                         }, animationSpeed );
-                        runTime= 0;
+                        runTime = 0;
                         animationDeffered.resolve( lastTop );
                     }
                 }, animationSpeed );

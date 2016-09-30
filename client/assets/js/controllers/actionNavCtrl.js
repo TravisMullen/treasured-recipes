@@ -1,6 +1,6 @@
 // info: http://foundation.zurb.com/apps/docs/#!/angular
-'use strict';
 function actionNavCtrl( $scope, $state, $timeout, recipeService ) {
+    'use strict';
     $scope.$watchCollection( function() {
         return $state.params;
     }, function( p ) {
@@ -17,7 +17,7 @@ function actionNavCtrl( $scope, $state, $timeout, recipeService ) {
             $timeout( function() {
                 $scope.showNav = true;
             }, 1000 );
-            
+
         } else {
             $scope.showNav = false;
         }

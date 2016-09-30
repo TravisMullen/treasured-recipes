@@ -22,6 +22,7 @@ var
     jshint = require( 'gulp-jshint' ),
     jasmine = require( 'gulp-jasmine' ),
     jscs = require( 'gulp-jscs' ),
+    change = require( 'gulp-change' ),
     jscsStylish = require( 'gulp-jscs-stylish' ),
     karma = require( 'karma' ),
 
@@ -76,11 +77,11 @@ var paths = {
     // These files are for your app's JavaScript
     appJS : [
         'client/assets/js/app.js',
-        'client/assets/js/*/*.js'//,
+        'client/assets/js/**/*.js'//,
         // 'client/assets/js/app.js'
     ],
     spec : {  
-        dir: [ 
+        dir : [ 
 
             'spec/**/*.js',
             // './spec/**/*.js',
@@ -89,7 +90,7 @@ var paths = {
             '!spec/directives/imagePreloaderDirectiveSpec.js'
 
          ],
-        libs: [
+        libs : [
             // libs 
             // 
             'build/assets/js/libs.js',
@@ -107,13 +108,13 @@ var paths = {
             'build/assets/js/treasured-recipes-templates.js',
 
             // spec tests
-            'bower_components/lodash/dist/lodash.js',
+            'bower_components/lodash/dist/lodash.js'
 
 
 
         ],
         // globals for test files (pass lint)
-        globals: [
+        globals : [
             // lodash
             '_',
             // jasmine
@@ -220,6 +221,20 @@ gulp.task( 'uglify:foundation', function( cb ) {
         .pipe( gulp.dest( './build/assets/js/' ) );
 });
 
+function encapsulate( content ) {
+    var temp = [];
+
+    temp.push( '( function( ) {' );
+    temp.push( '\'use strict\';' );
+
+    temp.push( content );
+
+    temp.push( '})( angular );' );
+
+    return temp.join( '\r' );
+}
+
+
 gulp.task( 'uglify:app', function() {
     var uglify = $.if( isProduction, $.uglify()
         .on( 'error', function( e ) {
@@ -229,6 +244,7 @@ gulp.task( 'uglify:app', function() {
     return gulp.src( paths.appJS )
         .pipe( uglify )
         .pipe( $.concat( 'app.js' ) )
+        .pipe( change( encapsulate ) )
         .pipe( gulp.dest( './build/assets/js/' ) );
 });
 
@@ -335,20 +351,7 @@ gulp.task( 'watch', function() {
 // Validation and Style.
 // - - - - - - - - - - - - - - -
 
-gulp.task( 'validate:lint', function() {
-    gulp.src( paths.appJS )
-        .pipe( $.jshint( '.jshintrc' ) )
-        .pipe( $.jshint.reporter( 'jshint-stylish' ) )
-        // .pipe( jscs({ fix : true }) )
-        // .pipe( jscs({ fix : true }) )
-        // .pipe( jscsStylish() )
-        // .pipe( jscs.reporter( ) )
-        .pipe( jscs.reporter( 'fail' ) );
-        // .pipe( gulp.dest( './client/assets/js' ) );
-});
-
-
-
+    // clean that shit up!
 gulp.task( 'validate:jshint:jscs', function() {
     gulp.src( paths.appJS )
         .pipe( $.jshint( '.jshintrc' ) ) // check the quality
@@ -362,15 +365,14 @@ gulp.task( 'validate:jshint:jscs', function() {
 });
 
 
-gulp.task( 'validate:style:jscs', function() {
-    // clean that shit up!
-    gulp.src( paths.appJS )
-        .pipe( $.jscs({ fix : true }) )
-        .pipe( $.jshint.reporter( 'jshint-stylish' ) )
-        .pipe( jscs.reporter( 'fail' ) )
-        .pipe( gulp.dest( './client/assets/js' ) );
+// gulp.task( 'validate:style:jscs', function() {
+//     gulp.src( paths.appJS )
+//         .pipe( $.jscs({ fix : true }) )
+//         .pipe( $.jshint.reporter( 'jshint-stylish' ) )
+//         .pipe( jscs.reporter( 'fail' ) )
+//         .pipe( gulp.dest( './client/assets/js' ) );
 
-});
+// });
 
 gulp.task( 'style:gulpfile', function() {
     // might as well clean that gulpfile up, too!
@@ -441,23 +443,23 @@ gulp.task( 'test:lint', function() {
 
 var karmaConfig = {
     configFile : __dirname + '/karma.conf.js',
-    files: paths.spec.libs.concat(paths.spec.dir)
+    files : paths.spec.libs.concat( paths.spec.dir )
 };
 
 gulp.task( 'test:run', function( done ) {
     karmaConfig.singleRun = true;
-    return new Server(karmaConfig, done ).start();
+    return new Server( karmaConfig, done ).start();
 });
 
 
 gulp.task( 'test:watch', function( done ) {
-    return new Server(karmaConfig, done ).start();
+    return new Server( karmaConfig, done ).start();
 });
 
 // TEST!
 gulp.task( 'test', function( cb ) {
-    sequence( ['build', 'test:lint' ], 'test:run', cb );
+    sequence( [ 'build', 'test:lint' ], 'test:run', cb );
 });
 gulp.task( 'test:dev', function( cb ) {
-    sequence( ['build', 'test:lint' ], 'test:watch', cb );
+    sequence( [ 'build', 'test:lint' ], 'test:watch', cb );
 });

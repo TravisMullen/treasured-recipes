@@ -1,21 +1,21 @@
-'use strict';
 angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q', '$http', 'webStorage',
     function( $q, $http, webStorage ) {
+        'use strict';
         var
             recipes,
             slugHash = {},
             nameSpace = 'treasured-recipes',
 
             storageKeys = {
-                lastreq : nameSpace+':lastreq',
-                collection : nameSpace+':collection',
-                selected : storageKeys+':selected'
+                lastreq : nameSpace + ':lastreq',
+                collection : nameSpace + ':collection',
+                selected : storageKeys + ':selected'
             },
 
             cachePrev,
             cacheNext,
 
-            cache = 15*60000, // 15 min
+            cache = 15 * 60000, // 15 min
             // cache = 1*60*60000, // 1 hour
 
             lastreq,
@@ -25,7 +25,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
 
             service = {};
 
-    // meant to be a READ ONLY service
+        // meant to be a READ ONLY service
 
         function filterJSONfromRecipe( recipes ) {
             var updated = [],
@@ -63,7 +63,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
                     console.log( 'Loaded from Memory' );
                     deferred.resolve( recipes );
 
-                // second check to see if in localstorage and not too old
+                    // second check to see if in localstorage and not too old
                 } else {
 
                     console.log( 'Loaded from Storage' );
@@ -80,13 +80,13 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
                 }
             } else {
 
-            // third get a fresh copy
+                // third get a fresh copy
                 console.log( 'Fresh JSON requested' );
 
                 $http({
                     method : 'GET', // read only 
                     // path or JSON API or file ('/assets/data/json/example1.json')
-                    url : 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe' 
+                    url : 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe'
                 }).then( function successCallback( response ) {
                     // this callback will be called asynchronously
                     // when the response is available
@@ -109,7 +109,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
             return deferred.promise;
         }
 
-       function getSelected( slug ) {
+        function getSelected( slug ) {
             var deferred = $q.defer();
             deferred.resolve( selected );
             return deferred.promise;
@@ -128,7 +128,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
                         selected = recipes[ i ];
 
                         webStorage.set( storageKeys.selected, selected );
-                        
+
                         deferred.resolve( selected );
                         return;
                     } else if ( i === 0 ) {
@@ -178,7 +178,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
                 last = webStorage.get( storageKeys.selected );
 
             getRecipes().then( function() {
-               if ( last && slugHash[ last.slug ] ) {
+                if ( last && slugHash[ last.slug ] ) {
                     deferred.resolve( last );
                 } else {
                     deferred.resolve( recipes[ 0 ] );
@@ -192,7 +192,7 @@ angular.module( 'TreasuredRecipesApp.services' ).factory( 'recipeService', [ '$q
             var value = false;
             if ( webStorage.get( storageKeys.collection ) ) {
                 value = true;
-            } 
+            }
             return value;
         }
 

@@ -1,8 +1,8 @@
 // http://stackoverflow.com/questions/17884399/image-loaded-event-in-for-ng-src-in-angularjs
 // 
-'use strict';
 angular.module( 'TreasuredRecipesApp.components' )
     .directive( 'preloader', function() {
+        'use strict';
         // var style; // save it for later
         return {
             restrict : 'A',
@@ -11,7 +11,7 @@ angular.module( 'TreasuredRecipesApp.components' )
                 src : '@'
             },
             // replace: true,
-            controller : [ '$scope', '$element', '$state', '$compile', '$window', 
+            controller : [ '$scope', '$element', '$state', '$compile', '$window',
                 function preloaderController( $scope, $element, $state, $compile, $window ) {
                     var pldr = this, // namespace
                         settings = $scope.preloader || {},
@@ -67,7 +67,7 @@ angular.module( 'TreasuredRecipesApp.components' )
                         $element.append( elm );
                         $compile( $element.contents() )( $scope );
                     }
-                    
+
                     function checkforBuild( currentName ) {
                         var elm = $element[ 0 ],
                             imageClass;
@@ -87,7 +87,7 @@ angular.module( 'TreasuredRecipesApp.components' )
                                 elm = $window.document.querySelector( settings.imageClass ) || elm;
                             }
                             imageURL = getBgUrl( elm );
-                            
+
                             if ( settings.activestate && currentName === settings.activestate ) {
                                 buildLoader();
                             }
@@ -107,10 +107,12 @@ angular.module( 'TreasuredRecipesApp.components' )
                     });
 
 
-                } ]
+                }
+            ]
         };
     })
     .directive( 'imageLoader', function( $timeout ) {
+        'use strict';
         return {
             require : '^^preloader',
             restrict : 'A',
