@@ -1,7 +1,7 @@
-angular.module( 'TreasuredRecipesApp.components' )
+'use strict';
+angular.module( 'loader.section', [] )
     .controller( 'imageSectionCtrl', [ '$scope', '$element', '$attrs', '$timeout',
         function( $scope, $element, $attrs, $timeout ) {
-            'use strict';
 
             var count,
                 cbs = [];
@@ -30,9 +30,9 @@ angular.module( 'TreasuredRecipesApp.components' )
                 }, 10 );
             };
         }
-    ] ).directive( 'imageSection', [
+    ] )
+    .directive( 'imageSection', [
         function() {
-            'use strict';
 
             return {
                 restrict : 'EA',

@@ -1,7 +1,9 @@
-angular.module( 'TreasuredRecipesApp.services' )
+'use strict';
+angular.module( 'TreasuredRecipesApp.attachmentService', [
+        'webStorageModule'
+    ] )
     .factory( 'attachmentService', [ '$q', '$http', 'webStorage',
         function( $q, $http, webStorage ) {
-            'use strict';
             var
                 attachments,
                 idHash = {},

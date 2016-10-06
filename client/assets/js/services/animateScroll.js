@@ -1,15 +1,16 @@
-angular.module( 'TreasuredRecipesApp.services' )
-    .factory( 'animateScroll', [ '$q', '$timeout', '$interval',
+'use strict';
+angular.module( 'TreasuredRecipesApp.animateScroll', [] )
+    .factory( 'AnimateScrollService', [ '$q', '$timeout', '$interval',
         function( $q, $timeout, $interval ) {
-            'use strict';
 
             var service = {},
 
                 runTime = 0,
 
-                animationDeffered = $q.defer(),
+                animationDeffered = {},
 
-                stagger = 1800, // from background styles
+                stagger = 0, // ms / to be from background styles -
+                // $window.getComputedStyle( staggerTarget );
                 pixelDistance = 14,
                 animationSpeed = 33.367, // 29.997 framer per second
 
@@ -30,18 +31,20 @@ angular.module( 'TreasuredRecipesApp.services' )
                 // runTime
                 runTime += animationSpeed;
 
+                animationDeffered = $q.defer();
+
                 animateScroll = $timeout( function() {
-                    stageView.scrollTop = ( stageView.scrollTop - Math.round( stageView.scrollTop*0.01 ) );
+                    stageView.scrollTop = ( stageView.scrollTop - Math.round( stageView.scrollTop * 0.01 ) );
                     if ( anchor.top <= bufferArea ) {
                         moveScroller()
                     } else {
                         lastTop = anchor.top;
-                        console.log( 'runTime', runTime );
+                        // console.log( 'runTime', runTime );
                         $timeout( function( argument ) {
-                            console.log( 'animateScroll complete!!' );
+                            // console.log( 'animateScroll complete!!', lastTop );
+                            animationDeffered.resolve();
                         }, animationSpeed );
                         runTime = 0;
-                        animationDeffered.resolve( lastTop );
                     }
                 }, animationSpeed );
 
@@ -53,7 +56,7 @@ angular.module( 'TreasuredRecipesApp.services' )
             // scrollElm - element to have the scroll applied if its not the body
 
             function animateScrollPosition() {
-                var queueAnim = $q.defer(), 
+                var queueAnim = $q.defer(),
                     anchorElm = targetToView.getBoundingClientRect();
 
                 // ANIMATE SCROLL TO TITLE
@@ -63,16 +66,20 @@ angular.module( 'TreasuredRecipesApp.services' )
                         // deferred.resolve(t);
                         var t = moveScroller().then( function( data ) {
                             queueAnim.resolve( data );
+                            animateScroll = undefined;
                         });
-                    }, stagger ); // wait for ng-enter/ng-leave to complete
+                    }, stagger ); // use: wait for ng-enter/ng-leave to complete
                 }
 
                 return queueAnim.promise;
             }
 
-            function getElements( anchorTarget, scrollTarget ) {
-                stageView = document.querySelector( anchorTarget );
+            function getElements( scrollTarget, stageTarget ) {
+                stageView = typeof( stageTarget ) === 'string' ? document.querySelector( stageTarget ) : document.querySelector( 'body' );
                 targetToView = document.querySelector( scrollTarget );
+                console.log( 'targetToView', targetToView );
+                console.log( 'targetToView.id', targetToView.id );
+                console.log( 'targetToView.$id', targetToView.$id );
                 return animateScrollPosition();
             }
 
@@ -85,6 +92,17 @@ angular.module( 'TreasuredRecipesApp.services' )
             service.run = getElements;
             service.scroll = animateScrollPosition;
             service.cancel = cancelScroll;
+
+            // service.listen = function() {
+            //     var def = $q.defer();
+            //     if (animateScroll) {
+            //         def = animationDeffered;
+            //     } else {
+            //         def.resolve('complete');
+            //     }
+            //     return def.promise;
+            // };
+
             return service;
 
         }

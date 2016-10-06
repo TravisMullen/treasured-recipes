@@ -96,16 +96,6 @@ $headers: "h1,h2,h3,h4,h5,h6";
 $font-weight-normal: normal;
 $font-weight-bold: bold;
 
-// We use these to control various global styles
-$body-background: #0B0000;
-$body-font-color: #222;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $alt-font-family: "SmithTypewriter","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$alt-font-family: "SmithTypewriter","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: $font-weight-normal;
-$body-font-style: normal;
-$body-antialiased: true;
-
 // Application Colors
 $white       : #fff;
 // $ghost       : #FAFAFA;
@@ -149,6 +139,17 @@ $global-rounded: 1000px;
 $global-padding: 1rem;
 $global-spacing: rem-calc(15); 
 $base-increment-distance: $global-spacing; // legal
+
+// We use these to control various global styles
+$body-background: $smoke;
+$background-image: linear-gradient(to bottom, $body-background 40%, $black 100%);
+$body-font-color: #222;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+// $alt-font-family: "SmithTypewriter","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$alt-font-family: "SmithTypewriter","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: $font-weight-normal;
+$body-font-style: normal;
+$body-antialiased: true;
 
 // 3. Breakpoints
 // - - - - - - - - - - - - - - -

@@ -1,7 +1,8 @@
-angular.module( 'TreasuredRecipesApp.components' )
+'use strict';
+angular.module( 'loader.image', [ 'loader.section' ] )
+    // module set in sectionDir
     .directive( 'imageLoader', [ '$q', '$interval',
         function( $q, $interval ) {
-            'use strict';
 
             var __NOW__ = +( new Date() ),
                 uuid = 0;

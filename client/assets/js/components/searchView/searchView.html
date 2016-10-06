@@ -1,0 +1,36 @@
+<!-- searchView: template -->
+
+<div class="grid-block middle">
+    <div class="grid-container">
+        <div class="grid-block shrink middle pull-down-4">
+            <div class="grid-content">
+                <div class="pull-down-4" ng-hide="recipes.length" ng-include="'partials/loader-icon.html'"></div>
+
+                <header class="grid-block gutters align-center" ng-show="recipes.length">
+                    <div class="grid-block">
+                        <input ng-model="searchValue" class="inline-block radius search-box" type="search" placeholder="Search Recipes">
+                    </div>
+                    <!--  <div class="grid-block shrink align-center">
+                    {{}}
+                </div> -->
+                    <div class="grid-block shrink align-center" ng-hide="showList">
+                        <a ng-click="showList = true" class="large expanded button radius v-align"><span class="icon-th-list align-center"></span></a>
+                    </div>
+                    <div class="grid-block shrink align-center" ng-show="showList">
+                        <a ng-click="gotoRecipes()" class="large expanded secondary button radius v-align"><span class="icon-arrow-right align-center"></span></a>
+                    </div>
+                </header>
+                <!-- <label class=""> -->
+                <!-- Search Recipes -->
+                <!-- <span class="inline-label"> -->
+                <!-- </span> -->
+                <!-- </label> -->
+                <!-- <ul> -->
+                <ul class="recipe-list fade-in" ng-show="(searchValue != '' && searchValue != 'undefined') || showList">
+                    <li  class="recipe-button" ng-repeat="recipe in recipes | filter:searchValue:'title.rendered'"><a ui-sref="recipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- <a ng-click="gotoRecipes()" class="button large">Recipes</a> -->
+    </div>
+</div>

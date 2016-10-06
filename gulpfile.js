@@ -13,6 +13,7 @@ var
     $ = require( 'gulp-load-plugins' )(),
     argv = require( 'yargs' ).argv, 
     gulp = require( 'gulp' ),
+    htmlmin = require( 'gulp-htmlmin' ),
     tplcache = require( 'gulp-angular-templatecache' ),
     rimraf = require( 'rimraf' ),
     router = require( 'front-router' ),
@@ -69,20 +70,26 @@ var paths = {
         'bower_components/angular/angular.js',
         'bower_components/angular-webstorage/angular-webstorage.js',
         'bower_components/angular-animate/angular-animate.js',
+        // 'bower_components/angular-route/angular-route.js',
         'bower_components/angular-ui-router/release/angular-ui-router.js',
         'bower_components/foundation-apps/js/vendor/**/*.js',
         'bower_components/foundation-apps/js/angular/**/*.js',
         '!bower_components/foundation-apps/js/angular/app.js'
     ],
-    // These files are for your app's JavaScript
+    // These files are for JavaScript
     appJS : [
         'client/assets/js/app.js',
-        'client/assets/js/**/*.js'//,
-        // 'client/assets/js/app.js'
+        'client/assets/js/**/*.js',
+        '!client/assets/js/**/*test.js'
     ],
+    // These files are for Tests
     spec : {  
         dir : [ 
 
+            // components
+            'client/assets/js/**/*test.js',
+
+            // services/directives
             'spec/**/*.js',
             // './spec/**/*.js',
             
@@ -156,16 +163,17 @@ gulp.task( 'copy', function() {
 });
 
 
-// Copies your app's page templates and generates URLs for them
+// Copies page templates and generates URLs for them
 gulp.task( 'copy:templates', function() {
-    return gulp.src( './client/views/**/*.html' )
-        // .pipe(router({
-        //   path: 'build/assets/js/routes.js',
-        //   root: 'client'
+    return gulp.src( ['./client/views/**/*.html','./client/assets/js/components/**/*.html'] )
+
+        // .pipe(htmlmin({
+        //     removeComments: true
         // }))
         .pipe( tplcache({
             module : config.nameSpace+'.templates',
-            filename : config.name+'-templates.js'
+            filename : config.name+'-templates.js',
+            standalone: true
         }) )
         .pipe( gulp.dest( './build/assets/js' ) );
 });
@@ -206,7 +214,7 @@ gulp.task( 'sass', function() {
         .pipe( gulp.dest( './build/assets/css/' ) );
 });
 
-// Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
+// Compiles and copies the Foundation for Apps JavaScript, as well as custom JS
 gulp.task( 'uglify', [ 'uglify:foundation', 'uglify:app' ] )
 
 gulp.task( 'uglify:foundation', function( cb ) {
@@ -244,7 +252,7 @@ gulp.task( 'uglify:app', function() {
     return gulp.src( paths.appJS )
         .pipe( uglify )
         .pipe( $.concat( 'app.js' ) )
-        .pipe( change( encapsulate ) )
+        // .pipe( change( encapsulate ) )
         .pipe( gulp.dest( './build/assets/js/' ) );
 });
 
@@ -261,8 +269,8 @@ gulp.task( 'server', [ 'build' ], function() {
 });
 
 
-gulp.task( 'watch', function() {
-    watch( './js/*.js', function( file ) {
+gulp.task( 'validate:run', function() {
+    watch( paths.appJS, function( file ) {
 
         gulp.src( file.history ) // use `.history[]` to pipe only file with change event
             .pipe( jshint( '.jshintrc' ) ) // check the quality

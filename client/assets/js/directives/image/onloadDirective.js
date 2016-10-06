@@ -1,7 +1,7 @@
-angular.module( 'TreasuredRecipesApp.components' )
+'use strict';
+angular.module( 'loader.onload', [] )
     .directive( 'imageOnload', [
         function() {
-            'use strict';
             return {
                 restrict : 'A',
                 scope : {

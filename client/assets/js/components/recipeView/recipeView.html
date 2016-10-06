@@ -1,0 +1,65 @@
+<!-- recipeView -->
+
+<article class="grid-block bg-table-cloth align-center">
+
+
+    <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div>
+
+
+    <div ng-show="recipe" class="fade-in grid-block shrink">
+        <section class="grid-block">
+            <div class="grid-content">
+                <div class="old-tablet-seemless">
+                    <article class="grid-container">
+                      <!--   <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div> -->
+                        <button ng-show="print" class="float-right large primary button hollow" ng-click="print(document)" type="button"><span class="icon-print"></span><span class="screen-reader-text">print recipe</span></button>
+                        <!-- <span class="underline"> -->
+                        <h1 class="primary-color" ng-if="!recipe.details.name">{{recipe.title.rendered}}</h1>
+                        <h1 class="primary-color" ng-if="recipe.details.name">{{recipe.details.name}}</h1>
+                        <!-- </span> -->
+                        <hr>
+                        <div class="grid-block wrap gutters align-justify">
+                            <div class="grid-block medium-4" ng-if="asset.id == recipe.featured_media" ng-repeat="asset in attachments">
+                                <div class="grid-content">
+                                    <a ui-sref=".image({imgid: asset.id})" title="View Image">
+                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="grid-block medium-4" ng-if="asset.id != recipe.featured_media" ng-repeat="asset in attachments">
+                                <div class="grid-content">
+                                    <a ui-sref=".image({imgid: asset.id})" title="View Image">
+                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <section class="pull-down-1">
+                            <h3 class="primary-color">Ingredients</h5>
+                            <ul>
+                                <li ng-repeat="ing in recipe.details.recipeIngredient">
+                                    {{ing}}
+                                </li>
+                            </ul>
+                        </section>
+                        <hr>
+                        <section class="pull-down-1" ng-show="recipe.details.recipeInstructions.length">
+                            <h3 class="primary-color">Cooking Instructions</h5>
+                            <ol>
+                                <!-- <li>{{recipe.details.recipeInstructions}}</li> -->
+                                <li ng-repeat="step in recipe.details.recipeInstructions">
+                                    {{step}}
+                                </li>
+                            </ol>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- <family-recipe ingredients="ingredients" item="recipe"></family-recipe> -->
+    </div>
+</article>
+
+<div ui-view="modal"></div>
+
