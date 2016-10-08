@@ -1,3 +1,19 @@
 <!-- actionNav -->
 
-<p>This is the partial for view 1.</p>
+<ul class="dark menu-bar fade-in ng-hide" ng-show="$ctrl.next || $ctrl.prev">
+    <li ng-if="$ctrl.next.slug">
+        <a ui-sref="recipe({slug: $ctrl.next.slug})">
+            <span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{$ctrl.next.title.rendered}}</span>
+        </a>
+    </li>
+    <li class="show-for-medium shrink">
+        <a ui-sref="search.list">
+            <span><span class="icon-search white"></span>&nbsp;&nbsp;Search Recipes</span>
+        </a>
+    </li>
+    <li ng-if="$ctrl.prev.slug" class="align-right">
+        <a ui-sref="recipe({slug: $ctrl.prev.slug})">
+            <span>{{$ctrl.prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span>
+        </a>
+    </li>
+</ul>

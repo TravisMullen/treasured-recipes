@@ -1,75 +1,122 @@
 'use strict';
+// set view
 
-angular.module( 'TreasuredRecipesApp.recipeView', [ 
-        'ui.router',
-		'TreasuredRecipesApp.recipeService', 
-		'TreasuredRecipesApp.attachmentService', 
-		'TreasuredRecipesApp.animateScroll', 
-        'TreasuredRecipesApp.templates'
-	] )
+angular.module( 'TreasuredRecipesApp.recipeView', [
+    'ui.router',
+    'TreasuredRecipesApp.recipeService',
+    'TreasuredRecipesApp.attachmentService',
+    'TreasuredRecipesApp.animateScroll',
+    'TreasuredRecipesApp.templates'
+] )
 
 .config( [ '$stateProvider', function( $stateProvider ) {
-    $stateProvider.state( 'recipe', {
-        url : '/recipe/:slug',
-        templateUrl : 'recipeView/recipeView.html',
-        controller : 'recipeViewCtrl'
-    });
+    $stateProvider
+        .state( 'recipe', {
+
+            parent : 'main',
+            url : '/recipe/:slug',
+
+            controller : 'recipeViewCtrl',
+            controllerAs : '$ctrl',
+
+            resolve : {
+                recipe : function( recipeService, $stateParams ) {
+                    return recipeService.get( $stateParams.slug );
+                },
+                attachments : function( recipeService, attachmentService, $stateParams ) {
+                    return recipeService.get( $stateParams.slug ).then( function( current ) {
+                        return attachmentService.getAttachmentsByRecipe( current.id );
+                    })
+                },
+                next : function( recipeService, attachmentService, $stateParams ) {
+                    return recipeService.get( $stateParams.slug ).then( function( res ) {
+                        var nextQ = recipeService.next( res.slug );
+                        // todo: mmove this to service
+                        nextQ.then( function( next ) {
+                            // preload attachments
+                            attachmentService.getAttachmentsByRecipe( next.id );
+                        });
+                        // then return it
+                        return nextQ;
+                    });
+                },
+                prev : function( recipeService, attachmentService, $stateParams ) {
+                    return recipeService.get( $stateParams.slug ).then( function( res ) {
+                        var prevQ = recipeService.prev( res.slug );
+                        prevQ.then( function( prev ) {
+                            // preload attachments
+                            attachmentService.getAttachmentsByRecipe( prev.id );
+                        });
+                        // then return it
+                        return prevQ;
+                    });
+                },
+                last : function( recipeService, $stateParams ) {
+                    return recipeService.last();
+                }
+            },
+
+            data : {
+                classList : [ 'recipe-view' ]
+            },
+
+            views : {
+                // 'header' : {
+                //     templateUrl : 'partials/interior/header.html'
+                // },
+                'main' : {
+                    templateUrl : 'recipeView/recipeView.html'
+                },
+                'alt' : {
+                    // pass in action nav component to parent level of template
+                    template : '<action-nav next="$resolve.next" prev="$resolve.prev"></action-nav>'
+                }
+            }
+        });
 } ] )
 
 .controller( 'recipeViewCtrl', [
-	'$q',
-    '$scope',
-    '$stateParams',
     '$state',
-    '$timeout',
-    '$interval',
-    '$window',
-
-    'recipeService',
-    'attachmentService',
+    '$stateParams',
+    // from $resolve
+    'recipe',
+    'last',
+    // from service
     'AnimateScrollService',
-    function( $q, $scope, $stateParams, $state, $timeout, $interval, $window,
-    recipeService, attachmentService, animateScroll ) {
+    function( $state, $stateParams, recipe, last, animateScroll ) {
 
-    animateScroll.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
-        if ( res ) {
-            console.log( 'animation complete!' );
-            $scope.animateScrollComplete = true;
+        // set controllerAs
+        var view = this;
+        // 
+        // if no slug goto, last recipe
+        if ( !recipe.id ) {
+            if ( last.slug ) {
+                $state.go( 'recipe', { slug : last.slug });
+            } else {
+                $state.go( '404' );
+            }
         }
-    });
-    $scope.$on( '$destroy', function() {
-        animateScroll.cancel();
-    });
 
 
-
-    $scope.print = window.print;
-    $scope.ingredients = [];
-    if ( $stateParams.slug ) {
-        recipeService.get( $stateParams.slug ).then( function( recipe ) {
-            $scope.recipe = recipe;
-
-            attachmentService.getAttachmentsByRecipe( $scope.recipe.id ).then( function( results ) {
-                $scope.attachments = results;
-            });
-
-            recipeService.next( $stateParams.slug ).then( function( next ) {
-                $scope.next = next;
-                // preload for next 
-                attachmentService.getAttachmentsByRecipe( $scope.next.id );
-
-            });
-            recipeService.prev( $stateParams.slug ).then( function( prev ) {
-                $scope.prev = prev;
-                // preload for prev 
-                attachmentService.getAttachmentsByRecipe( $scope.prev.id );
-            });
-        }, function() {
-            $state.go( '404' );
+        animateScroll.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
+            if ( res ) {
+                console.log( 'animation complete!' );
+                $scope.animateScrollComplete = true;
+            }
         });
-    } else {
-        recipeService.last().then( function( res ) {
-            $state.go( 'recipe', { slug : res.slug });
+
+        view.$on( '$destroy', function() {
+            animateScroll.cancel();
         });
+
+        // add some stuff to the view
+        // 
+        view.print = window.print;
+
+        view.labels = {
+            ingredients : 'Ingredients',
+            instructions : 'Cooking Instructions'
+        }
+
     }
-} ] );
+] );

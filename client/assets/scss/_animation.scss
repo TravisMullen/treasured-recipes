@@ -19,7 +19,19 @@ $animation-duration-default: 800ms !default;
     transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
-[ui-view="dinnertable"] {
+
+.pre-loading {
+    position: absolute;
+    overflow: hidden;
+    bottom: $onepx;
+    right: $onepx;
+    height: $onepx;
+    width: $onepx;
+}
+ui-view {
+    position: relative;
+}
+[ui-view="main"] {
     background-color: transparent;
     //     position: relative;
     // // .bg-table-cloth {
@@ -98,6 +110,8 @@ $animation-duration-default: 800ms !default;
 .grid-frame {}
 
 .background-wrapper {
+    background-color: $primary-color;
+    transition: background-color $animation-duration-default ease(in-sine);
     z-index: -1;
     // border: 10px solid red;
     position: absolute;
@@ -112,8 +126,12 @@ $animation-duration-default: 800ms !default;
         // animate mask here
     }
     .background-elm {
+        background-color: transparent;
         position: absolute;
         display: block;
+    }
+    .background-loading & {
+        background-color: $smoke;
     }
 }
 
@@ -129,28 +147,29 @@ $height: rem-calc(3600);
     // transition-speed: 
     opacity: 0;
    
-    &.go-light,
-    .go-light & {
-        opacity: 1;
+    &.background-loading,
+    .background-loading & {
+        opacity: 0;
+        transition: opacity $animation-duration-default ease(in-sine);
         transform: translate(calc(100vw - #{$width}),calc(100vh - #{$height}));
         // background-position: rem-calc(-2575) center;
     }
-    &.walk-in,
-    .walk-in & {
+    &.search-view,
+    .search-view & {
         opacity: 1;
         transform: translate(calc(100vw - #{$width}),calc(100vh - #{$height}));
         // background-position: bottom right;
     }
-    &.home,
-    .home & {
+    &.search-view,
+    .search-view & {
         opacity: 1;
         $margin: rem-calc(175);
         // transform: translate(calc(10vw - #{$margin}), rem-calc(-1075));
         transform: translate(calc(-5vw - #{$margin}),rem-calc(-1075));
         // background-position: 0 rem-calc(-975);
     }
-    &.recipe,
-    .recipe & {
+    &.recipe-view,
+    .recipe-view & {
         opacity: 1;
         // transform: translate(0, calc(100% - 100vw));
         transform: translate(calc(100vw - #{$width}),0);
@@ -261,7 +280,7 @@ $height: rem-calc(3600);
 }
 
 // 
-[ui-view="footer"] {
+[ui-view="alt"] {
     border-top: 1px solid $black;
     background-color: rgba($black, 0.2);
     // position: fixed;

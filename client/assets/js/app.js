@@ -5,9 +5,16 @@ angular.module( 'TreasuredRecipesApp', [
 
     'ui.router',
 
+    'TreasuredRecipesApp.mainView',
+
     'TreasuredRecipesApp.searchView',
     'TreasuredRecipesApp.recipeView',
+
+    'TreasuredRecipesApp.actionNav',
     // 'TreasuredRecipesApp.imageView',
+    // 
+    'TreasuredRecipesApp.stateClass',
+    
     'TreasuredRecipesApp.version'
 ] ).
 config( [ '$locationProvider', '$urlRouterProvider', function( $locationProvider, $urlProvider ) {
@@ -18,5 +25,5 @@ config( [ '$locationProvider', '$urlRouterProvider', function( $locationProvider
         requireBase : false
     });
 
-    $urlProvider.otherwise( '/search' );
+    $urlProvider.otherwise( '/catalog', '/catalog/retrieving' );
 } ] );

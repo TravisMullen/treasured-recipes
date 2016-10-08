@@ -17,30 +17,8 @@
     <script src="./assets/js/app.js"></script>
 </head>
 
-<body state-class="{ stagger: '.background-elm' }" ng-cloak>
-<ui-view></ui-view>
-    <!-- <div class="grid-frame vertical"> -->
-    <image-section>
-        <div ng-show="background" class="fade-in grid-frame vertical">
-            <!-- <div class="grid-content shrink collaspe horizontal bg-wood-beam" ui-view="header">
-        </div> -->
-            <!-- <code>data: {{ngClasses}}</code> -->
-            <!-- <div class=""> -->
-            <!-- <div class="grid-content bg-table-cloth" preloader="{ activestate: 'main.loading', nextstate: 'main.loaded', imageClass: '[ui-view=\'dinnertable\']' }" > -->
-            <div class="grid-content stage">
-                <!-- {{elm}} -->
-                <!-- <div ng-bind-html="elm"></div> -->
-                <div ui-view class="grid-block"></div>
-            </div>
-            <!-- </div> -->
-            <div ui-view="footer"></div>
-            <!-- <div ui-view="modal"></div>q -->
-        </div>
-        <div class="background-wrapper">
-            <image-loader ng-show="background" src="{{img.src}}" class="fade-in bg-table-cloth background-elm" background-replace="true" on-load="complete"></image-loader>
-        </div>
-        <!-- preloader="{ activestate: 'main.loading', nextstate: 'main.loaded' }" -->
-    </image-section>
+<body state-class ng-cloak>
+    <ui-view></ui-view>
 </body>
 
 </html>

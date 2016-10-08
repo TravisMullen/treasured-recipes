@@ -89,7 +89,7 @@ angular.module( 'loader.image', [ 'loader.section' ] )
                                 }
 
                                 if ( $scope.onLoad ) {
-                                    $scope.onLoad();
+                                    $scope.onLoad( src );
                                 }
                             });
 

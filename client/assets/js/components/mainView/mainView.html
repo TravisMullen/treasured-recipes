@@ -1,0 +1,17 @@
+<image-section>
+    <div class="fade-in grid-frame vertical">
+        <div class="grid-content stage">
+            <div ui-view="main" ng-animate="'main'" class="grid-block"></div>
+        </div>
+        <nav ui-view="alt" ng-animate="'alt'"></nav>
+    </div>
+
+    <!-- background image -->
+    <div class="background-wrapper">
+        <image-loader src="{{$resolve.img.src}}" class="bg-table-cloth background-elm" background-replace="true" on-load="$ctrl.complete"></image-loader>
+    </div>
+
+    
+
+
+</image-section>
