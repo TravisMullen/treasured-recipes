@@ -1,56 +1,51 @@
 <!-- recipeView -->
-<article class="grid-block bg-table-cloth align-center">
-    <div class="fade-in grid-block shrink">
+<image-section>
+         <!-- $ctrl: {{$ctrl}} -->
+    <h2>recipeAssetsLoaded: {{$ctrl.recipeAssetsLoaded}}</h2>
+
+    <div class="fade-in grid-block shrink ng-hide" ng-show="$ctrl.recipeAssetsLoaded">
         <section class="grid-block">
             <div class="grid-content">
                 <div class="old-tablet-seemless">
                     <article class="grid-container">
                         <!--   <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div> -->
-                        <button ng-show="print" class="float-right large primary button hollow" ng-click="print(document)" type="button">
+                        <button ng-show="$ctrl.print" class="float-right large primary button hollow" ng-click="print(document)" type="button">
                             <span class="icon-print"></span>
                             <span class="screen-reader-text">print recipe</span>
                         </button>
                         <!-- <span class="underline"> -->
-                        <h1 class="primary-color" ng-if="!$resolve.recipe.details.name">
-                            {{ :: $resolve.recipe.title.rendered}}
+                        <h1 class="primary-color" ng-if="!$ctrl.recipe.details.name">
+                            {{ :: $ctrl.recipe.title.rendered}}
                         </h1>
-                        <h1 class="primary-color" ng-if="$resolve.recipe.details.name">
-                            {{ :: $resolve.recipe.details.name}}
+                        <h1 class="primary-color" ng-if="$ctrl.recipe.details.name">
+                            {{ :: $ctrl.recipe.details.name}}
                         </h1>
                         <!-- </span> -->
                         <hr>
-                        <div class="grid-block wrap gutters align-justify">
-                            <div class="grid-block medium-4" ng-if="asset.id == $resolve.recipe.featured_media" ng-repeat="asset in $resolve.attachments">
-                                <div class="grid-content">
-                                    <a ui-sref=".image({imgid: asset.id})" title="View Image">
-                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="grid-block medium-4" ng-if="asset.id != $resolve.recipe.featured_media" ng-repeat="asset in attachments">
-                                <div class="grid-content">
-                                    <a ui-sref=".image({imgid: asset.id})" title="View Image">
-                                        <img class="old-world" ng-src="{{asset.media_details.sizes['recipe-thumbnail'].source_url}}" alt="Description" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    
+                        <!-- images attachments -->
+                        <attachments-view 
+                            aid="$ctrl.recipe.id"
+                            featured="$ctrl.recipe.featured_media"
+                            source="media_details.sizes['recipe-thumbnail'].source_url"
+                            ></attachments-view>
+
                         <hr>
                         <section class="pull-down-1">
-                            <h3 class="primary-color">{{ :: labels.ingredients}}</h5>
+                            <h3 class="primary-color">{{ :: $ctrl.labels.ingredients}}</h5>
                             <ul>
-                                <li ng-repeat="ing in $resolve.recipe.details.recipeIngredient">
-                                    {{ :: ing}}
+                                <li ng-repeat="ing in $ctrl.recipe.details.recipeIngredient">
+                                    {{ :: ing }}
                                 </li>
                             </ul>
                         </section>
                         <hr>
-                        <section class="pull-down-1" ng-show="$resolve.recipe.details.recipeInstructions.length">
-                            <h3 class="primary-color">{{ :: labels.instructions}}</h5>
+                        <section class="pull-down-1" ng-show="$ctrl.recipe.details.recipeInstructions.length">
+                            <h3 class="primary-color">{{ :: $ctrl.labels.instructions}}</h5>
                             <ol>
-                                <!-- <li>{{$resolve.recipe.details.recipeInstructions}}</li> -->
-                                <li ng-repeat="step in $resolve.recipe.details.recipeInstructions">
-                                    {{ :: step}}
+                                <!-- <li>{{$ctrl.recipe.details.recipeInstructions}}</li> -->
+                                <li ng-repeat="step in $ctrl.recipe.details.recipeInstructions">
+                                    {{ :: step }}
                                 </li>
                             </ol>
                         </section>
@@ -59,4 +54,13 @@
             </div>
         </section>
     </div>
-</article>
+
+    <ul class="pre-loading">
+        <li ng-repeat="imgsrc in $ctrl.load.src">
+            <image-loader 
+                src="{{imgsrc}}" 
+                on-load="$ctrl.complete"></image-loader>
+        </li>
+    </ul>
+
+</image-section>

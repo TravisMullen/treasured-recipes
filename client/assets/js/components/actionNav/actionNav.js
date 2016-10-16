@@ -1,27 +1,32 @@
 'use strict';
 
+
+function actionNavCtrl( AnimateScroll ) {
+    var view = this;
+    // console.log("view",view);
+    // console.log("view.stateChange",view.stateChange);
+    // view.stateChange = true;
+    // AnimateScroll.listen().then( function( res ) {
+        // console.log("res",res);
+        view.showNav = true;
+    // });
+}
+
+actionNavCtrl.$inject = [ 'AnimateScrollService' ];
+
 angular.module( 'TreasuredRecipesApp.actionNav', [
-    'TreasuredRecipesApp.recipeService',
+    
+    'TreasuredRecipesApp.AnimateScroll',
+
     'TreasuredRecipesApp.templates'
 ] )
 
 .component( 'actionNav', {
     templateUrl : 'actionNav/actionNav.html',
-    // controller : 'actionNavCtrl',
+    controller : actionNavCtrl,
     bindings : {
         next : '<',
-        prev : '<'
+        prev : '<',
+        stateChange: '=?'
     }
-}) 
-
-// .controller( 'actionNavCtrl', [
-//     '$timeout',
-//     function( $timeout ) {
-//         var view = this;
-        
-//         view.showNav = false;
-//         $timeout( function() {
-//             view.showNav = true;
-//         }, 1000 );
-//     }
-// ] );
+});

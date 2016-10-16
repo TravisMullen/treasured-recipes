@@ -1,8 +1,8 @@
 'use strict';
-angular.module( 'TreasuredRecipesApp.recipeService', [
+angular.module( 'TreasuredRecipesApp.RecipeService', [
         'webStorageModule'
     ] )
-    .factory( 'recipeService', [ '$q', '$http', 'webStorage',
+    .factory( 'RecipeService', [ '$q', '$http', 'webStorage',
         function( $q, $http, webStorage ) {
             var
                 recipes,

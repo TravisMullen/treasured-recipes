@@ -1,8 +1,8 @@
 'use strict';
-angular.module( 'TreasuredRecipesApp.attachmentService', [
+angular.module( 'TreasuredRecipesApp.AttachmentService', [
         'webStorageModule'
     ] )
-    .factory( 'attachmentService', [ '$q', '$http', 'webStorage',
+    .factory( 'AttachmentService', [ '$q', '$http', 'webStorage',
         function( $q, $http, webStorage ) {
             var
                 attachments,

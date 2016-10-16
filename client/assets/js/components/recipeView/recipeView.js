@@ -1,11 +1,105 @@
 'use strict';
 // set view
+// 
+function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
+    var view = this;
+
+    console.log("view.assets",view.assets);
+
+    // if ( view.waitFor !== true ) {
+    //     $state.go( 'main.loading' );
+    // }
+    console.log("$stateParams.slug",$stateParams.slug);
+    // 
+    // if no slug goto, last recipe
+    // if ( view.recipe === undefined ) {
+    //     // if ( last.slug ) {
+    //     //     $state.go( 'recipe', { slug : last.slug });
+    //     // } else {
+    //     $state.go( '404' );
+    //     // }
+    // }
+
+    // view.hello = 'world';
+    // view.animateScrollComplete = 'test';
+    AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
+        // if ( res ) {
+        console.log( 'animation complete!' );
+        // view.animateScrollComplete = true;
+        // 
+        // view.animateScrollComplete = 'complete';
+        // }
+    });
+
+    // view.$onInit = function() {
+        // console.log( '$onInit slug!', view.recipe.slug );
+        var count = [];
+
+        if ( view.load && view.load.src ) {
+            angular.forEach( view.load.src, function( value ) {
+                this.push( value );
+            }, count );
+        }
+
+        // all asset will call the same callback
+        function callbackOnLast( value ){
+
+            // remove it on complete
+            count.splice( count.indexOf( value ), 1 );
+
+            // none left
+            if ( count.length === 0 ) {
+
+                // assets are all loaded...
+                view.recipeAssetsLoaded = true;
+
+                // goto next route
+                // if ( view.slug ) {
+                //     $state.go( 'recipe', { slug : view.slug });
+                // } else {
+                //     $state.go( 'search' );
+                // }
+            }
+        }
+        view.complete = callbackOnLast;
+    // };
+   // destory self on state change request
+    view.$onInit = function() {
+        if ( !view.assets ) {
+            console.log("goto preloading view");
+            if (typeof(view.slug)) {
+                view.slug(); // init cb to set slug
+            }
+        //     // } else 
+        //     //     console.log("view.loaded",view.loaded);
+            $state.go( 'main.loading');
+        }
+    };
+
+    view.$onDestroy = function() {
+        console.log( '$onDestroy' );
+        AnimateScrollService.cancel();
+    };
+
+    // add some stuff to the view
+    // 
+    view.print = window.print;
+
+    view.labels = {
+        ingredients : 'Ingredients',
+        instructions : 'Cooking Instructions'
+    };
+
+}
+
+recipeViewCtrl.$inject = [ '$state', '$stateParams', 'AnimateScrollService' ];
 
 angular.module( 'TreasuredRecipesApp.recipeView', [
     'ui.router',
-    'TreasuredRecipesApp.recipeService',
-    'TreasuredRecipesApp.attachmentService',
-    'TreasuredRecipesApp.animateScroll',
+    // 'ngAnimate',
+    'TreasuredRecipesApp.RecipeService',
+    'TreasuredRecipesApp.AttachmentService',
+    'TreasuredRecipesApp.AnimateScroll',
     'TreasuredRecipesApp.templates'
 ] )
 
@@ -16,44 +110,59 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
             parent : 'main',
             url : '/recipe/:slug',
 
-            controller : 'recipeViewCtrl',
-            controllerAs : '$ctrl',
+            // controller : 'recipeViewCtrl',
+            // controllerAs : '$recipeCtrl',
 
             resolve : {
-                recipe : function( recipeService, $stateParams ) {
-                    return recipeService.get( $stateParams.slug );
+                recipe : function( RecipeService, $stateParams ) {
+                    return RecipeService.get( $stateParams.slug );
                 },
-                attachments : function( recipeService, attachmentService, $stateParams ) {
-                    return recipeService.get( $stateParams.slug ).then( function( current ) {
-                        return attachmentService.getAttachmentsByRecipe( current.id );
-                    })
-                },
-                next : function( recipeService, attachmentService, $stateParams ) {
-                    return recipeService.get( $stateParams.slug ).then( function( res ) {
-                        var nextQ = recipeService.next( res.slug );
+                // attachments : function( RecipeService, AttachmentService, $stateParams ) {
+                //     return RecipeService.get( $stateParams.slug ).then( function( current ) {
+                //         return AttachmentService.getAttachmentsByRecipe( current.id );
+                //     })
+                // },
+                next : function( RecipeService, AttachmentService, $stateParams ) {
+                    return RecipeService.get( $stateParams.slug ).then( function( res ) {
+                        var nextQ = RecipeService.next( res.slug );
                         // todo: mmove this to service
-                        nextQ.then( function( next ) {
-                            // preload attachments
-                            attachmentService.getAttachmentsByRecipe( next.id );
-                        });
+                        // nextQ.then( function( next ) {
+                        //     // preload attachments
+                        //     AttachmentService.getAttachmentsByRecipe( next.id );
+                        // });
                         // then return it
                         return nextQ;
                     });
                 },
-                prev : function( recipeService, attachmentService, $stateParams ) {
-                    return recipeService.get( $stateParams.slug ).then( function( res ) {
-                        var prevQ = recipeService.prev( res.slug );
-                        prevQ.then( function( prev ) {
-                            // preload attachments
-                            attachmentService.getAttachmentsByRecipe( prev.id );
-                        });
+                prev : function( RecipeService, AttachmentService, $stateParams ) {
+                    return RecipeService.get( $stateParams.slug ).then( function( res ) {
+                        var prevQ = RecipeService.prev( res.slug );
+                        // prevQ.then( function( prev ) {
+                        //     // preload attachments
+                        //     AttachmentService.getAttachmentsByRecipe( prev.id );
+                        // });
                         // then return it
                         return prevQ;
                     });
                 },
-                last : function( recipeService, $stateParams ) {
-                    return recipeService.last();
-                }
+                //,
+
+                preload : [ '$q', '$timeout', function( $q, $timeout ) {
+                    var deferred = $q.defer();
+                    // $timeout( function() {
+                    deferred.resolve({
+                        src : [
+                            '/assets/images/recipe-pad-background-top.png',
+                            '/assets/images/recipe-pad-background-top-cap.png',
+                            '/assets/images/recipe-pad-background-bottom.png',
+                            '/assets/images/recipe-pad-background-middle.png',
+                            '/assets/images/recipe-pad-background-bottom-tip.png',
+                            '/assets/images/recipe-pad-background-bottom-cap.png'
+                        ]
+                    });
+                    // }, 1000 );
+                    return deferred.promise;
+                } ]
             },
 
             data : {
@@ -65,58 +174,73 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                 //     templateUrl : 'partials/interior/header.html'
                 // },
                 'main' : {
-                    templateUrl : 'recipeView/recipeView.html'
+                    template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$mainCtrl.loadedAssets" recipe="$resolve.recipe" slug="$mainCtrl.setslug( { slug: $resolve.recipe.slug } )"></recipe-view>'
                 },
                 'alt' : {
                     // pass in action nav component to parent level of template
-                    template : '<action-nav next="$resolve.next" prev="$resolve.prev"></action-nav>'
+                    template : '<action-nav state-change="$mainCtrl.stateChange" next="$resolve.next" prev="$resolve.prev"></action-nav>'
                 }
             }
         });
 } ] )
 
-.controller( 'recipeViewCtrl', [
-    '$state',
-    '$stateParams',
-    // from $resolve
-    'recipe',
-    'last',
-    // from service
-    'AnimateScrollService',
-    function( $state, $stateParams, recipe, last, animateScroll ) {
-
-        // set controllerAs
-        var view = this;
-        // 
-        // if no slug goto, last recipe
-        if ( !recipe.id ) {
-            if ( last.slug ) {
-                $state.go( 'recipe', { slug : last.slug });
-            } else {
-                $state.go( '404' );
-            }
-        }
-
-
-        animateScroll.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
-            if ( res ) {
-                console.log( 'animation complete!' );
-                $scope.animateScrollComplete = true;
-            }
-        });
-
-        view.$on( '$destroy', function() {
-            animateScroll.cancel();
-        });
-
-        // add some stuff to the view
-        // 
-        view.print = window.print;
-
-        view.labels = {
-            ingredients : 'Ingredients',
-            instructions : 'Cooking Instructions'
-        }
-
+.component( 'recipeView', {
+    templateUrl : 'recipeView/recipeView.html',
+    controller : recipeViewCtrl,
+    // replace : true,
+    bindings : {
+        recipe : '=',
+        slug : '&?',
+        load: '=?',
+        assets: '='
     }
-] );
+});
+
+// .controller( 'recipeViewCtrl', [
+//     '$state',
+//     '$stateParams',
+//     // from $resolve
+//     'recipe',
+//     'last',
+//     // from service
+//     'AnimateScrollService',
+//     function( $state, $stateParams, recipe, last, animateScroll ) {
+
+//         // set controllerAs
+//         var view = this;
+//         // 
+//         // if no slug goto, last recipe
+//         if ( !recipe.id ) {
+//             // if ( last.slug ) {
+//             //     $state.go( 'recipe', { slug : last.slug });
+//             // } else {
+//                 $state.go( '404' );
+//             // }
+//         }
+
+//         view.hello = 'world';
+//                 view.animateScrollComplete = 'test';
+//         animateScroll.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
+//             // if ( res ) {
+//                 console.log( 'animation complete!' );
+//                 // view.animateScrollComplete = true;
+//                 // 
+//                 view.animateScrollComplete = 'complete';
+//             // }
+//         });
+
+//         view.$on( '$destroy', function() {
+//             animateScroll.cancel();
+//         });
+
+//         // add some stuff to the view
+//         // 
+//         view.print = window.print;
+
+//         view.labels = {
+//             ingredients : 'Ingredients',
+//             instructions : 'Cooking Instructions'
+//         };
+
+//     }
+// ] );

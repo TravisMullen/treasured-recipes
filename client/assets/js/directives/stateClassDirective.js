@@ -1,6 +1,6 @@
 // http://stackoverflow.com/questions/17884399/image-loaded-event-in-for-ng-src-in-angularjs
 // 
-        'use strict';
+'use strict';
 angular.module( 'TreasuredRecipesApp.stateClass', [] )
     // is this bad perf??
     .directive( 'stateClass', function( $window ) {

@@ -6,11 +6,11 @@ describe( 'TreasuredRecipesApp.actionNav module', function() {
 
   describe( 'actionNav controller', function(){
 
-    it( 'should ....', inject( function( $controller ) {
-      //spec body
-      var actionNavCtrl = $controller( 'actionNavCtrl' );
-      expect( actionNavCtrl ).toBeDefined();
-    }) );
+    // it( 'should ....', inject( function( $controller ) {
+    //   //spec body
+    //   var actionNavCtrl = $controller( 'actionNavCtrl' );
+    //   expect( actionNavCtrl ).toBeDefined();
+    // }) );
 
   });
 });

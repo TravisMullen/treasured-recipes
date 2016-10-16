@@ -1,5 +1,5 @@
 // 'use strict';
-// angular.module( 'TreasuredRecipesApp.animateScroll', [] )
+// angular.module( 'TreasuredRecipesApp.AnimateScroll', [] )
 //     .factory( 'AnimateScrollService', [ '$q', '$timeout', '$interval',
 //         function( $q, $timeout, $interval ) {
 
@@ -7,7 +7,9 @@
 
 //                 runTime = 0,
 
-//                 animationDeffered = {},
+//                 // promises
+//                 animationDeffered,
+//                 queueAnim,
 
 //                 stagger = 0, // ms / to be from background styles -
 //                 // $window.getComputedStyle( staggerTarget );
@@ -41,8 +43,8 @@
 //                         lastTop = anchor.top;
 //                         // console.log( 'runTime', runTime );
 //                         $timeout( function( argument ) {
-//                             // console.log( 'animateScroll complete!!', lastTop );
-//                             animationDeffered.resolve();
+//                             console.log( 'autoscroll complete!' );
+//                             animationDeffered.resolve( 'complete' );
 //                         }, animationSpeed );
 //                         runTime = 0;
 //                     }
@@ -55,32 +57,40 @@
 //             // 
 //             // scrollElm - element to have the scroll applied if its not the body
 
-//             function animateScrollPosition() {
-//                 var queueAnim = $q.defer(),
+//             function animateScrollPosition( init ) {
+//                 var anchorElm,
+//                     isInit = !!init;
+
+//                     console.log( 'isInit', isInit ); 
+
+//                 if ( isInit && animateScroll === undefined ) {
+//                     queueAnim = $q.defer();
 //                     anchorElm = targetToView.getBoundingClientRect();
 
-//                 // ANIMATE SCROLL TO TITLE
-//                 // if if target if off screen by more than buffer, then scroll to it
-//                 if ( anchorElm.top < -( anchorElm.height + topMargin ) ) {
-//                     $timeout( function() {
-//                         // deferred.resolve(t);
-//                         var t = moveScroller().then( function( data ) {
-//                             queueAnim.resolve( data );
-//                             animateScroll = undefined;
-//                         });
-//                     }, stagger ); // use: wait for ng-enter/ng-leave to complete
+//                     // ANIMATE SCROLL TO TITLE
+//                     // if if target if off screen by more than buffer, then scroll to it
+//                     if ( anchorElm.top < -( anchorElm.height + topMargin ) ) {
+//                         $timeout( function() {
+//                             // deferred.resolve(t);
+//                             var t = moveScroller().then( function( data ) {
+//                                 queueAnim.resolve( data );
+//                                 animateScroll = undefined;
+//                             });
+//                         }, stagger ); // use: wait for ng-enter/ng-leave to complete
+//                     }
 //                 }
 
 //                 return queueAnim.promise;
 //             }
 
 //             function getElements( scrollTarget, stageTarget ) {
+//                 var target = scrollTarget;
 //                 stageView = typeof( stageTarget ) === 'string' ? document.querySelector( stageTarget ) : document.querySelector( 'body' );
 //                 targetToView = document.querySelector( scrollTarget );
 //                 console.log( 'targetToView', targetToView );
 //                 console.log( 'targetToView.id', targetToView.id );
 //                 console.log( 'targetToView.$id', targetToView.$id );
-//                 return animateScrollPosition();
+//                 return animateScrollPosition( target );
 //             }
 
 //             function cancelScroll() {
@@ -93,15 +103,19 @@
 //             service.scroll = animateScrollPosition;
 //             service.cancel = cancelScroll;
 
-//             // service.listen = function() {
-//             //     var def = $q.defer();
-//             //     if (animateScroll) {
-//             //         def = animationDeffered;
-//             //     } else {
-//             //         def.resolve('complete');
-//             //     }
-//             //     return def.promise;
-//             // };
+//             service.listen = function() {
+//                 var def = $q.defer();
+
+
+//                 if ( queueAnim && animateScroll ) {
+//                     queueAnim.then( function( res ) {
+//                         def.resolve( res );
+//                     });
+//                 } else {
+//                     def.resolve( null );
+//                 }
+//                 return def.promise;
+//             };
 
 //             return service;
 

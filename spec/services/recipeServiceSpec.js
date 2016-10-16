@@ -1,6 +1,6 @@
 // https://www.sitepoint.com/mocking-dependencies-angularjs-tests/
-describe( 'RecipeService', function() {
     'use strict';
+describe( 'RecipeService', function() {
 
 
     var service,

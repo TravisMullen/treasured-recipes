@@ -11,8 +11,8 @@ function notFoundConfig( $stateProvider ) {
             controllerAs : '$ctrl',
 
             resolve : {
-                last : function( recipeService, $stateParams ) {
-                    return recipeService.last();
+                last : function( RecipeService, $stateParams ) {
+                    return RecipeService.last();
                 }
             },
 
@@ -30,7 +30,8 @@ function notFoundConfig( $stateProvider ) {
 
 angular.module( 'TreasuredRecipesApp.notFound', [
     'ui.router',
-    'TreasuredRecipesApp.recipeService',
+    // 'ngAnimate',
+    'TreasuredRecipesApp.RecipeService',
     'TreasuredRecipesApp.templates'
 ] )
 

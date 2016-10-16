@@ -1,9 +1,13 @@
 <!-- actionNav -->
+<!-- {{$ctrl}} -->
+<!-- <h1>$ctrl.showNav:  {{$ctrl.loading }}</h1> -->
 
-<ul class="dark menu-bar fade-in ng-hide" ng-show="$ctrl.next || $ctrl.prev">
+<h1>stateChange:  {{$ctrl.stateChange }}</h1>
+<!-- init {{ :: $ctrl.init }} -->
+<ul class="dark menu-bar fade-in ng-hide" ng-show="$ctrl.stateChange && $ctrl.showNav && ($ctrl.next || $ctrl.prev)">
     <li ng-if="$ctrl.next.slug">
         <a ui-sref="recipe({slug: $ctrl.next.slug})">
-            <span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{$ctrl.next.title.rendered}}</span>
+            <span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{ :: $ctrl.next.title.rendered}}</span>
         </a>
     </li>
     <li class="show-for-medium shrink">
@@ -13,7 +17,7 @@
     </li>
     <li ng-if="$ctrl.prev.slug" class="align-right">
         <a ui-sref="recipe({slug: $ctrl.prev.slug})">
-            <span>{{$ctrl.prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span>
+            <span>{{ :: $ctrl.prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span>
         </a>
     </li>
 </ul>

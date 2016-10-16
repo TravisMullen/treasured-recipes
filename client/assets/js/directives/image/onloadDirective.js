@@ -11,6 +11,7 @@ angular.module( 'loader.onload', [] )
                 link : function( $scope, $element, $attrs ) {
                     var img = new Image();
                     img.onload = function() {
+                        console.log( 'onLoad', onLoad );
                         $scope.onLoad();
                     };
                     img.onerror = function() {

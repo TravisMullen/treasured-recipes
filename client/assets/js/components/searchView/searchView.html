@@ -1,20 +1,19 @@
 <!-- searchView: template -->
-
-<div class="grid-block middle">
+<!-- $ctrl: {{$ctrl.fieldValue}} -->
     <div class="grid-container">
         <div class="grid-block shrink middle pull-down-4">
             <div class="grid-content">
 
-                <header class="grid-block gutters align-center" ng-show="$resolve.recipes.length">
+                <header class="grid-block gutters align-center" ng-show="$ctrl.recipes.length">
                     <div class="grid-block">
-                        <input ng-model="$ctrl.searchValue" class="inline-block radius search-box" type="search" placeholder="Search Recipes">
+                        <input ng-model="$ctrl.searchValue" class="inline-block radius search-box" type="{{ :: $ctrl.fieldType }}" placeholder="{{ :: $ctrl.placeholder }}">
                     </div>
 
                     <div class="grid-block shrink align-center" ng-hide="$ctrl.showList">
                         <a ng-click="$ctrl.showList = true" class="large expanded button radius v-align"><span class="icon-th-list align-center"></span></a>
                     </div>
                     <div class="grid-block shrink align-center" ng-show="$ctrl.showList">
-                        <a ng-click="$ctrl.gotoRecipes()" class="large expanded secondary button radius v-align"><span class="icon-arrow-right align-center"></span></a>
+                        <button ng-click="$ctrl.gotoRecipes()" class="large expanded secondary button radius v-align"><span class="icon-arrow-right align-center"></span></button>
                     </div>
                 </header>
                 <!-- <label class=""> -->
@@ -23,11 +22,12 @@
                 <!-- </span> -->
                 <!-- </label> -->
                 <!-- <ul> -->
+
+                <span ng-show="$ctrl.loading">$ctrl.loading!</span>
                 <ul class="recipe-list fade-in" ng-show="($ctrl.searchValue != '' && $ctrl.searchValue != 'undefined') || $ctrl.showList">
-                    <li  class="recipe-button" ng-repeat="recipe in $resolve.recipes | filter:searchValue:'title.rendered'"><a ui-sref="recipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></a></li>
+                    <li class="recipe-button" ng-repeat="recipe in $ctrl.recipes | filter:$ctrl.searchValue:'title.rendered'"><button ng-click="$ctrl.gotoRecipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></button></li>
                 </ul>
             </div>
         </div>
         <!-- <a ng-click="gotoRecipes()" class="button large">Recipes</a> -->
     </div>
-</div>

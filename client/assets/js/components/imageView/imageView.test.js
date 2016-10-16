@@ -1,15 +1,15 @@
 'use strict';
 
-describe( 'TreasuredRecipesApp.imageView module', function() {
+describe( 'TreasuredRecipesApp.attachmentsView module', function() {
 
-  beforeEach( module( 'TreasuredRecipesApp.imageView' ) );
+  beforeEach( module( 'TreasuredRecipesApp.attachmentsView' ) );
 
-  describe( 'imageView controller', function(){
+  describe( 'attachmentsView controller', function(){
 
     it( 'should ....', inject( function( $controller ) {
       //spec body
-      var imageViewCtrl = $controller( 'imageViewCtrl' );
-      expect( imageViewCtrl ).toBeDefined();
+      var attachmentsViewCtrl = $controller( 'attachmentsViewCtrl' );
+      expect( attachmentsViewCtrl ).toBeDefined();
     }) );
 
   });
