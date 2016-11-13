@@ -24,7 +24,7 @@
                 <!-- <ul> -->
 
                 <span ng-show="$ctrl.loading">$ctrl.loading!</span>
-                <ul class="recipe-list fade-in" ng-show="($ctrl.searchValue != '' && $ctrl.searchValue != 'undefined') || $ctrl.showList">
+                <ul class="recipe-list fade-in">
                     <li class="recipe-button" ng-repeat="recipe in $ctrl.recipes | filter:$ctrl.searchValue:'title.rendered'"><button ng-click="$ctrl.gotoRecipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></button></li>
                 </ul>
             </div>

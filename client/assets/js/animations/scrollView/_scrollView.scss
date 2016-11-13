@@ -1,0 +1,66 @@
+// =============================================================================     
+//   .animation('.scroll-animation')
+// =============================================================================
+
+$animation-duration-default: 800ms !default;
+
+.recipe-button {
+    display: block;
+    .ng-animate {
+        transition: $animation-duration-default ease(out-cubic) translate;
+    }
+    &.ng-enter {
+        // border: 1px solid red;
+        transform: translateY(rem-calc(-4000));
+        // transform: translate3d(100%, 0, 0);
+    }
+
+    &.ng-enter-stagger {
+        /* this will have a 100ms delay between each successive leave animation */
+        transition-delay: $animation-duration-default;
+        // As of 1.4.4, this must always be set: it signals ngAnimate
+        // to not accidentally inherit a delay property from another CSS class
+        transition-duration: 0s;
+    }
+
+    &.ng-enter-active {
+        // border: 1px solid green;
+        transform: translateY(0);
+        // 
+    }
+
+    &.ng-leave {
+        border: 1px solid purple;
+        // transition: $animation-duration-default ease(in-cubic) translate;
+       transform: translateY(0);
+    }
+
+    &.ng-leave-active {
+        border: 1px solid yellow;
+        transform: translateY(rem-calc(200));
+    }
+}
+
+// // Since we're adding/removing CSS classes then the CSS transition will also pick those up:
+
+/* since a hardcoded duration value of 1 was provided in the JavaScript animation code,
+the CSS classes below will be transitioned despite them being defined as regular CSS classes */
+.border-red { border-top: 5px solid red; }
+.border-blue { border-bottom: 5px solid blue; }
+// .large-text { font-size:20px; }
+
+ // we can also use a keyframe animation and $animateCss will make it work alongside the transition 
+.pulse-twice {
+  animation: 0.5s pulse linear 2;
+  -webkit-animation: 0.5s pulse linear 2;
+}
+
+@keyframes pulse {
+  from { transform: scale(0.5); }
+  to { transform: scale(1.5); }
+}
+
+@-webkit-keyframes pulse {
+  from { -webkit-transform: scale(0.5); }
+  to { -webkit-transform: scale(1.5); }
+}

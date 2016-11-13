@@ -1,0 +1,34 @@
+// recipe view template style
+// 
+.old-tablet-seemless {
+    position: relative;
+    filter: drop-shadow(rem-calc(2) rem-calc(4) rem-calc(4) rgba(0, 0, 0, 0.7));
+    margin: rem-calc(320) 0 0 0;
+    padding: 0;
+    min-height: rem-calc(1223);
+    width: rem-calc(760);
+    background-image: url("../images/recipe-pad-background-top.png"), url("../images/recipe-pad-background-bottom.png"), url("../images/recipe-pad-background-middle.png");
+    background-repeat: no-repeat, no-repeat, repeat-y;
+    background-position: center rem-calc(-310), bottom center, center center;
+    &:before,
+    &:after {
+        content: "";
+        width: rem-calc(760);
+        position: absolute;
+        display: block;
+        background-repeat: no-repeat;
+        background-size: rem-calc(760);
+    }
+    &:before {
+        background-image: url("../images/recipe-pad-background-top.png");
+        background-position: top center;
+        top: rem-calc(-310);
+        height: rem-calc(310);
+    }
+    &:after {
+        background-image: url("../images/recipe-pad-background-bottom-tip.png");
+        background-position: top center;
+        bottom: rem-calc(-121);
+        height: rem-calc(121);
+    }
+}

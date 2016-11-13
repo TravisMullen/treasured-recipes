@@ -33,9 +33,10 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
                 var deferred = $q.defer(),
                     cacheTime = +( new Date() ) - cache;
 
-
+                    console.log("recipeId", recipeId);
                 // first check to see if in memory and not too old
-                if ( attachments && ( lastreq > cacheTime ) && recipeId !== lastid ) {
+                if ( attachments && ( lastreq > cacheTime ) && recipeId === lastid ) {
+                    console.log("step 1", (attachments && ( lastreq > cacheTime ) && recipeId === lastid));
                     deferred.resolve( attachments );
                     // }
                     // second check to see if in localstorage and not too old

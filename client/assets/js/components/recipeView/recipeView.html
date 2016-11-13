@@ -32,16 +32,16 @@
 
                         <hr>
                         <section class="pull-down-1">
-                            <h3 class="primary-color">{{ :: $ctrl.labels.ingredients}}</h5>
+                            <h3 class="primary-color">{{ :: $ctrl.labels.ingredients }}</h5>
                             <ul>
-                                <li ng-repeat="ing in $ctrl.recipe.details.recipeIngredient">
+                                <li class="ing" ng-repeat="ing in $ctrl.recipe.details.recipeIngredient">
                                     {{ :: ing }}
                                 </li>
                             </ul>
                         </section>
                         <hr>
                         <section class="pull-down-1" ng-show="$ctrl.recipe.details.recipeInstructions.length">
-                            <h3 class="primary-color">{{ :: $ctrl.labels.instructions}}</h5>
+                            <h3 class="primary-color">{{ :: $ctrl.labels.instructions }}</h5>
                             <ol>
                                 <!-- <li>{{$ctrl.recipe.details.recipeInstructions}}</li> -->
                                 <li ng-repeat="step in $ctrl.recipe.details.recipeInstructions">

@@ -1,15 +1,25 @@
 'use strict';
 // set view
 // 
-function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
+function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollService ) {
     var view = this;
 
-    console.log("view.assets",view.assets);
+    // listen 
+    // 
+    // var elm = angular.element(document).find('.ing');
+    // console.log("elm",elm);
+    // $animate.on('enter', elm, function(element) {
+    //     // the animation for this route has completed
+    //     console.log("[ui-view=main] COMPLETE!", element);
+    //     $scope.$digest();
+    // });
+
+    console.log( 'view.assets', view.assets );
 
     // if ( view.waitFor !== true ) {
     //     $state.go( 'main.loading' );
     // }
-    console.log("$stateParams.slug",$stateParams.slug);
+    console.log( '$stateParams.slug', $stateParams.slug );
     // 
     // if no slug goto, last recipe
     // if ( view.recipe === undefined ) {
@@ -22,14 +32,14 @@ function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
 
     // view.hello = 'world';
     // view.animateScrollComplete = 'test';
-    AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
-        // if ( res ) {
-        console.log( 'animation complete!' );
-        // view.animateScrollComplete = true;
-        // 
-        // view.animateScrollComplete = 'complete';
-        // }
-    });
+    // AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
+    //     // if ( res ) {
+    //     console.log( 'animation complete!' );
+    //     // view.animateScrollComplete = true;
+    //     // 
+    //     // view.animateScrollComplete = 'complete';
+    //     // }
+    // });
 
     // view.$onInit = function() {
         // console.log( '$onInit slug!', view.recipe.slug );
@@ -46,7 +56,7 @@ function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
 
             // remove it on complete
             count.splice( count.indexOf( value ), 1 );
-
+            console.log( 'callbackOnLast', value );
             // none left
             if ( count.length === 0 ) {
 
@@ -66,19 +76,19 @@ function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
    // destory self on state change request
     view.$onInit = function() {
         if ( !view.assets ) {
-            console.log("goto preloading view");
-            if (typeof(view.slug)) {
+            console.log( 'goto preloading view' );
+            if ( typeof( view.slug ) ) {
                 view.slug(); // init cb to set slug
             }
         //     // } else 
         //     //     console.log("view.loaded",view.loaded);
-            $state.go( 'main.loading');
+            $state.go( 'main.loading' );
         }
     };
 
     view.$onDestroy = function() {
-        console.log( '$onDestroy' );
-        AnimateScrollService.cancel();
+        // console.log( '$onDestroy' );
+        // AnimateScrollService.cancel();
     };
 
     // add some stuff to the view
@@ -90,13 +100,18 @@ function recipeViewCtrl( $state, $stateParams, AnimateScrollService ) {
         instructions : 'Cooking Instructions'
     };
 
-}
+} // end of // recipeViewCtrl
 
-recipeViewCtrl.$inject = [ '$state', '$stateParams', 'AnimateScrollService' ];
+recipeViewCtrl.$inject = [ '$scope', '$state', '$stateParams', '$animate', 'AnimateScrollService' ];
 
 angular.module( 'TreasuredRecipesApp.recipeView', [
+
     'ui.router',
-    // 'ngAnimate',
+
+    'ngAnimate',
+    'TreasuredRecipesApp.animations',
+
+
     'TreasuredRecipesApp.RecipeService',
     'TreasuredRecipesApp.AttachmentService',
     'TreasuredRecipesApp.AnimateScroll',
@@ -191,8 +206,8 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
     bindings : {
         recipe : '=',
         slug : '&?',
-        load: '=?',
-        assets: '='
+        load : '=?',
+        assets : '='
     }
 });
 
@@ -244,3 +259,10 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
 
 //     }
 // ] );
+// 
+// ngModule.controller('HomePageController', ['$animate', function($animate) {
+//   $animate.on('enter', ngViewElement, function(element) {
+//     // the animation for this route has completed
+//   }]);
+// }])
+// (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)

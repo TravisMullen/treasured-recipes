@@ -26,6 +26,10 @@
 @import "animation";
 @import "styles";
 
+// modules
+@import "../js/animations/scrollView/scrollView";
+@import "../js/components/recipeView/recipeView";
+@import "../js/components/searchView/searchView";
 
 // @media print {
 //    …

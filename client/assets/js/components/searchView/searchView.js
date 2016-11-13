@@ -30,7 +30,7 @@ function searchViewCtrl( $filter, $state ) {
         view.placeholder = 'Search Recipes!';
         view.searchValue = '';
         if ( !view.loaded ) {
-            $state.go( 'main.loading');
+            $state.go( 'main.loading' );
         }
         // Set a default fieldType
         if ( !view.fieldType ) {
@@ -46,7 +46,7 @@ function searchViewCtrl( $filter, $state ) {
         }
     };
 
-    console.log("view.testFn",view.testFn);
+    console.log( 'view.testFn', view.testFn );
 }
 
 searchViewCtrl.$inject = [ '$filter', '$state' ];
@@ -109,7 +109,10 @@ searchViewConfig.$inject = [ '$stateProvider' ];
 
 angular.module( 'TreasuredRecipesApp.searchView', [
     'ui.router',
-    // 'ngAnimate',
+
+    'ngAnimate',
+    'TreasuredRecipesApp.animations',
+    
     'TreasuredRecipesApp.RecipeService',
     'TreasuredRecipesApp.templates'
 ] )
@@ -124,7 +127,7 @@ angular.module( 'TreasuredRecipesApp.searchView', [
     bindings : {
         recipes : '=',
         last : '=',
-        stateChange: '=?',
+        stateChange : '=?',
         loaded : '='
 
         // searchValue : '=',

@@ -37,7 +37,8 @@ angular.module( 'loader.image', [ 'loader.section' ] )
                 restrict : 'EA',
                 require : [ '^imageSection' ],
                 scope : {
-                    'onLoad' : '=onLoad'
+                    'onLoad' : '=onLoad',
+                    'cache' : '@'
                 },
                 link : function( $scope, $element, $attrs, parent ) {
                     var clear,
@@ -61,8 +62,9 @@ angular.module( 'loader.image', [ 'loader.section' ] )
                         },
                         function( src ) {
                             var toCall;
-
-                            src += '?v=' + __NOW__ + '_' + uid;
+                            if ( $attrs.nocache ) {
+                                src += '?v=' + __NOW__ + '_' + uid;
+                            }
 
                             $element.attr( 'hidden', 'true' );
                             parent[ 0 ].register( $element[ 0 ], function() {

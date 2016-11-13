@@ -3,30 +3,30 @@
 
 function attachmentsViewCtrl( AttachmentService ) {
     var view = this,
-        count = [],
-        attachs = [];
+        count = [];
     // console.log( 'view.aid', view.aid );
     // console.log( 'view.source', view.source );
     // view.$onDestroy = function() {
     //     console.log( '$onDestroy' );
-    //     attachs = [];
-    //     count = [];
     // };
     view.$onInit = function() {
+        view.attachs = [];
         AttachmentService.getAttachmentsByRecipe( view.aid ).then( function( res ) {
             if ( res && res.length ) {
+                // console.log("res",res);
                 view.attachs = res;
                 count = res.slice( 0 );
+                // console.log(" view.aid", view.aid);
+                // console.log( '$onInit', view.attachs );
             }
         });
     };
-    view.attachs = attachs;
 
         // all asset will call the same callback
         function callbackOnLast( src ){
             // remove it on complete
             count.splice( 0, 1 );
-            console.log( 'src', src );
+            // console.log( 'src', src );
             // none left
             if ( count.length === 0 ) {
                 console.log( 'last!', src );

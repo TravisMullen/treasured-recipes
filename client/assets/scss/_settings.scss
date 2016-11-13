@@ -121,6 +121,9 @@ $gray: $iron;
 $gray-dark: darken($gray, 8);
 $gray-light: lighten($gray, 8);
 
+$dark-brown: #8c6154;
+$light-brown: #B38667;
+
 $primary-color: #013C78;
 $secondary-color: #f1f1f1;
 $alert-color: #93311B;
@@ -141,7 +144,11 @@ $global-spacing: rem-calc(15);
 $base-increment-distance: $global-spacing; // legal
 
 // We use these to control various global styles
-$body-background: $primary-color;
+$body-background: linear-gradient(
+    to bottom,
+    $light-brown,
+    $dark-brown
+  );;
 $background-image: linear-gradient(to bottom, $body-background 40%, $black 100%);
 $body-font-color: #222;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;

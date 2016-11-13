@@ -57,7 +57,8 @@ var paths = {
         '!./client/assets/{scss,js}/**/*.*'
     ],
     // Sass will check these folders for files when you use @import.
-    sass : [
+    sass : [,
+        'client/assets/js/**/*.scss',
         'client/assets/scss',
         'bower_components/foundation-apps/scss'
     ],

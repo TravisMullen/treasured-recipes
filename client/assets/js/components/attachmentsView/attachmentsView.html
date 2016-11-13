@@ -1,6 +1,12 @@
 <!-- attachmentsView -->
-Attachs: {{$ctrl.attachs.length}}
 <image-section class="grid-block wrap gutters align-justify" ng-if="$ctrl.attachs.length > 0">
+<!--     <div ng-if="$ctrl.attachs.length">
+        <div class="grid-content">
+            <a ui-sref="image({imgid: asset.id})" title="View Image">
+                <image-loader on-load="$ctrl.showImg" background-replace="true" class="old-world" src="asset.media_details.sizes['recipe-thumbnail'].source_url" alt="Description" />
+            </a>
+        </div>
+    </div> -->
     <div class="grid-block medium-4 image-attachment" ng-if="asset.id == $ctrl.featured" ng-repeat="asset in $ctrl.attachs" ng-class="{'loaded': $ctrl.showImages }">
         <div class="grid-content">
             <a ui-sref="image({imgid: asset.id})" title="View Image">
@@ -16,3 +22,4 @@ Attachs: {{$ctrl.attachs.length}}
         </div>
     </div>
 </image-section>
+<span ng-if="$ctrl.attachs.length && !$ctrl.showImages">Loading images...</span>

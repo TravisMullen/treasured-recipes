@@ -1,18 +1,17 @@
 'use strict';
 
-
-function actionNavCtrl( AnimateScroll ) {
+function actionNavCtrl( $timeout, AnimateScroll ) {
     var view = this;
-    // console.log("view",view);
-    // console.log("view.stateChange",view.stateChange);
-    // view.stateChange = true;
-    // AnimateScroll.listen().then( function( res ) {
-        // console.log("res",res);
+    $timeout( function() {
         view.showNav = true;
-    // });
+    }, 30 );
+
+    view.$onDestroy = function() {
+        console.log( 'actionNavCtrl $onDestroy' );
+    };
 }
 
-actionNavCtrl.$inject = [ 'AnimateScrollService' ];
+actionNavCtrl.$inject = [ '$timeout', 'AnimateScrollService' ];
 
 angular.module( 'TreasuredRecipesApp.actionNav', [
     
@@ -27,6 +26,6 @@ angular.module( 'TreasuredRecipesApp.actionNav', [
     bindings : {
         next : '<',
         prev : '<',
-        stateChange: '=?'
+        stateChange : '=?'
     }
 });

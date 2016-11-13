@@ -1,4 +1,20 @@
 $animation-duration-default: 800ms !default;
+
+
+// Performance
+// 
+// Animating most properties is a performance concern, 
+// so we should proceed with caution before animating any property. 
+// However, there are certain combinations that 
+// can be animated safely:
+// 
+// transform: translate()
+// transform: scale()
+// transform: rotate()
+// opacity
+
+
+
 %ease {
     /* The default, as in, you get this without defining anything */
     transition-timing-function: ease;
@@ -124,8 +140,7 @@ ui-view {
 .grid-frame {}
 
 .background-wrapper {
-    background-color: $primary-color;
-    transition: background-color $animation-duration-default ease(in-sine);
+    background-color: $dark-brown;
     z-index: -1;
     // border: 10px solid red;
     position: absolute;
@@ -145,7 +160,7 @@ ui-view {
         display: block;
     }
     .background-loading & {
-        background-color: $smoke;
+        background-color: $light-brown;
     }
 }
 
@@ -157,14 +172,24 @@ $height: rem-calc(3600);
     width: $width;
     height: $height;
     transform-origin: -50% -50% 0;
-    transition: transform $animation-duration-default*2 ease(in-sine);
+
+
+    /* property name | duration | timing function | delay */
+    // transition:
+    transition-property: opacity, translate;
+    transition-duration: $animation-duration-default*2;
+    transition-timing-function: ease(in-sine);
+
+
+
+
+
     // transition-speed: 
     opacity: 0;
    
     &.background-loading,
     .background-loading & {
         opacity: 0;
-        transition: opacity $animation-duration-default ease(in-sine);
         transform: translate(calc(100vw - #{$width}),calc(100vh - #{$height}));
         // background-position: rem-calc(-2575) center;
     }
@@ -190,6 +215,35 @@ $height: rem-calc(3600);
         // background-position: 0 right;
     }
 }
+
+// .scroll-animation {
+//     &.enter {
+//         transition: $animation-duration-default*4 ease(out-cubic) transform;
+//         transform: translateY(rem-calc(-4000));
+//         // transform: translate3d(100%, 0, 0);
+//     }
+
+//     &.enter-stagger {
+//         // this will have a 100ms delay between each successive leave animation */
+//         transition-delay: $animation-duration-default*2;
+//         // As of 1.4.4, this must always be set: it signals ngAnimate
+//         // to not accidentally inherit a delay property from another CSS class */
+//         transition-duration: 0s;
+//     }
+
+//     &.enter-active {
+//         transform: translateY(0);
+//     }
+
+//     &.leave {
+//         transition: $animation-duration-default*2 ease(in-cubic) transform;
+//         transform: translateY(0);
+//     }
+
+//     &.leave-active {
+//         transform: translateY(rem-calc(4000));
+//     }
+// }
 
 // [ui-view="main"] {
 //     // config
@@ -226,19 +280,19 @@ $height: rem-calc(3600);
 //     }
 //     &.ng-recipe-enter-stagger,
 //     &.ng-enter-stagger {
-//         .state-class-active & {
+//         // .state-class-active & {
 //         /* this will have a 100ms delay between each successive leave animation */
 //         transition-delay: $animation-duration-default*2;
 //         /* As of 1.4.4, this must always be set: it signals ngAnimate
 //         to not accidentally inherit a delay property from another CSS class */
 //         transition-duration: 0s;
-//         }
+//         // }
 //     }
 //     &.ng-recipe-enter-active,
 //     &.ng-enter-active {
-//         .state-class-active & {
+//         // .state-class-active & {
 //             transform: translateY(0);
-//         }
+//         // }
 //         // transform: translate3d(0, 0, 0);
 //     }
 //     &.ng-recipe-leave,
@@ -253,9 +307,9 @@ $height: rem-calc(3600);
 //     &.ng-recipe-leave-active,
 //     &.ng-leave-active {
 //         // opacity: 0;
-//         .state-class-active & {
+//         // .state-class-active & {
 //             transform: translateY(rem-calc(4000));
-//         }
+//         // }
 //         // transform: translate3d(-100%, 0, 0);
 //     }
 //     // &.ng-leave,
@@ -339,28 +393,72 @@ $height: rem-calc(3600);
 // FOOTER ANIMATION STYLES
 // }
 // 
-// 
-.recipe-button {
-    animation-duration: 0.8s;
-    &.ng-enter //,
-    // .recipe-list.ng-show 
-    {
-        // opacity: 1;
-        // max-height: 30px;
-        animation-name: searchin;
-        animation-timing-function: easein;
-    }
-    &.ng-leave //,
-    // .recipe-list.ng-hide
-    // .recipe-button.ng-move,
-    // .recipe-button.ng-enter 
-    {
-        animation-name: searchout;
-        animation-timing-function: easein;
-        // opacity: 0;
-        // max-height: 0;
-    }
-}
+//
+
+// .recipe-button {
+//     animation-duration: $animation-duration-default;
+//     // animation-duration: 0.8s;
+
+//     // animation // pure CSS only
+//     // &.ng-enter //,
+//     // // .recipe-list.ng-show 
+//     // {
+//     //     // opacity: 1;
+//     //     // max-height: 30px;
+//     //     animation-name: searchin;
+//     //     animation-timing-function: easein;
+//     // }
+//     // &.ng-leave //,
+//     // // .recipe-list.ng-hide
+//     // // .recipe-button.ng-move,
+//     // // .recipe-button.ng-enter 
+//     // {
+//     //     animation-name: searchout;
+//     //     animation-timing-function: easein;
+//     //     // opacity: 0;
+//     //     // max-height: 0;
+//     // }
+
+//     // opacity:0;
+//     &.ng-enter,
+//     &.ng-move,
+//     &.ng-leave {
+//       /* standard transition code */
+//       // transition: 1s linear opacity;
+//       // cubic-bezier(0.42, 0, 0.58, 1) // ease-in-out
+//       transition: 1s cubic-bezier(0.42, 0, 0.58, 1) opacity;
+//     }
+//     &.ng-enter-stagger {
+//       // this will have a 600ms delay between each successive leave animation
+//       transition-delay: 1s;
+
+//       /* As of 1.4.4, this must always be set: it signals ngAnimate
+//         to not accidentally inherit a delay property from another CSS class */
+//       transition-duration: 0s;
+//     }
+//     &.ng-enter.ng-enter-active {
+//       /* standard transition styles */
+//       opacity:1;
+
+//     }    
+
+//     &.ng-leave {
+//       /* standard transition code */
+//       opacity:0;
+//     }
+//     &.ng-leave-stagger {
+//       /* this will have a 100ms delay between each successive leave animation */
+//       transition-delay: 0.1s;
+
+//       /* As of 1.4.4, this must always be set: it signals ngAnimate
+//         to not accidentally inherit a delay property from another CSS class */
+//       transition-duration: 0s;
+//     }
+//     &.ng-leave.ng-enter-active {
+//       /* standard transition styles */
+//       opacity:1;
+//     }
+// }
 
 // .recipe-button.ng-le
 .ng-show.slide {
