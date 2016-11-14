@@ -1,0 +1,62 @@
+// image view template style
+// 
+[ui-view="image-stage"] {
+	position: relative;
+    &.ng-enter {
+        transition: opacity ease-in $animation-duration-default/2;
+        opacity: 0;
+    }
+    &.ng-enter-active {
+        opacity: 1;
+    }
+    .modal {
+        animation-name: scrollin;
+        animation-duration: $animation-duration-default*2;
+        animation-timing-function: easein;
+    }
+    &.ng-leave {
+        transition: opacity ease-out $animation-duration-default/2;
+    }
+    &.ng-leave-active {
+        opacity: 0;
+    }
+}
+
+image-view {
+	position: absolute;
+	border: 1px solid red;
+}
+
+.old-world {
+    position: relative;
+    width: rem-calc(150);
+    height: rem-calc(1);
+    border: rem-calc(4) solid transparent;
+    background-color: transparent;
+    opacity: 0;
+    background-size: 100% cover;
+    transition: all $animation-duration-default*2 ease(in-sine);
+
+    .loaded & {
+        opacity: 1;
+        height: rem-calc(90);
+        border-color: $border-color;
+    }
+
+
+    img {
+        display: none;
+    }
+
+    display: block;
+    margin: 0 auto;
+
+    filter: sepia(0.9);
+    [href] & {
+        &:hover {
+            filter: sepia(0.1);
+            border-color: $border-color;
+        }
+    }
+
+}

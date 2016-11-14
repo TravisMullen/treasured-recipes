@@ -3,10 +3,13 @@
     <div class="grid-container">
         <div class="grid-block shrink middle pull-down-4">
             <div class="grid-content">
-
                 <header class="grid-block gutters align-center" ng-show="$ctrl.recipes.length">
                     <div class="grid-block">
-                        <input ng-model="$ctrl.searchValue" class="inline-block radius search-box" type="{{ :: $ctrl.fieldType }}" placeholder="{{ :: $ctrl.placeholder }}">
+                        <input ng-model="$ctrl.searchValue" 
+                            ng-model-options="{ debounce: 400 }" 
+                            class="inline-block radius search-box" 
+                            type="{{ :: $ctrl.fieldType }}" 
+                            placeholder="{{ :: $ctrl.placeholder }}">
                     </div>
 
                     <div class="grid-block shrink align-center" ng-hide="$ctrl.showList">
@@ -16,16 +19,10 @@
                         <button ng-click="$ctrl.gotoRecipes()" class="large expanded secondary button radius v-align"><span class="icon-arrow-right align-center"></span></button>
                     </div>
                 </header>
-                <!-- <label class=""> -->
-                <!-- Search Recipes -->
-                <!-- <span class="inline-label"> -->
-                <!-- </span> -->
-                <!-- </label> -->
-                <!-- <ul> -->
 
-                <span ng-show="$ctrl.loading">$ctrl.loading!</span>
-                <ul class="recipe-list fade-in">
-                    <li class="recipe-button" ng-repeat="recipe in $ctrl.recipes | filter:$ctrl.searchValue:'title.rendered'"><button ng-click="$ctrl.gotoRecipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></button></li>
+                <!-- <span ng-show="$ctrl.loaded" class="ng-hide">$ctrl.loading!</span> -->
+                <ul>
+                    <li class="recipe-button" ng-repeat="recipe in $ctrl.recipes | filter:$ctrl.searchRecipes"><button ng-click="$ctrl.gotoRecipe({slug: recipe.slug})" class="button large bg-border-color radius" title="">{{recipe.title.rendered}}&nbsp;<span class="icon-caret-right"></span></button></li>
                 </ul>
             </div>
         </div>

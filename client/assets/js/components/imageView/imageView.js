@@ -1,21 +1,22 @@
 'use strict';
 
 
-function imageViewCtrl( AttachmentService ) {
+function imageViewCtrl( $state ) {
     var view = this;
-    console.log( 'view.aid', view.aid );
-    console.log( 'view.source', view.source );
-    AttachmentService.getAttachmentsByRecipe( view.aid ).then( function( res ) {
-    	console.log( 'res.length', res.length );
-        view.attachs = res;
-    });
+    // bind this to external fn
+    function close() {
+        $state.go( '^' );
+    }
+    view.close = close;
 }
 
-imageViewCtrl.$inject = [ 'AttachmentService' ];
+imageViewCtrl.$inject = [ '$state' ];
 
 angular.module( 'TreasuredRecipesApp.imageView', [
 	
-    // 'TreasuredRecipesApp.AttachmentService',
+    'ui.router',
+
+    'TreasuredRecipesApp.AttachmentService',
 
     'TreasuredRecipesApp.templates'
 ] )
@@ -24,22 +25,21 @@ angular.module( 'TreasuredRecipesApp.imageView', [
         .state( 'image', {
 
             parent : 'recipe',
-            url : '/image/:iid',
+            url : '/image/:imgid',
 
             data : {
                 classList : [ 'image-view' ]
             },
-
+            resolve : {
+                assetURL : [ '$stateParams', 'AttachmentService', function( $stateParams, AttachmentService ) {
+                    console.log( 'resolve Params.imgid', $stateParams.imgid );
+                    return AttachmentService.getAttachmentsByRecipe( $stateParams.imgid );
+                } ]
+            },
             views : {
-            //     // 'header' : {
-            //     //     templateUrl : 'partials/interior/header.html'
-            //     // },
-            //     'main' : {
-            //         template : '<recipe-view class="grid-block align-center" set-slug-main="$mainCtrl.setSlug" recipe="$resolve.recipe" attachments="$resolve.attachments"></recipe-view>'
-            //     },
-                'alt' : {
+                'image-stage' : {
                     // pass in action nav component to parent level of template
-                    template : '<image-view></image-view>'
+                    template : '<image-view source="$resolve.assetURL"></image-view>'
                 }
             }
         });
@@ -48,8 +48,6 @@ angular.module( 'TreasuredRecipesApp.imageView', [
     templateUrl : 'imageView/imageView.html',
     controller : imageViewCtrl,
     bindings : {
-        featured : '<',
-        source : '@',
-        aid : '<'
+        source : '@'
     }
 });

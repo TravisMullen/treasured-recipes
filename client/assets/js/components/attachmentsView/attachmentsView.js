@@ -4,43 +4,36 @@
 function attachmentsViewCtrl( AttachmentService ) {
     var view = this,
         count = [];
-    // console.log( 'view.aid', view.aid );
-    // console.log( 'view.source', view.source );
-    // view.$onDestroy = function() {
-    //     console.log( '$onDestroy' );
-    // };
+
     view.$onInit = function() {
         view.attachs = [];
         AttachmentService.getAttachmentsByRecipe( view.aid ).then( function( res ) {
             if ( res && res.length ) {
-                // console.log("res",res);
                 view.attachs = res;
                 count = res.slice( 0 );
-                // console.log(" view.aid", view.aid);
-                // console.log( '$onInit', view.attachs );
             }
         });
     };
 
-        // all asset will call the same callback
-        function callbackOnLast( src ){
-            // remove it on complete
-            count.splice( 0, 1 );
-            // console.log( 'src', src );
-            // none left
-            if ( count.length === 0 ) {
-                console.log( 'last!', src );
-                // // assets are all loaded...
-                view.showImages = true;
+    // all asset will call the same callback
+    function callbackOnLast( src ){
+        // remove it on complete
+        count.splice( 0, 1 );
+        // console.log( 'src', src );
+        // none left
+        if ( count.length === 0 ) {
+            console.log( 'last!', src );
+            // // assets are all loaded...
+            view.showImages = true;
 
-                // // goto next route
-                // if ( view.slug ) {
-                //     $state.go( 'recipe', { slug : view.slug });
-                // } else {
-                //     $state.go( 'search' );
-                // }
-            }
+            // // goto next route
+            // if ( view.slug ) {
+            //     $state.go( 'recipe', { slug : view.slug });
+            // } else {
+            //     $state.go( 'search' );
+            // }
         }
+    }
 
     view.showImg = callbackOnLast; 
 }

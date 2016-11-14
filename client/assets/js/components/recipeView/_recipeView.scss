@@ -1,5 +1,17 @@
 // recipe view template style
 // 
+// 
+// 
+family-recipe {
+    display: block;
+    margin-left: rem-calc(-80);
+    // padding-left: rem-calc(50);
+    // .inner-wrap {
+    //  margin-left: rem-calc(120);
+    //  max-width: rem-calc(700);
+    // }
+}
+
 .old-tablet-seemless {
     position: relative;
     filter: drop-shadow(rem-calc(2) rem-calc(4) rem-calc(4) rgba(0, 0, 0, 0.7));

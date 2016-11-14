@@ -1,2 +1,14 @@
 <!-- imageView -->
-<p>This is the partial for view 1.</p>
+<div class="modal-overlay is-active" ng-click="close()">
+    <div class="collapse modal is-active">
+        <div class="grid-block vertical">
+            <div class="grid-content text-center">
+                <h3 ng-if="image.caption" class="center">{{image.caption}}</h3>
+                <img ng-src="{{image.media_details.sizes.full.source_url}}" alt="{{image.alt_text}}" />
+                <hr>
+                <button class="button text-center" title="Close Image" ng-click="close()" type="button">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

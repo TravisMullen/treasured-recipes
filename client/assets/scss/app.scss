@@ -18,7 +18,7 @@
 @import "foundation-apps/local/switch";
 @import "foundation-apps/local/type";
 
-@import "custom-elements";
+// @import "custom-elements";
 
 @import "image-modal";
 @import "panel";
@@ -28,8 +28,15 @@
 
 // modules
 @import "../js/animations/scrollView/scrollView";
+
+// todo; use angular-ui-router-styles
+
+// @import "../js/components/recipeView/mainView";
+@import "../js/components/actionNav/actionNav";
 @import "../js/components/recipeView/recipeView";
 @import "../js/components/searchView/searchView";
+@import "../js/components/imageView/imageView";
+@import "../js/components/attachmentsView/attachmentsView";
 
 // @media print {
 //    …

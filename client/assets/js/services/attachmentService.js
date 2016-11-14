@@ -32,11 +32,9 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
             function getAttachmentsByRecipe( recipeId ) {
                 var deferred = $q.defer(),
                     cacheTime = +( new Date() ) - cache;
-
-                    console.log("recipeId", recipeId);
                 // first check to see if in memory and not too old
+                // and that is it not the same as the last in memory req
                 if ( attachments && ( lastreq > cacheTime ) && recipeId === lastid ) {
-                    console.log("step 1", (attachments && ( lastreq > cacheTime ) && recipeId === lastid));
                     deferred.resolve( attachments );
                     // }
                     // second check to see if in localstorage and not too old
@@ -61,7 +59,7 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
                     }).then( function successCallback( response ) {
                         // this callback will be called asynchronously
                         // when the response is available
-                        console.log( 'successCallback response', response );
+                        // console.log( 'successCallback response', response );
                         // set to global of `data`
                         attachments = response.data;
                         buildHash();

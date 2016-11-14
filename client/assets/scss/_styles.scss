@@ -79,26 +79,7 @@ body {
 //     animation-timing-function: ease;
 // }
 
-[ui-view="modal"] {
-    &.ng-enter {
-        transition: opacity ease-in $animation-duration-default/2;
-        opacity: 0;
-    }
-    &.ng-enter-active {
-        opacity: 1;
-    }
-    .modal {
-        animation-name: scrollin;
-        animation-duration: $animation-duration-default*2;
-        animation-timing-function: easein;
-    }
-    &.ng-leave {
-        transition: opacity ease-out $animation-duration-default/2;
-    }
-    &.ng-leave-active {
-        opacity: 0;
-    }
-}
+
 
 // .main-leave
 // .main-leave-active

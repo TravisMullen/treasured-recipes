@@ -1,16 +1,16 @@
-'use strict';
+// 'use strict';
 
-describe( 'TreasuredRecipesApp.attachmentsView module', function() {
+// describe( 'TreasuredRecipesApp.attachmentsView module', function() {
 
-  beforeEach( module( 'TreasuredRecipesApp.attachmentsView' ) );
+//   beforeEach( module( 'TreasuredRecipesApp.attachmentsView' ) );
 
-  describe( 'attachmentsView controller', function(){
+//   describe( 'attachmentsView controller', function(){
 
-    it( 'should ....', inject( function( $controller ) {
-      //spec body
-      var attachmentsViewCtrl = $controller( 'attachmentsViewCtrl' );
-      expect( attachmentsViewCtrl ).toBeDefined();
-    }) );
+//     it( 'should ....', inject( function( $controller ) {
+//       //spec body
+//       var attachmentsViewCtrl = $controller( 'attachmentsViewCtrl' );
+//       expect( attachmentsViewCtrl ).toBeDefined();
+//     }) );
 
-  });
-});
+//   });
+// });

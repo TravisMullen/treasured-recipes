@@ -96,8 +96,8 @@ function mainViewConfig( $stateProvider ) {
 
 angular.module( 'TreasuredRecipesApp.mainView', [
 
-    'ui.router',
     'ngAnimate', // trickles down to sub-views
+    'ui.router',
     'TreasuredRecipesApp.animations',
     // image perloader directive
     'loader.image',

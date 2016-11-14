@@ -4,41 +4,71 @@
 
 $animation-duration-default: 800ms !default;
 
-.recipe-button {
+// .stage {
+//     position: relative;
+// }
+
+.scroll-view {
     display: block;
-    .ng-animate {
-        transition: $animation-duration-default ease(out-cubic) translate;
+    position: relative;
+    // top:0;
+    // left:0;
+    &.ng-animate {
+        // position: absolute;
+        // top:0;
+        // left:0;
+        // right:0;
+        // bottom:0;
+            transition: opacity, transform cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+        // transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+    }
+    &.ng-enter,
+    &.ng-leave {
+          width:100%;
+
+    }
+    &.ng-enter-prepare {
+        opacity: 0;
     }
     &.ng-enter {
-        // border: 1px solid red;
-        transform: translateY(rem-calc(-4000));
-        // transform: translate3d(100%, 0, 0);
+        // left:100%;
+        transform: translateY(rem-calc(4000));
+        &.ng-enter-active {
+            opacity: 1;
+            // left:0;
+            transform: translateY(0);
+        }
     }
-
     &.ng-enter-stagger {
-        /* this will have a 100ms delay between each successive leave animation */
-        transition-delay: $animation-duration-default;
-        // As of 1.4.4, this must always be set: it signals ngAnimate
-        // to not accidentally inherit a delay property from another CSS class
-        transition-duration: 0s;
+        &.ng-enter-stagger-active {
+            /* this will have a 100ms delay between each successive leave animation */
+            transition-delay: $animation-duration-default;
+            /* As of 1.4.4, this must always be set: it signals ngAnimate
+            to not accidentally inherit a delay property from another CSS class */
+            transition-duration: 0s;
+        }
     }
 
-    &.ng-enter-active {
-        // border: 1px solid green;
-        transform: translateY(0);
-        // 
+    // &.ng-enter-stagger-active,
+    // &.ng-move-stagger-active,
+    // &.ng-leave-stagger-active {
+
+    // }
+
+
+    &.ng-leave-prepare {
     }
 
     &.ng-leave {
-        border: 1px solid purple;
-        // transition: $animation-duration-default ease(in-cubic) translate;
-       transform: translateY(0);
+        // opacity: 1;
+        transform: translateY(rem-calc(0));
+        &.ng-leave-active {
+            transform: translateY(rem-calc(-4000));
+            opacity: 0;
+            // left:-100%;
+        }
     }
 
-    &.ng-leave-active {
-        border: 1px solid yellow;
-        transform: translateY(rem-calc(200));
-    }
 }
 
 // // Since we're adding/removing CSS classes then the CSS transition will also pick those up:

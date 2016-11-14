@@ -2,81 +2,61 @@
 /* jshint: global translateY */
 'use strict';
 
-angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] )
-    .animation( '.recipe-button', [ '$animateCss', function( $animateCss ) {
-        console.log( '.scroll-animation loaded!' );
-        return {
-            enter : function( element, doneFn ) {
-                var height = element[ 0 ].offsetHeight;
-                console.log( 'enter height', height );
-                return $animateCss( element, {
-                    applyClassesEarly : true,
-                    event : 'enter',
-                    structural : true,
-                    addClass : 'border-red',
-                    // easing : 'ease-out',
-                    from : { 'height' : '0px'  },
-                    to : { 'height' : height + 'px' },
-                    // from : { transform : 'translateY( -' + height + 'px )' },
-                    // to : { transform : 'translateY( 0px )'  },
-                    stagger : true
-                    // event: 'enter',
-                    // stagger : 800,
-                    // duration : 3
-                    // duration : 1 // one second
-                });
-            }//,
+// angular.module( 'TreasuredRecipesApp.animations' )
+//     .animation( '.scroll-view', [ '$animateCss', function( $animateCss ) {
+// //         console.log( '.scroll-animation loaded!' );
+//         return {
+//             enter : function( element, doneFn ) {
+//                 var height = element[ 0 ].offsetHeight;
+//                 console.log( 'element.parent()', element.parent() );
+//                 // document.querySelector(selectors);
+//                 // 
 
-            // move : function( element, doneFn ) {
-            //     var height = element[ 0 ].offsetHeight;
-            //     console.log( 'enter height', height );
-            //     return $animateCss( element, {
-            //         applyClassesEarly : true,
-            //         event : 'enter',
-            //         structural : true,
-            //         addClass : 'border-blue'//,
-            //         // easing : 'ease-out',
-            //         // from : { 'margin-top' : '-' + height + 'px'  },
-            //         // to : { 'margin-top' : '0px' },
-            //         // from : { transform : 'translateY( -' + height + 'px )' },
-            //         // to : { transform : 'translateY( 0px )'  },
-                    
-            //         // event: 'enter',
-            //         // stagger : 800,
-            //         // duration : 3
-            //         // duration : 1 // one second
-            //     });
-            // },
 
-            // leave : function( element, doneFn ) {
-            //     var width = element[ 0 ].offsetWidth;
-            //     console.log( 'leave width', width );
-            //     var anim = $animateCss( element, {
-            //         applyClassesEarly : true,
-            //         event : 'enter',
-            //         structural : true,
-            //         addClass : 'border-red',
-            //         // addClass : 'pulse-twice border-red',
-            //         // addClass : 'enter pulse-twice',
-            //         // event: 'enter',
-            //         // easing : 'ease-out',
-            //         // from : { 'margin-top' : '0px'  },
-            //         // to : { 'margin-top' : height + 'px' },
-            //         // to : { transform : 'translateY( '+ width + 'px )' },
-            //         // duration : 3
-            //         // duration : 1 // one second
-            //     }).start();
+//                 return $animateCss( element, {
+//                     // applyClassesEarly : true,
+//                     // event : 'enter',
+//                     // structural : true,
+//                     // addClass : 'border-red'
+//                     // easing : 'ease-out',
+//                     // from : { 'top' : '-'+height + 'px' },
+//                     // to : { 'top' : '0px'  }
+//                     from : { transform : 'translateY( - ' + height + 'px )' },
+//                     to : { transform : 'translateY( 0px )'  }
+//                     // stagger : true
+//                     // event: 'enter',
+//                     // stagger : 800,
+//                     // duration : 3
+//                     // duration : 1 // one second
+//                 });
+//                 // return doneFn;
+//             },
 
-            //     anim.then( function() {
-            //         // element.remove();
-            //         console.log("complete!");
-            //         // doneFn();
-            //     });
+// //         //     move : function( element, doneFn ) {
+// //         //         return doneFn;
+// //         //     },
 
-            //     return anim;
-            // }
-        }
-    } ] );
+//             leave : function( element, doneFn ) {
+//                 var height = element[ 0 ].offsetHeight;
+//                 return $animateCss( element, {
+//                     // applyClassesEarly : true,
+//                     // event : 'enter',
+//                     // structural : true,
+//                     // addClass : 'border-red'
+//                     // easing : 'ease-out',
+//                     // from : {  'top' : '0px'  },
+//                     // to : { 'top' : height + 'px' }
+//                     from : { transform : 'translateY( 0px )'  },
+//                     to : { transform : 'translateY( ' + height + 'px )' }
+//                     // stagger : true
+//                     // event: 'enter',
+//                     // stagger : 800,
+//                     // duration : 3
+//                     // duration : 1 // one second
+//                 });
+//             }
+//         }
+//     } ] );
 
 // // Since we're adding/removing CSS classes then the CSS transition will also pick those up:
 

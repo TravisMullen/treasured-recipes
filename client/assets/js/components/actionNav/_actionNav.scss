@@ -1,0 +1,44 @@
+// action nav view template style
+// 
+// 
+[ui-view="alt"] {
+    border-top: 1px solid $black;
+    background-color: rgba($black, 0.2);
+    // position: fixed;
+    // bottom: 0;
+    // position: fixed;
+    // bottom: 0;
+    // .ng-leave &,
+    // .ng-move,
+    // .ng-hide {
+    //     animation-name: slideout;
+    //     animation-duration: 1s;
+    //     animation-timing-function: ease;
+    // }
+    // .ng-enter &,
+    // .ng-move-active,
+    // .ng-show {
+    //     animation-delay: 0.5s;
+    //     animation-name: slidein;
+    //     animation-duration: 1s;
+    //     animation-timing-function: ease;
+    // }
+    // .fade-in {
+    // 
+    .menu-bar {
+        // border: 1px solid red;
+        // animation-duration: 1s;
+        &.ng-hide {
+            animation-name: slideout;
+            animation-delay: 0;
+            animation-duration: 1s;
+            animation-timing-function: easein;
+        }
+        // &.ng-show {
+        animation-name: slidein;
+        // animation-delay: 2s;
+        animation-duration: 0.2s;
+        animation-timing-function: easein;
+        // }
+    }
+}

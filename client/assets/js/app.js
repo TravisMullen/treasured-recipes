@@ -1,9 +1,11 @@
 'use strict';
 
+angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] );
 // Declare app level module which depends on views, and components
 angular.module( 'TreasuredRecipesApp', [
-
+    
     'ui.router',
+    'TreasuredRecipesApp.animations',
 
     'TreasuredRecipesApp.mainView',
 
@@ -12,7 +14,7 @@ angular.module( 'TreasuredRecipesApp', [
 
     'TreasuredRecipesApp.actionNav',
     'TreasuredRecipesApp.attachmentsView',
-    // 'TreasuredRecipesApp.imageView',
+    'TreasuredRecipesApp.imageView',
     // 
     'TreasuredRecipesApp.stateClass',
 

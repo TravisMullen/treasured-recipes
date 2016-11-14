@@ -6,8 +6,8 @@ function searchViewCtrl( $filter, $state ) {
         $state.current.data.showList :
         false;
 
-    console.log( 'searchViewCtrl', searchViewCtrl );
-    console.log( 'view.last', view.last );
+    // console.log( 'searchViewCtrl', searchViewCtrl );
+    // console.log( 'view.last', view.last );
     view.gotoRecipes = function go() {
         if ( view.last ) {
             $state.go( 'recipe', { slug : view.last.slug });
@@ -26,9 +26,10 @@ function searchViewCtrl( $filter, $state ) {
 
     // destory self on state change request
     view.$onInit = function() {
-        // console.log( 'searchViewCtrl $onInit', view.loaded );
         view.placeholder = 'Search Recipes!';
         view.searchValue = '';
+        // 
+        // $mainCtrl.loadedAssets
         if ( !view.loaded ) {
             $state.go( 'main.loading' );
         }
@@ -38,11 +39,19 @@ function searchViewCtrl( $filter, $state ) {
         }
     };
 
-    view.searchRecipes = function search( recipes ) {
-        console.log( 'searchRecipes', recipes );
-        if ( view.searchValue && view.searchValue !== '' ) {
-            console.log( 'view.searchValue', view.searchValue );
-            return $filter( 'search' )( recipes, view.searchValue );
+    view.searchRecipes = function searchFilter( value, index, array ) {
+        console.log( 'array.length', array.length );
+        if ( typeof( view.searchValue ) === 'string' && view.searchValue.length ) {
+            console.log( 'view.searchValue.length', view.searchValue.length );
+            if ( value.title && value.title.rendered ) {
+                console.log( 'value.title.rendered', value.title.rendered );
+                console.log( 'value.title.rendered.indexOf( view.searchValue )', value.title.rendered.indexOf( view.searchValue ) );
+                if ( value.title.rendered.toLowerCase().indexOf( view.searchValue.toLowerCase() ) >= 0 ) {
+                    console.log( 'value.title.rendered.indexOf( view.searchValue )', value.title.rendered.indexOf( view.searchValue ) );
+                    console.log( 'value', value );
+                    return true;
+                }
+            }
         }
     };
 
@@ -108,9 +117,8 @@ function searchViewConfig( $stateProvider ) {
 searchViewConfig.$inject = [ '$stateProvider' ];
 
 angular.module( 'TreasuredRecipesApp.searchView', [
-    'ui.router',
-
     'ngAnimate',
+    'ui.router',
     'TreasuredRecipesApp.animations',
     
     'TreasuredRecipesApp.RecipeService',
