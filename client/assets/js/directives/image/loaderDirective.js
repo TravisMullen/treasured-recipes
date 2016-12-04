@@ -67,15 +67,16 @@ angular.module( 'loader.image', [ 'loader.section' ] )
                             }
 
                             $element.attr( 'hidden', 'true' );
+                            // console.log( 'parent[ 0 ]', parent[ 0 ] );
                             parent[ 0 ].register( $element[ 0 ], function() {
                                 $element.removeAttr( 'hidden' );
+                                // $element.css( 'border', '1px solid red' );
                             });
 
                             if ( $attrs.backgroundReplace ) {
                                 toCall = function( src ) {
                                     return tryLoading( src ).then( function( res ) {
                                         $element.css( 'backgroundImage', 'url(' + src + ')' );
-
                                         return res;
                                     });
                                 };

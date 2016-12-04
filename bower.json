@@ -25,7 +25,8 @@
   "dependencies": {
     "angular-webstorage": "^0.14.0",
     "angular-base-apps": "^1.2.6",
-    "angular-route": "^1.5.8"
+    "angular-route": "^1.5.8",
+    "angular-css": "^1.0.8"
   },
   "resolutions": {
     "angular-ui-router": "~0.3.0",

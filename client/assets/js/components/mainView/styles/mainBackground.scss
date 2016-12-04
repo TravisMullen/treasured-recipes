@@ -1,0 +1,80 @@
+
+$animation-duration-default: 800ms !default;
+
+[ui-view="main"] {
+    background-color: transparent;
+}
+
+.stage {
+    z-index: 1;
+    position: relative;
+}
+
+.background-wrapper {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100vw;
+    // width: 100%;
+    height: 100vh;
+    // height: 100%;
+    .mask {
+        // animate mask here
+    }
+    .background-elm {
+        // z-index: 0;
+        background-color: transparent;
+        // position: relative;
+        display: block;
+    }
+    .background-loading & {
+        background-color: red;
+    }
+}
+
+$width: rem-calc(5400);
+$height: rem-calc(3600);
+.background-elm {
+    // background-image: url('../images/treasured-recipes-background-hi-res.jpg');
+    background-repeat: no-repeat;
+    width: $width;
+    height: $height;
+    transform-origin: -50% -50% 0;
+    /* property name | duration | timing function | delay */
+    // transition:
+    transition-property: opacity, translate;
+    transition-duration: $animation-duration-default, $animation-duration-default*2;
+    transition-timing-function: linear, ease-in;
+    
+    // loading 
+    &.background-loading,
+    .background-loading & {
+        // set up
+        opacity: 0;
+        transform: translate(calc(100vw - #{$width}), calc(100vh - #{$height}));
+    }
+    &.search-view,
+    .search-view & {
+        opacity: 1;
+        transform: translate(calc(100vw - #{$width}), calc(100vh - #{$height}));
+        // background-position: bottom right;
+    }
+    &.search-view,
+    .search-view & {
+        opacity: 1;
+        $margin: rem-calc(175);
+        // transform: translate(calc(10vw - #{$margin}), rem-calc(-1075));
+        transform: translate(calc(-5vw - #{$margin}), rem-calc(-1075));
+        // background-position: 0 rem-calc(-975);
+    }
+    &.recipe-view,
+    .recipe-view & {
+        opacity: 1;
+        // transform: translate(0, calc(100% - 100vw));
+        transform: translate(calc(100vw - #{$width}), 0);
+        // background-position: 0 right;
+    }
+}

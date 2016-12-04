@@ -1,4 +1,5 @@
 // search view template style
+@import "../../../../scss/req"; // required
 // 
 // 
 // 
@@ -7,7 +8,7 @@ $animation-duration-default: 800ms !default;
     display: block;
     &.ng-enter,
     &.ng-move {
-        transition: opacity $animation-duration-default/2 linear,
+        transition: opacity ($animation-duration-default/3)*2 ease-in,
         			transform $animation-duration-default ease-out;
     }
     &.ng-enter-prepare {
@@ -45,7 +46,7 @@ $animation-duration-default: 800ms !default;
     //     transform: translateX(0);
     // }
     &.ng-leave {
-        transition: opacity $animation-duration-default/2 linear 0s,
+        transition: opacity $animation-duration-default/2 ease-in 0s,
         			transform $animation-duration-default ease-in 0s;
         // opacity: 1;
         // border: 1px solid green;
@@ -56,3 +57,12 @@ $animation-duration-default: 800ms !default;
         }
     }
 }
+
+
+
+// search input
+// 
+// 
+// ng-touched, ng-untouched
+// ng-pristine, ng-dirty
+

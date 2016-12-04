@@ -1,5 +1,7 @@
 // recipe view template style
+@import "../../../../scss/req"; // required
 // 
+$animation-duration-default: 800ms !default;
 // 
 // 
 family-recipe {
@@ -19,7 +21,7 @@ family-recipe {
     padding: 0;
     min-height: rem-calc(1223);
     width: rem-calc(760);
-    background-image: url("../images/recipe-pad-background-top.png"), url("../images/recipe-pad-background-bottom.png"), url("../images/recipe-pad-background-middle.png");
+    background-image: url("../../images/recipe-pad-background-top.png"), url("../../images/recipe-pad-background-bottom.png"), url("../../images/recipe-pad-background-middle.png");
     background-repeat: no-repeat, no-repeat, repeat-y;
     background-position: center rem-calc(-310), bottom center, center center;
     &:before,
@@ -32,13 +34,13 @@ family-recipe {
         background-size: rem-calc(760);
     }
     &:before {
-        background-image: url("../images/recipe-pad-background-top.png");
+        background-image: url("../../images/recipe-pad-background-top.png");
         background-position: top center;
         top: rem-calc(-310);
         height: rem-calc(310);
     }
     &:after {
-        background-image: url("../images/recipe-pad-background-bottom-tip.png");
+        background-image: url("../../images/recipe-pad-background-bottom-tip.png");
         background-position: top center;
         bottom: rem-calc(-121);
         height: rem-calc(121);

@@ -1,7 +1,6 @@
-// @import "compass";
-// @import "compass/css3";
+
 @import "fonts";
-@import "settings";
+@import "req"; // required ish
 // get from angular-base-apps not foundations bitch ass repo
 @import "../../../bower_components/angular-base-apps/scss/foundation";
 
@@ -10,8 +9,6 @@
 @import "global/general-additions";
 @import "global/animations-ease";
 @import "global/animations";
-@import "global/general-angular";
-
 // customizations to Foundation Apps
 @import "foundation-apps/local/buttons";
 @import "foundation-apps/local/forms";
@@ -27,16 +24,16 @@
 @import "styles";
 
 // modules
-@import "../js/animations/scrollView/scrollView";
+// @import "../js/animations/scrollView/scrollView";
 
-// todo; use angular-ui-router-styles
+// // todo; use angular-ui-router-styles
 
-// @import "../js/components/recipeView/mainView";
-@import "../js/components/actionNav/actionNav";
-@import "../js/components/recipeView/recipeView";
-@import "../js/components/searchView/searchView";
-@import "../js/components/imageView/imageView";
-@import "../js/components/attachmentsView/attachmentsView";
+// @import "../js/components/mainView/mainView";
+// @import "../js/components/actionNav/actionNav";
+// @import "../js/components/recipeView/recipeView";
+// @import "../js/components/searchView/searchView";
+// @import "../js/components/imageView/imageView";
+// @import "../js/components/attachmentsView/attachmentsView";
 
 // @media print {
 //    …

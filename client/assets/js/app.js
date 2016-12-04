@@ -3,7 +3,7 @@
 angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] );
 // Declare app level module which depends on views, and components
 angular.module( 'TreasuredRecipesApp', [
-    
+
     'ui.router',
     'TreasuredRecipesApp.animations',
 
@@ -20,7 +20,7 @@ angular.module( 'TreasuredRecipesApp', [
 
     'TreasuredRecipesApp.version'
 ] ).
-config( [ '$locationProvider', '$urlRouterProvider', function( $locationProvider, $urlProvider ) {
+config( [ '$locationProvider', '$urlRouterProvider', '$cssProvider', function( $locationProvider, $urlProvider, $cssProvider ) {
     $locationProvider.hashPrefix( '!' );
 
     $locationProvider.html5Mode({
@@ -30,4 +30,11 @@ config( [ '$locationProvider', '$urlRouterProvider', function( $locationProvider
 
     $urlProvider.otherwise( '/catalog/loading' );
 
+    angular.extend( $cssProvider.defaults, {
+        container : 'head',
+        method : 'append',
+        persist : true,
+        preload : false,
+        bustCache : false
+    });
 } ] );

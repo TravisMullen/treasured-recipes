@@ -50,6 +50,21 @@ angular.module( 'TreasuredRecipesApp.attachmentsView', [
 .component( 'attachmentsView', {
     templateUrl : 'attachmentsView/attachmentsView.html',
     controller : attachmentsViewCtrl,
+    
+    css : [ {
+        href : 'assets/css/attachmentsView/attachmentsView.css',
+        preload : true,
+        persist : true
+    }, {
+        href : 'assets/css/attachmentsView/imageAttactments.css',
+        preload : true,
+        persist : true
+    } ],
+
+    // css : [ 
+    //     'assets/css/attachmentsView/attachmentsView.css', 
+    //     'assets/css/attachmentsView/imageAttactments.css' 
+    // ],
     bindings : {
         featured : '<',
         source : '@',

@@ -148,7 +148,7 @@ $body-background: linear-gradient(
     to bottom,
     $light-brown,
     $dark-brown
-  );;
+  );
 $background-image: linear-gradient(to bottom, $body-background 40%, $black 100%);
 $body-font-color: #222;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -195,12 +195,12 @@ $h5-font-size: rem-calc(18);
 $h6-font-size: 1rem;
 
 // We use these to control header size reduction on small screens
-// $h1-font-reduction: rem-calc(10);
-// $h2-font-reduction: rem-calc(10);
-// $h3-font-reduction: rem-calc(5);
-// $h4-font-reduction: rem-calc(5);
-// $h5-font-reduction: 0;
-// $h6-font-reduction: 0;
+$h1-font-reduction: rem-calc(10);
+$h2-font-reduction: rem-calc(10);
+$h3-font-reduction: rem-calc(5);
+$h4-font-reduction: rem-calc(5);
+$h5-font-reduction: 0;
+$h6-font-reduction: 0;
 
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;

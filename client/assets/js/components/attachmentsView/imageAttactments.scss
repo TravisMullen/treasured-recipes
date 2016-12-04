@@ -1,0 +1,40 @@
+// style image thumbnails in attachmentsview 
+// 
+@import "../../../../scss/req"; // required
+// 
+$animation-duration-default: 800ms !default;
+
+
+.old-world {
+    position: relative;
+    width: rem-calc(150);
+    height: rem-calc(1);
+    border: rem-calc(4) solid transparent;
+    background-color: transparent;
+    opacity: 0;
+    background-size: 100% cover;
+    transition: all $animation-duration-default*2 ease-out;
+
+    .loaded & {
+        opacity: 1;
+        height: rem-calc(90);
+        border-color: $border-color;
+    }
+
+
+    img {
+        display: none;
+    }
+
+    display: block;
+    margin: 0 auto;
+
+    filter: sepia(0.9);
+    [href] & {
+        &:hover {
+            filter: sepia(0.1);
+            border-color: $border-color;
+        }
+    }
+
+}

@@ -189,6 +189,11 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                 //     templateUrl : 'partials/interior/header.html'
                 // },
                 'main' : {
+                    css : [ { 
+                        href : 'assets/css/recipeView/recipeView.css',
+                        preload : true,
+                        persist : true 
+                    } ],
                     template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$mainCtrl.loadedAssets" recipe="$resolve.recipe" slug="$mainCtrl.setslug( { slug: $resolve.recipe.slug } )"></recipe-view>'
                 },
                 'alt' : {

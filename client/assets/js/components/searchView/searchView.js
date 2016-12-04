@@ -71,6 +71,11 @@ function searchViewConfig( $stateProvider ) {
             // controller: 'searchViewCtrl',
             // controllerAs : '$searchCtrl',
 
+            css : [ { 
+                href : 'assets/css/searchView/searchView.css',
+                preload : true,
+                persist : true 
+            } ],
             resolve : {
                 recipes : function( RecipeService, $stateParams ) {
                     return RecipeService.recipes( $stateParams.slug );
@@ -107,6 +112,11 @@ function searchViewConfig( $stateProvider ) {
         })
         .state( 'search.list', {
             url : '/list',
+            css : [ { 
+                href : 'assets/css/searchView/searchView.css',
+                preload : true,
+                persist : true 
+            } ],
             data : {
                 showList : true
             }

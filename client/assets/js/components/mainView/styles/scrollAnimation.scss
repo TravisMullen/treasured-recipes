@@ -1,0 +1,94 @@
+// =============================================================================     
+//   .animation('.scroll-animation')
+// =============================================================================
+$animation-duration-default: 0.2s !default;
+$scroll-view-height: 4000 !default;
+.stage {
+    position: relative;
+}
+
+.scroll-view {
+    display: block;
+    position: relative;
+    // top:0;
+    // left:0;
+    // &.ng-animate {
+    //     // position: absolute;
+    //     // top:0;
+    //     // left:0;
+    //     // right:0;
+    //     // bottom:0;
+    //      transform-origin: center top;
+    //     transition: opacity $animation-duration-default ease-in;
+    //     // transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+    // }
+    // transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+    &.ng-enter {
+
+        transition: all $animation-duration-default*2;
+    }
+    &.ng-leave {
+        // transition: opacity $animation-duration-default,
+        //             opacity $animation-duration-default;
+        transition: all $animation-duration-default;
+    }
+    // &.ng-enter-prepare {
+    //     // opacity: 0;
+    //     transform: translateY(rem-calc(-1000));
+    // }
+    &.ng-enter {
+        transition-timing-function: ease-out;
+        transform: translateY(rem-calc($scroll-view-height*2));
+    }
+    &.ng-enter-active {
+        opacity: 1;
+                // left:0;
+        transform: translateY(0);
+    }
+    &.ng-enter-stagger {
+        // &.ng-enter-stagger-active {
+            // this will have a 100ms delay between each successive leave animation
+            transition-delay: $animation-duration-default*4;
+            /* As of 1.4.4, this must always be set: it signals ngAnimate
+            to not accidentally inherit a delay property from another CSS class */
+            transition-duration: 0s;
+        // }
+    }
+    // &.ng-enter-stagger-active,
+    // &.ng-move-stagger-active,
+    // &.ng-leave-stagger-active {
+    // }
+    // &.ng-leave-prepare {
+    //     transform: translateY(rem-calc(0));
+    // }
+    &.ng-leave {
+        transition-timing-function: ease-in;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    &.ng-leave-active {
+        opacity: 0;
+        transform: translateY(rem-calc($scroll-view-height));
+        // left:-100%;
+    }
+}
+
+// // Since we're adding/removing CSS classes then the CSS transition will also pick those up:
+// since a hardcoded duration value of 1 was provided in the JavaScript animation code,
+// the CSS classes below will be transitioned despite them being defined as regular CSS classes
+// .border-red { border-top: 5px solid red; }
+// .border-blue { border-bottom: 5px solid blue; }
+// .large-text { font-size:20px; }
+// we can also use a keyframe animation and $animateCss will make it work alongside the transition 
+// .pulse-twice {
+//   animation: 0.5s pulse linear 2;
+//   -webkit-animation: 0.5s pulse linear 2;
+// }
+// @keyframes pulse {
+//   from { transform: scale(0.5); }
+//   to { transform: scale(1.5); }
+// }
+// @-webkit-keyframes pulse {
+//   from { -webkit-transform: scale(0.5); }
+//   to { -webkit-transform: scale(1.5); }
+// }

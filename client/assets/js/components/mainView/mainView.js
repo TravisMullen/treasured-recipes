@@ -14,6 +14,17 @@ function mainViewConfig( $stateProvider ) {
             controllerAs : '$mainCtrl',
 
             templateUrl : 'mainView/mainView.html',
+            // css : [ {
+            //     href : 'assets/css/mainView/scrollAnimation.css',
+            //     preload : true,
+            //     persist : true,
+            //     media: false
+            // }, {
+            //     href : 'assets/css/mainView/mainView.css',
+            //     preload : true,
+            //     persist : true,
+            //     media: false
+            // } ],
 
             resolve : {
 
@@ -67,7 +78,8 @@ function mainViewConfig( $stateProvider ) {
             // },
 
             views : {
-                'main' : {
+                'main' : {      
+                    css : [ 'assets/css/mainView/mainView.css' ],
                     template : '<div class="grid-content text-center pull-down-4" ng-include="\'partials/loader-icon.html\'"></div>'
                 },
                 'alt' : {
@@ -98,6 +110,8 @@ angular.module( 'TreasuredRecipesApp.mainView', [
 
     'ngAnimate', // trickles down to sub-views
     'ui.router',
+    'angularCSS',
+
     'TreasuredRecipesApp.animations',
     // image perloader directive
     'loader.image',

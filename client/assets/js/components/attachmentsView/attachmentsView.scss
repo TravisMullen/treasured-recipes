@@ -1,12 +1,18 @@
 // attachments view template style
+@import "../../../../scss/req"; // required
 // 
 // 
+
+$animation-duration-default: 800ms !default;
 // 
 attachments-view {
     // background: #ececec;
     list-style: none;
     margin: 0;
     padding: 0;
+}
+.image-loader {
+    display: block;
 }
 
 .attachment-item {

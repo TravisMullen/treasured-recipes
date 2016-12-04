@@ -68,14 +68,16 @@ var paths = {
         'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
         'bower_components/tether/tether.js',
         'bower_components/hammerjs/hammer.js',
+
         'bower_components/angular/angular.js',
         'bower_components/angular-webstorage/angular-webstorage.js',
         'bower_components/angular-animate/angular-animate.js',
-        // 'bower_components/angular-route/angular-route.js',
         'bower_components/angular-ui-router/release/angular-ui-router.js',
-        'bower_components/foundation-apps/js/vendor/**/*.js',
-        'bower_components/foundation-apps/js/angular/**/*.js',
-        '!bower_components/foundation-apps/js/angular/app.js'
+        'bower_components/angular-css/angular-css.js'//,
+
+        // 'bower_components/foundation-apps/js/vendor/**/*.js',
+        // 'bower_components/foundation-apps/js/angular/**/*.js',
+        // '!bower_components/foundation-apps/js/angular/app.js'
     ],
     // These files are for JavaScript
     appJS : [
@@ -206,6 +208,38 @@ gulp.task( 'sass', function() {
         .pipe( $.sass({
             includePaths : paths.sass,
             outputStyle : ( isProduction ? 'compressed' : 'nested' ),
+            errLogToConsole : true
+        }) )
+        .pipe( $.autoprefixer({
+            browsers : [ 'last 2 versions', 'ie 10' ]
+        }) )
+        .pipe( minifyCss )
+        .pipe( gulp.dest( './build/assets/css/' ) );
+});
+
+gulp.task( 'sass', function() {
+    var minifyCss = $.if( isProduction, $.minifyCss() );
+
+    return gulp.src( 'client/assets/scss/app.scss' )
+        .pipe( $.sass({
+            includePaths : paths.sass,
+            outputStyle : ( isProduction ? 'compressed' : 'nested' ),
+            errLogToConsole : true
+        }) )
+        .pipe( $.autoprefixer({
+            browsers : [ 'last 2 versions', 'ie 10' ]
+        }) )
+        .pipe( minifyCss )
+        .pipe( gulp.dest( './build/assets/css/' ) );
+});
+
+gulp.task( 'module-style', function() {
+    var minifyCss = $.if( isProduction, $.minifyCss() );
+
+    return gulp.src( 'client/assets/js/components/**/*.scss' )
+        .pipe( $.sass({
+            includePaths : ['client/assets/scss/app.scss' ,'client/assets/js/components/**/*.scss'],
+            outputStyle : 'nested',
             errLogToConsole : true
         }) )
         .pipe( $.autoprefixer({
@@ -400,13 +434,14 @@ gulp.task( 'style:gulpfile', function() {
 // 
 // Builds your entire app once, without starting a server
 gulp.task( 'build', function( cb ) {
-    sequence( 'clean', [ 'copy', 'copy:foundation', 'sass', 'uglify' ], 'copy:templates', cb );
+    sequence( 'clean', [ 'copy', 'copy:foundation', 'sass', 'module-style', 'uglify' ], 'copy:templates', cb );
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
 gulp.task( 'default', [ 'validate:jshint:jscs', 'server' ], function() {
     // Watch Sass
     gulp.watch( [ './client/assets/scss/**/**/*', './scss/**/*' ], [ 'sass' ] );
+    gulp.watch( [ './client/assets/js/**/**/*.scss' ], [ 'module-style' ] );
 
     // Watch JavaScript
     gulp.watch( [ './client/assets/js/**/*', './js/**/*' ], [ 'uglify:app' ] );

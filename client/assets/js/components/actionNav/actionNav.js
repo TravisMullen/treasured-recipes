@@ -22,6 +22,11 @@ angular.module( 'TreasuredRecipesApp.actionNav', [
 
 .component( 'actionNav', {
     templateUrl : 'actionNav/actionNav.html',
+    css : [ { 
+        href : 'assets/css/actionNav/actionNav.css',
+        preload : true,
+        persist : true 
+    } ],
     controller : actionNavCtrl,
     bindings : {
         next : '<',

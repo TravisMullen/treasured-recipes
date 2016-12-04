@@ -1,12 +1,6 @@
 // =============================================================================
 // GLOBAL styles 
 // =============================================================================
-// measure 
-$onepixelasrem: rem-calc(1); // create EM increment from PX
-// do math to align to other media queries in grid.scss
-// remove 1px from $screen because other grid queries are checking the inverse (no max-width)
-// $max-width-medium: ($medium - $onepixelasrem);
-$onepx: 1px;
 
 
 // general
