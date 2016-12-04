@@ -3,7 +3,7 @@
 // 
 // 
 // 
-$animation-duration-default: 800ms !default;
+$animation-duration-default: 0.8s !default;
 .recipe-button {
     display: block;
     &.ng-enter,
@@ -16,6 +16,7 @@ $animation-duration-default: 800ms !default;
     }
     &.ng-enter {
         transform: translateX(rem-calc(-200));
+        opacity: 0;
         // transform: translate3d(100%, 0, 0);
         &.ng-enter-active {
 	        opacity: 1;
