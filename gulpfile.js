@@ -43,7 +43,7 @@ var
     // declare `Server` jawn.
     Server = karma.Server;
 
-console.log( '__config', __config );
+console.log( 'loading... ', __config.name );
 
 // Check for --production flag
 var isProduction = !!( argv.production );
@@ -155,7 +155,7 @@ gulp.task( 'clean', function( cb ) {
 });
 
 // set up config service
-gulp.task( 'copy:pre:configer', function( done ) {
+gulp.task( 'copy:config', function( done ) {
     var conf, 
         stream,
         serviceName = 'configService',
@@ -167,26 +167,29 @@ gulp.task( 'copy:pre:configer', function( done ) {
     conf.title = __config.title;
     conf.nameSpace = __config.name;
 
-    console.log("conf",conf);
+
     stream = gulp.src( serviceFile  )
-        .pipe(replace(/(return [^]+end)/, 'return '+JSON.stringify( conf )+' // end'))
-        .pipe(gulp.dest( serviceDir ));
+        .pipe( replace(/(figgy [^]+eeend)/, 'figgy = '+JSON.stringify( conf )+' // eeend'))
+        // .pipe( notify({ title: serviceName, message: JSON.stringify( conf ) }) )
+        .pipe( gulp.dest( serviceDir ) );
+        // .pipe( notify({ title: 'Updated File:', message: serviceFile }) );
 
     return stream.on('end',function(){
-        console.log(serviceName + ' updated to ' + serviceFile);
-        // done();
+        console.log(serviceName + ': ' + JSON.stringify( conf ));
+        console.log('file: ' + serviceFile);
+        // // done();
     });
 });
 
 // Copies everything in the client folder except templates, Sass, and JS
-gulp.task( 'copy:post',  function() {
+gulp.task( 'copy:assets',  function() {
     return gulp.src( paths.assets, {
             base : './client/'
         })
         .pipe( gulp.dest( './build' ) );
 });
 
-gulp.task( 'copy', [ 'copy:post', 'copy:post']);
+gulp.task( 'copy', [ 'copy:config', 'copy:assets']);
 
 // Copies page templates and generates URLs for them
 gulp.task( 'copy:templates', function() {
