@@ -1,14 +1,13 @@
-<!-- imageView -->
-<div class="modal-overlay is-active" ng-click="close()">
-    <div class="collapse modal is-active">
+<!-- $ctrl.imageView -->
+<div class="modal-overlay is-active" ng-click="$ctrl.closeModal($event)">
+    <div class="collapse modal ng-hide" ng-show="$ctrl.image.media_details.sizes.full.source_url">
         <div class="grid-block vertical">
             <div class="grid-content text-center">
-                <h3 ng-if="image.caption" class="center">{{image.caption}}</h3>
-                <img ng-src="{{image.media_details.sizes.full.source_url}}" alt="{{image.alt_text}}" />
+                <h3 ng-if="$ctrl.image.caption" class="center">{{$ctrl.image.caption}}</h3>
+                <img ng-src="{{$ctrl.image.media_details.sizes.full.source_url}}" alt="{{$ctrl.image.alt_text}}" />
                 <hr>
-                <button class="button text-center" title="Close Image" ng-click="close()" type="button">Close</button>
+                <button class="button text-center" title="Close Image" ng-click="$ctrl.closeModal($event)" type="button">Close</button>
             </div>
-
         </div>
     </div>
 </div>

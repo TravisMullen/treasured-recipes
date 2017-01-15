@@ -12,10 +12,10 @@
                             placeholder="{{ :: $ctrl.placeholder }}">
                     </div>
 
-                    <div class="grid-block shrink align-center" ng-hide="$ctrl.showList">
-                        <a ng-click="$ctrl.showList = true" class="large expanded button radius v-align"><span class="icon-th-list align-center"></span></a>
+                    <div class="grid-block shrink align-center" ng-hide="$ctrl.settings.showList">
+                        <a ng-click="$ctrl.settings.showList = true" class="large expanded button radius v-align"><span class="icon-th-list align-center"></span></a>
                     </div>
-                    <div class="grid-block shrink align-center" ng-show="$ctrl.showList">
+                    <div class="grid-block shrink align-center" ng-show="$ctrl.settings.showList">
                         <button ng-click="$ctrl.gotoRecipes()" class="large expanded secondary button radius v-align"><span class="icon-arrow-right align-center"></span></button>
                     </div>
                 </header>

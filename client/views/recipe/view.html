@@ -9,7 +9,7 @@
             <div class="grid-content">
                 <div class="old-tablet-seemless">
                     <article class="grid-container">
-                      <!--   <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div> -->
+                        <!--   <div class="pull-down-4" ng-hide="recipe" ng-include="'partials/loader-icon.html'"></div> -->
                         <button ng-show="print" class="float-right large primary button hollow" ng-click="print(document)" type="button"><span class="icon-print"></span><span class="screen-reader-text">print recipe</span></button>
                         <!-- <span class="underline"> -->
                         <h1 class="primary-color" ng-if="!recipe.details.name">{{recipe.title.rendered}}</h1>
@@ -58,5 +58,3 @@
         <!-- <family-recipe ingredients="ingredients" item="recipe"></family-recipe> -->
     </div>
 </article>
-
-<div ui-view="modal"></div>

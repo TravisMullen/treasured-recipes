@@ -6,9 +6,9 @@ function actionNavCtrl( $timeout, AnimateScroll ) {
         view.showNav = true;
     }, 30 );
 
-    view.$onDestroy = function() {
-        console.log( 'actionNavCtrl $onDestroy' );
-    };
+    // view.$onDestroy = function() {
+    //     console.log( 'actionNavCtrl $onDestroy' );
+    // };
 }
 
 actionNavCtrl.$inject = [ '$timeout', 'AnimateScrollService' ];

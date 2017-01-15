@@ -1,7 +1,26 @@
 // action nav view template style
 @import "../../../../scss/req"; // required 
+
 // 
 // 
+@keyframes slideoutnav {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(rem-calc(100));
+    }
+}
+
+@keyframes slideinnav {
+    0% {
+        transform: translateY(rem-calc(100));
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 [ui-view="alt"] {
     border-top: 1px solid $black;
     background-color: rgba($black, 0.2);
@@ -12,7 +31,7 @@
     // .ng-leave &,
     // .ng-move,
     // .ng-hide {
-    //     animation-name: slideout;
+    //     animation-name: slideoutnav;
     //     animation-duration: 1s;
     //     animation-timing-function: ease;
     // }
@@ -20,26 +39,45 @@
     // .ng-move-active,
     // .ng-show {
     //     animation-delay: 0.5s;
-    //     animation-name: slidein;
+    //     animation-name: slideinnav;
     //     animation-duration: 1s;
     //     animation-timing-function: ease;
     // }
     // .fade-in {
     // 
-    .menu-bar {
-        // border: 1px solid red;
-        // animation-duration: 1s;
-        &.ng-hide {
-            animation-name: slideout;
-            animation-delay: 0;
-            animation-duration: 1s;
-            animation-timing-function: easein;
+    &.ng-enter,
+    &.ng-leave {
+        .menu-bar {
+            animation-duration: 1.0s;
         }
-        // &.ng-show {
-        animation-name: slidein;
-        // animation-delay: 2s;
-        animation-duration: 0.2s;
-        animation-timing-function: easein;
-        // }
     }
+    // border: 1px solid red;
+    // animation-duration: 1s;
+    &.ng-enter {
+        .menu-bar {
+            animation-name: slideoutnav;
+            animation-delay: 1.0s;
+            animation-timing-function: ease-out;
+        }
+    }
+    // &.ng-hide-stagger {
+    //     // &.ng-enter-stagger-active {
+    //         // this will have a 100ms delay between each successive leave animation
+    //         transition-delay: 1.0s;
+    //         /* As of 1.4.4, this must always be set: it signals ngAnimate
+    //         to not accidentally inherit a delay property from another CSS class */
+    //         transition-duration: 0s;
+    //     // }
+    // }
+    // &.ng-show {
+    &.ng-leave {
+        .menu-bar {
+            animation-name: slideinnav;
+            // animation-delay: 2s;
+            // animation-duration: 0.2s;
+            animation-timing-function: ease-in;
+        }
+    }
+    // }
+    // }
 }

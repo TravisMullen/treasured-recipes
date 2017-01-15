@@ -2,30 +2,22 @@
 
 function searchViewCtrl( $filter, $state ) {
     var view = this;
-    view.showList = $state.current.data ?
-        $state.current.data.showList :
-        false;
 
-    // console.log( 'searchViewCtrl', searchViewCtrl );
-    // console.log( 'view.last', view.last );
     view.gotoRecipes = function go() {
         if ( view.last ) {
             $state.go( 'recipe', { slug : view.last.slug });
         }
-        // view.resolving = true;
     };
 
     view.gotoRecipe = function gotoId( params ) {
-        // if ( view.last ) {
-        console.log( 'gotoRecipe', params.slug );
         $state.go( 'recipe', { slug : params.slug });
-
-        // view.resolving = true;
-        // }
-    };
+    }; 
 
     // destory self on state change request
-    view.$onInit = function() {
+    // view.$onInit = function() { 
+        // for `showList`
+        view.settings = $state.current.data;
+
         view.placeholder = 'Search Recipes!';
         view.searchValue = '';
         // 
@@ -37,25 +29,20 @@ function searchViewCtrl( $filter, $state ) {
         if ( !view.fieldType ) {
             view.fieldType = 'search';
         }
-    };
+    // };
 
     view.searchRecipes = function searchFilter( value, index, array ) {
-        console.log( 'array.length', array.length );
         if ( typeof( view.searchValue ) === 'string' && view.searchValue.length ) {
-            console.log( 'view.searchValue.length', view.searchValue.length );
             if ( value.title && value.title.rendered ) {
-                console.log( 'value.title.rendered', value.title.rendered );
-                console.log( 'value.title.rendered.indexOf( view.searchValue )', value.title.rendered.indexOf( view.searchValue ) );
                 if ( value.title.rendered.toLowerCase().indexOf( view.searchValue.toLowerCase() ) >= 0 ) {
-                    console.log( 'value.title.rendered.indexOf( view.searchValue )', value.title.rendered.indexOf( view.searchValue ) );
-                    console.log( 'value', value );
                     return true;
                 }
             }
+        // if no valid search, check settings for showList
+        } else if ( view.settings && view.settings.showList ) {
+            return true;
         }
     };
-
-    console.log( 'view.testFn', view.testFn );
 }
 
 searchViewCtrl.$inject = [ '$filter', '$state' ];
@@ -100,7 +87,7 @@ function searchViewConfig( $stateProvider ) {
             },
 
             views : {
-                'main' : {
+                'content' : {
                     template : '<search-view class="grid-block middle" loaded="$mainCtrl.loadedAssets" state-change="$mainCtrl.stateChange" recipes="$resolve.recipes" last="$resolve.last"></search-view>'
                 }
             },
@@ -155,39 +142,3 @@ angular.module( 'TreasuredRecipesApp.searchView', [
 
     }
 });
-// .controller( 'searchViewCtrl', [
-//     '$state',
-//     '$filter',
-//     // from $resolve
-//     // 'last',
-//     // function( $state, $filter, last ) {
-//     function( $state, $filter ) {
-//         var view = this;
-//         view.showList = $state.current.data ?
-//             $state.current.data.showList :
-//             false;
-
-//         view.searchValue = '';
-
-//         view.gotoRecipes = function() {
-//             $state.go( 'recipe', { slug : last.slug });
-//         };
-//         console.log( 'searchViewCtrl' );
-//         // destory self on state change request
-
-//         // view.$on('$viewContentLoaded',
-//         //     function(event) {
-//         //         console.log("EVERYTHING IS LOADED~!!");
-//         //         console.log("$state.current.data.classList",$state.current.data.classList);
-//         //     });
-
-//         view.searchRecipes = function( recipes ) {
-//             if ( view.searchValue && view.searchValue !== '' ) {
-//                 console.log( 'view.searchValue', view.searchValue );
-//                 return $filter( 'search' )( recipes, view.searchValue );
-//             }
-//         };
-//     }
-// ] );
-
-// searchViewConfig.$inject = [ '$stateProvider' ];

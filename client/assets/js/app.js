@@ -5,6 +5,9 @@ angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] );
 angular.module( 'TreasuredRecipesApp', [
 
     'ui.router',
+
+    'TreasuredRecipesApp.icons',
+
     'TreasuredRecipesApp.animations',
 
     'TreasuredRecipesApp.mainView',
@@ -19,6 +22,7 @@ angular.module( 'TreasuredRecipesApp', [
     'TreasuredRecipesApp.stateClass',
 
     'TreasuredRecipesApp.version'
+
 ] ).
 config( [ '$locationProvider', '$urlRouterProvider', '$cssProvider', function( $locationProvider, $urlProvider, $cssProvider ) {
     $locationProvider.hashPrefix( '!' );

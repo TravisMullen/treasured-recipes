@@ -1,6 +1,16 @@
 // @import "compass";
 // @import "compass/css3";
 @import "settings";
+
+// [https://github.com/base-apps/angular-base-apps] Helpers
+@import
+  "../../../bower_components/angular-base-apps/scss/helpers/functions",
+  "../../../bower_components/angular-base-apps/scss/helpers/mixins",
+  "../../../bower_components/angular-base-apps/scss/helpers/breakpoints",
+  "../../../bower_components/angular-base-apps/scss/helpers/images";
+
+// @import "../../../bower_components/angular-base-apps/scss/components/modal"; // modal styles
+
 // measure 
 $onepixelasrem: rem-calc(1); // create EM increment from PX
 // do math to align to other media queries in grid.scss

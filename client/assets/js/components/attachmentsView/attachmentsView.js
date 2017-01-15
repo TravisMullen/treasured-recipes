@@ -22,7 +22,7 @@ function attachmentsViewCtrl( AttachmentService ) {
         // console.log( 'src', src );
         // none left
         if ( count.length === 0 ) {
-            console.log( 'last!', src );
+            // console.log( 'last!', src );
             // // assets are all loaded...
             view.showImages = true;
 

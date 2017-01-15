@@ -8,6 +8,7 @@ $animation-duration-default: 800ms !default;
 .stage {
     z-index: 1;
     position: relative;
+    overflow-x: hidden;
 }
 
 .background-wrapper {
@@ -30,14 +31,15 @@ $animation-duration-default: 800ms !default;
         // position: relative;
         display: block;
     }
-    .background-loading & {
-        background-color: red;
-    }
+    // .background-loading & {
+    //     background-color: green;
+    // }
 }
 
 $width: rem-calc(5400);
 $height: rem-calc(3600);
 .background-elm {
+    // border:
     // background-image: url('../images/treasured-recipes-background-hi-res.jpg');
     background-repeat: no-repeat;
     width: $width;
@@ -45,24 +47,22 @@ $height: rem-calc(3600);
     transform-origin: -50% -50% 0;
     /* property name | duration | timing function | delay */
     // transition:
-    transition-property: opacity, translate;
+    transition-property: opacity, transform;
     transition-duration: $animation-duration-default, $animation-duration-default*2;
     transition-timing-function: linear, ease-in;
     
     // loading 
-    &.background-loading,
     .background-loading & {
         // set up
         opacity: 0;
         transform: translate(calc(100vw - #{$width}), calc(100vh - #{$height}));
     }
-    &.search-view,
-    .search-view & {
-        opacity: 1;
-        transform: translate(calc(100vw - #{$width}), calc(100vh - #{$height}));
-        // background-position: bottom right;
-    }
-    &.search-view,
+    // &.search-view,
+    // .search-view & {
+    //     opacity: 1;
+    //     transform: translate(calc(100vw - #{$width}), calc(100vh - #{$height}));
+    //     // background-position: bottom right;
+    // }
     .search-view & {
         opacity: 1;
         $margin: rem-calc(175);
@@ -70,8 +70,8 @@ $height: rem-calc(3600);
         transform: translate(calc(-5vw - #{$margin}), rem-calc(-1075));
         // background-position: 0 rem-calc(-975);
     }
-    &.recipe-view,
-    .recipe-view & {
+    .image-view &,
+    .recipe-view & { 
         opacity: 1;
         // transform: translate(0, calc(100% - 100vw));
         transform: translate(calc(100vw - #{$width}), 0);

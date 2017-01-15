@@ -14,44 +14,8 @@ function mainViewConfig( $stateProvider ) {
             controllerAs : '$mainCtrl',
 
             templateUrl : 'mainView/mainView.html',
-            // css : [ {
-            //     href : 'assets/css/mainView/scrollAnimation.css',
-            //     preload : true,
-            //     persist : true,
-            //     media: false
-            // }, {
-            //     href : 'assets/css/mainView/mainView.css',
-            //     preload : true,
-            //     persist : true,
-            //     media: false
-            // } ],
 
             resolve : {
-
-                // recipes : function( recipeService, $stateParams ) {
-                //     return recipeService.recipes( $stateParams.slug );
-                // },
-                // last : function( recipeService, $stateParams ) {
-                //     return recipeService.last();
-                // },
-
-
-                // preload : [ '$q', '$timeout', function( $q, $timeout ) {
-                //     var deferred = $q.defer();
-                //     // $timeout( function() {
-                //     deferred.resolve({
-                //         src : [
-                //             '/assets/images/recipe-pad-background-top.png',
-                //             '/assets/images/recipe-pad-background-top-cap.png',
-                //             '/assets/images/recipe-pad-background-bottom.png',
-                //             '/assets/images/recipe-pad-background-middle.png',
-                //             '/assets/images/recipe-pad-background-bottom-tip.png',
-                //             '/assets/images/recipe-pad-background-bottom-cap.png'
-                //         ]
-                //     });
-                //     // }, 1000 );
-                //     return deferred.promise;
-                // } ],
 
                 img : [ '$q', '$timeout', function( $q, $timeout ) {
                     var deferred = $q.defer();
@@ -68,17 +32,10 @@ function mainViewConfig( $stateProvider ) {
 
         }).state( 'main.loading', {
             url : '/loading',
-            // url : '',
 
-
-            // resolve: {
-            //     slug: ['$stateParams', function($stateParams) {
-            //         return $stateParams.slug;
-            //     }]
-            // },
 
             views : {
-                'main' : {      
+                'content' : {      
                     css : [ 'assets/css/mainView/mainView.css' ],
                     template : '<div class="grid-content text-center pull-down-4" ng-include="\'partials/loader-icon.html\'"></div>'
                 },
@@ -96,14 +53,6 @@ function mainViewConfig( $stateProvider ) {
                 classList : [ 'background-complete' ]
             }
         });
-    // )
-    // .state( 'bg.ready', {
-    //     url : '/ready-to-serve',
-    //     data : {
-    //         classList : [ 'background-ready' ]
-    //     }
-    // })
-    // ;
 }
 
 angular.module( 'TreasuredRecipesApp.mainView', [
@@ -138,29 +87,6 @@ angular.module( 'TreasuredRecipesApp.mainView', [
         var view = this,
             count = [ img.src ];
 
-        console.log( 'mainViewCtrl', $state.current );
-
-        // if ( preload.src ) {
-        //     angular.forEach( preload.src, function( value ) {
-        //         this.push( value );
-        //     }, count );
-        // }
-        // listen 
-        // $animate.on('enter', '.ng-recipe-enter', function(element) {
-        // $animate.on('enter', 'ng-view', function(element) {
-        //     // the animation for this route has completed
-        // });
-        // var elm = angular.element(document).find('.main-view');
-        // console.log("elm",elm);
-        // cl
-        console.log( ' $animate', $animate );
-        // $animate.on( 'enter', '.ng-main-animate',
-        //    function callback( element, phase ) {
-        //         console.log( '$animate.on ENTER COMPLETE!', element );
-        //         $scope.$apply();
-        //         // cool we detected an enter animation within the container
-        //    }
-        // );
         // all asset will call the same callback
         function callbackOnLast( value ){
 
@@ -175,7 +101,7 @@ angular.module( 'TreasuredRecipesApp.mainView', [
 
                 // goto next route
                 if ( view.slug ) {
-                    console.log( 'callbackOnLast view.slug', value );
+                    // console.log( 'callbackOnLast view.slug', value );
                     $state.go( 'recipe', { slug : view.slug });
                 } else {
                     $state.go( 'search' );
@@ -188,27 +114,25 @@ angular.module( 'TreasuredRecipesApp.mainView', [
         $root.$on( '$stateChangeStart',
             function( event, toState, toParams, fromState, fromParams, options ) {
             view.stateChange = true;
-            console.log( '$stateChangeStart // From: ', fromState );
+            // console.log( '$stateChangeStart // From: ', fromState );
         });
         $root.$on( '$stateChangeSuccess',
             function( event, toState, toParams, fromState, fromParams, options ) {
             view.stateChange = false;
-            console.log( '$stateChangeSuccess // From: ', toParams );
-            console.log( 'toState', toState );
+            // console.log( '$stateChangeSuccess // From: ', toParams );
+            // console.log( 'toState', toState );
         });
         $root.$on( '$stateChangeError',
             function( event, toState, toParams, fromState, fromParams, options ) {
             view.stateChange = false;
-            console.log( '$stateChangeError // From: ', toParams );
-            console.log( 'toState', toState );
+            // console.log( '$stateChangeError // From: ', toParams );
+            // console.log( 'toState', toState );
         });
 
         view.setslug = function( value ) {
             view.slug = value.slug || value;
-            console.log( 'setslug in $mainCtrl', view.slug );
         };
 
-        // view.hello = 'hello';
         view.loadedAssets = false;
         view.complete = callbackOnLast;
     }

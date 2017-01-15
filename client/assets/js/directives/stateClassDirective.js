@@ -14,17 +14,17 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
                     var settings = $scope.stateClass || {},
                         classTarget = settings.classList || 'classList',
                         staggerTarget = settings.stagger ?
-                        document.querySelector( settings.stagger ) :
-                        $element[ 0 ],
+                            document.querySelector( settings.stagger ) :
+                            $element[ 0 ],
                         styles,
                         delay,
                         duration,
 
 
 
-                        staggerTime = 30,
+                        // staggerTime = 30,
                         activeClasses = [];
-
+                    console.log( 'stateClass loaded!' );
 
                     $scope.$watch( function() {
 
@@ -47,7 +47,7 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
 
                                 }
 
-                                $element.addClass( 'state-class-stagger' );
+                                // $element.addClass( 'state-class-stagger' );
 
                                 for ( var j = $state.current.data[ classTarget ].length - 1; j >= 0; j-- ) {
 
@@ -61,20 +61,20 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
                                 // console.log("staggerTarget",staggerTarget);
                                 styles = $window.getComputedStyle( staggerTarget );
 
-                                duration = styles.transitionDuration || styles.animationDuration;
-                                delay = styles.transitionDelay || styles.animationDelay;
+                                // duration = styles.transitionDuration || styles.animationDuration;
+                                // delay = styles.transitionDelay || styles.animationDelay;
 
-                                staggerTime = parseInt( duration.replace( 'ms', '' ).replace( 's', '000' ) );
-                                staggerTime += parseInt( delay.replace( 'ms', '' ).replace( 's', '000' ) );
+                                // staggerTime = parseInt( duration.replace( 'ms', '' ).replace( 's', '000' ) );
+                                // staggerTime += parseInt( delay.replace( 'ms', '' ).replace( 's', '000' ) );
 
-                                // console.log( 'delay', delay );
-                                // console.log( 'staggerTime', staggerTime );
+                                // // console.log( 'delay', delay );
+                                // // console.log( 'staggerTime', staggerTime );
 
-                                $timeout( function() {
-                                    console.log( 'added! state-class-active', staggerTime );
-                                    $element.addClass( 'state-class-active' );
-                                    $element.removeClass( 'state-class-pre state-class-stagger' );
-                                }, staggerTime );
+                                // $timeout( function() {
+                                //     console.log( 'added! state-class-active', staggerTime );
+                                //     $element.addClass( 'state-class-active' );
+                                //     $element.removeClass( 'state-class-pre state-class-stagger' );
+                                // }, staggerTime );
                             }
                         }
                     });

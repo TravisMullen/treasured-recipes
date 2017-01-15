@@ -2,8 +2,12 @@
 @import "../../../../scss/req"; // required
 $animation-duration-default: 800ms !default;
 // 
-[ui-view="image-stage"] {
-	position: relative;
+[ui-view="imagestage"] {
+    z-index:5;
+    position: absolute;
+	// position: relative;
+    width: vw;
+    height: vh;
     &.ng-enter {
         transition: opacity ease-in $animation-duration-default/2;
         opacity: 0;
@@ -25,6 +29,7 @@ $animation-duration-default: 800ms !default;
 }
 
 image-view {
-	position: absolute;
-	border: 1px solid green;
+    // position: relative;
+    width: vw;
+    height: vh;
 }

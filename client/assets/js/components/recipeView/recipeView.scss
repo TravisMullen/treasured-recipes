@@ -6,7 +6,9 @@ $animation-duration-default: 800ms !default;
 // 
 family-recipe {
     display: block;
-    margin-left: rem-calc(-80);
+    @include breakpoint(medium) {
+        margin-left: rem-calc(-80);
+    }
     // padding-left: rem-calc(50);
     // .inner-wrap {
     //  margin-left: rem-calc(120);

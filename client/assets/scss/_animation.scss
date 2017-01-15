@@ -58,83 +58,83 @@ $animation-duration-default: 800ms !default;
     height: $onepx;
     width: $onepx;
 }
-ui-view {
-    position: relative;
-}
+// ui-view {
+//     position: relative;
+// // }
 // [ui-view="main"] {
-    // background-color: transparent;
-    //     position: relative;
-    // // .bg-table-cloth {
-    //     background-image: url('../images/treasured-recipes-background-hi-res.jpg');
-    //     background-repeat: no-repeat;
-    //     min-height: 100vh;
-    //     padding-bottom: rem-calc(100);
-    //         border: 5px solid purple;
-    //         opacity: 0;
-    //         transition: opacity 5s, background-image 3s ease-in;
-    //         // transition-delay: 0.5s;
-    //     // &.bg-load-active,
-    //     // .bg-load-active & {
-    //     //     border: 5px solid yellow;
-    //     //     // background-image: none;
-    //     // }
-    //     // &.bg-load-fail,
-    //     // .bg-load-fail & {
-    //     //     border: 5px solid red;
-    //     // }
-    //     // &.bg-load-success,
-    //     // .bg-load-success & {
-    //     //     border: 5px solid green;
-    //     //     opacity: 1;
-    //     // }
-    //     background-position: right bottom;
-    //     transition-delay: 0.7s;
-    //     transition: background-position 3s ease-in;
-    //     &.go-dark,
-    //     .go-dark & {
-    //         opacity: 0;
-    //         background-position: center center;
-    //         // background-position: rem-calc(-2575) center;
-    //     }
-    //     &.go-light,
-    //     .go-light & {
-    //         opacity: 1;
-    //         background-position: rem-calc(-2575) center;
-    //     }
-    //     &.walk-in,
-    //     .walk-in & {
-    //         opacity: 1;
-    //         background-position: bottom right;
-    //     }
-    //     &.home,
-    //     .home & {
-    //         opacity: 1;
-    //         background-position: 0 rem-calc(-975);
-    //     }
-    //     &.recipe,
-    //     .recipe & {
-    //         opacity: 1;
-    //         background-position: 0 right;
-    //     }
-    // // }
-    //     // &.ng-enter,
-    //     // &.ng-leave {
-    //     //     position: absolute;
-    //     //     width: 100%;
-    //     //     transition: all 5s ease-in;
-    //     // }
-    //     // &.ng-enter {
-    //     //     transform: translate3d(100%, 0, 0);
-    //     // }
-    //     // &.ng-enter-active {
-    //     //     transform: translate3d(0, 0, 0);
-    //     // }
-    //     // &.ng-leave {
-    //     //     transform: translate3d(0, 0, 0);
-    //     // }
-    //     // &.ng-leave-active {
-    //     //     transform: translate3d(-100%, 0, 0);
-    //     // }
+//     background-color: transparent;
+//         position: relative;
+//     // .bg-table-cloth {
+//         background-image: url('../images/treasured-recipes-background-hi-res.jpg');
+//         background-repeat: no-repeat;
+//         min-height: 100vh;
+//         padding-bottom: rem-calc(100);
+//             border: 5px solid purple;
+//             opacity: 0;
+//             transition: opacity 5s, background-image 3s ease-in;
+//             // transition-delay: 0.5s;
+//         // &.bg-load-active,
+//         // .bg-load-active & {
+//         //     border: 5px solid yellow;
+//         //     // background-image: none;
+//         // }
+//         // &.bg-load-fail,
+//         // .bg-load-fail & {
+//         //     border: 5px solid red;
+//         // }
+//         // &.bg-load-success,
+//         // .bg-load-success & {
+//         //     border: 5px solid green;
+//         //     opacity: 1;
+//         // }
+//         background-position: right bottom;
+//         transition-delay: 0.7s;
+//         transition: background-position 3s ease-in;
+//         &.go-dark,
+//         .go-dark & {
+//             opacity: 0;
+//             background-position: center center;
+//             // background-position: rem-calc(-2575) center;
+//         }
+//         &.go-light,
+//         .go-light & {
+//             opacity: 1;
+//             background-position: rem-calc(-2575) center;
+//         }
+//         &.walk-in,
+//         .walk-in & {
+//             opacity: 1;
+//             background-position: bottom right;
+//         }
+//         &.home,
+//         .home & {
+//             opacity: 1;
+//             background-position: 0 rem-calc(-975);
+//         }
+//         &.recipe,
+//         .recipe & {
+//             opacity: 1;
+//             background-position: 0 right;
+//         }
+//     // }
+//         // &.ng-enter,
+//         // &.ng-leave {
+//         //     position: absolute;
+//         //     width: 100%;
+//         //     transition: all 5s ease-in;
+//         // }
+//         // &.ng-enter {
+//         //     transform: translate3d(100%, 0, 0);
+//         // }
+//         // &.ng-enter-active {
+//         //     transform: translate3d(0, 0, 0);
+//         // }
+//         // &.ng-leave {
+//         //     transform: translate3d(0, 0, 0);
+//         // }
+//         // &.ng-leave-active {
+//         //     transform: translate3d(-100%, 0, 0);
+//         // }
 // }
 
 // .grid-frame {}
@@ -222,34 +222,34 @@ ui-view {
 //     }
 // }
 
-.scroll-animation {
-    &.enter {
-        transition: $animation-duration-default*4 ease(out-cubic) transform;
-        transform: translateY(rem-calc(-4000));
-        // transform: translate3d(100%, 0, 0);
-    }
+// .scroll-animation {
+//     &.enter {
+//         transition: $animation-duration-default*4 ease(out-cubic) transform;
+//         transform: translateY(rem-calc(-4000));
+//         // transform: translate3d(100%, 0, 0);
+//     }
 
-    &.enter-stagger {
-        // this will have a 100ms delay between each successive leave animation */
-        transition-delay: $animation-duration-default*2;
-        // As of 1.4.4, this must always be set: it signals ngAnimate
-        // to not accidentally inherit a delay property from another CSS class */
-        transition-duration: 0s;
-    }
+//     &.enter-stagger {
+//         // this will have a 100ms delay between each successive leave animation */
+//         transition-delay: $animation-duration-default*2;
+//         // As of 1.4.4, this must always be set: it signals ngAnimate
+//         // to not accidentally inherit a delay property from another CSS class */
+//         transition-duration: 0s;
+//     }
 
-    &.enter-active {
-        transform: translateY(0);
-    }
+//     &.enter-active {
+//         transform: translateY(0);
+//     }
 
-    &.leave {
-        transition: $animation-duration-default*2 ease(in-cubic) transform;
-        transform: translateY(0);
-    }
+//     &.leave {
+//         transition: $animation-duration-default*2 ease(in-cubic) transform;
+//         transform: translateY(0);
+//     }
 
-    &.leave-active {
-        transform: translateY(rem-calc(4000));
-    }
-}
+//     &.leave-active {
+//         transform: translateY(rem-calc(4000));
+//     }
+// }
 
 // [ui-view="main"] {
 //     // config

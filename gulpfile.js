@@ -434,7 +434,7 @@ gulp.task( 'style:gulpfile', function() {
 // 
 // Builds your entire app once, without starting a server
 gulp.task( 'build', function( cb ) {
-    sequence( 'clean', [ 'copy', 'copy:foundation', 'sass', 'module-style', 'uglify' ], 'copy:templates', cb );
+    sequence( 'clean', [ 'copy', 'sass', 'module-style', 'uglify' ], 'copy:templates', cb );
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

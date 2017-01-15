@@ -4,41 +4,8 @@
 function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollService ) {
     var view = this;
 
-    // listen 
-    // 
-    // var elm = angular.element(document).find('.ing');
-    // console.log("elm",elm);
-    // $animate.on('enter', elm, function(element) {
-    //     // the animation for this route has completed
-    //     console.log("[ui-view=main] COMPLETE!", element);
-    //     $scope.$digest();
-    // });
-
-    console.log( 'view.assets', view.assets );
-
-    // if ( view.waitFor !== true ) {
-    //     $state.go( 'main.loading' );
-    // }
-    console.log( '$stateParams.slug', $stateParams.slug );
-    // 
-    // if no slug goto, last recipe
-    // if ( view.recipe === undefined ) {
-    //     // if ( last.slug ) {
-    //     //     $state.go( 'recipe', { slug : last.slug });
-    //     // } else {
-    //     $state.go( '404' );
-    //     // }
-    // }
-
-    // view.hello = 'world';
-    // view.animateScrollComplete = 'test';
     // AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
-    //     // if ( res ) {
-    //     console.log( 'animation complete!' );
-    //     // view.animateScrollComplete = true;
-    //     // 
-    //     // view.animateScrollComplete = 'complete';
-    //     // }
+
     // });
 
     // view.$onInit = function() {
@@ -86,14 +53,16 @@ function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollSe
         }
     };
 
-    view.$onDestroy = function() {
-        // console.log( '$onDestroy' );
-        // AnimateScrollService.cancel();
-    };
+    // view.$onDestroy = function() {
+    //     // console.log( '$onDestroy' );
+    //     AnimateScrollService.cancel();
+    // };
 
     // add some stuff to the view
     // 
-    view.print = window.print;
+    view.print = function( document ) {
+        return window.print( document );
+    };
 
     view.labels = {
         ingredients : 'Ingredients',
@@ -132,11 +101,6 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                 recipe : function( RecipeService, $stateParams ) {
                     return RecipeService.get( $stateParams.slug );
                 },
-                // attachments : function( RecipeService, AttachmentService, $stateParams ) {
-                //     return RecipeService.get( $stateParams.slug ).then( function( current ) {
-                //         return AttachmentService.getAttachmentsByRecipe( current.id );
-                //     })
-                // },
                 next : function( RecipeService, AttachmentService, $stateParams ) {
                     return RecipeService.get( $stateParams.slug ).then( function( res ) {
                         var nextQ = RecipeService.next( res.slug );
@@ -188,7 +152,7 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                 // 'header' : {
                 //     templateUrl : 'partials/interior/header.html'
                 // },
-                'main' : {
+                'content' : {
                     css : [ { 
                         href : 'assets/css/recipeView/recipeView.css',
                         preload : true,
@@ -215,59 +179,3 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
         assets : '='
     }
 });
-
-// .controller( 'recipeViewCtrl', [
-//     '$state',
-//     '$stateParams',
-//     // from $resolve
-//     'recipe',
-//     'last',
-//     // from service
-//     'AnimateScrollService',
-//     function( $state, $stateParams, recipe, last, animateScroll ) {
-
-//         // set controllerAs
-//         var view = this;
-//         // 
-//         // if no slug goto, last recipe
-//         if ( !recipe.id ) {
-//             // if ( last.slug ) {
-//             //     $state.go( 'recipe', { slug : last.slug });
-//             // } else {
-//                 $state.go( '404' );
-//             // }
-//         }
-
-//         view.hello = 'world';
-//                 view.animateScrollComplete = 'test';
-//         animateScroll.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
-//             // if ( res ) {
-//                 console.log( 'animation complete!' );
-//                 // view.animateScrollComplete = true;
-//                 // 
-//                 view.animateScrollComplete = 'complete';
-//             // }
-//         });
-
-//         view.$on( '$destroy', function() {
-//             animateScroll.cancel();
-//         });
-
-//         // add some stuff to the view
-//         // 
-//         view.print = window.print;
-
-//         view.labels = {
-//             ingredients : 'Ingredients',
-//             instructions : 'Cooking Instructions'
-//         };
-
-//     }
-// ] );
-// 
-// ngModule.controller('HomePageController', ['$animate', function($animate) {
-//   $animate.on('enter', ngViewElement, function(element) {
-//     // the animation for this route has completed
-//   }]);
-// }])
-// (Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)

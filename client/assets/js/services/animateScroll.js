@@ -58,7 +58,7 @@ angular.module( 'TreasuredRecipesApp.AnimateScroll', [] )
             function animateScrollPosition() {
                 var queueAnim = $q.defer(), 
                     anchorElm = targetToView.getBoundingClientRect();
-
+                console.log( 'animateScrollPosition', anchorElm.top < -( anchorElm.height + topMargin ) );
                 // ANIMATE SCROLL TO TITLE
                 // if if target if off screen by more than buffer, then scroll to it
                 if ( anchorElm.top < -( anchorElm.height + topMargin ) ) {

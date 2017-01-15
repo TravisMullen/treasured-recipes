@@ -3,11 +3,11 @@
 
 function imageViewCtrl( $state ) {
     var view = this;
-    // bind this to external fn
-    function close() {
+
+    view.closeModal = function( evt ) {
+        evt.stopPropagation(); // for nested ng-clicks
         $state.go( '^' );
-    }
-    view.close = close;
+    };
 }
 
 imageViewCtrl.$inject = [ '$state' ];
@@ -30,14 +30,18 @@ angular.module( 'TreasuredRecipesApp.imageView', [
             data : {
                 classList : [ 'image-view' ]
             },
+            css : {
+                href : 'assets/css/imageView/imageView.css',
+                preload : true,
+                persist : true
+            },
             resolve : {
                 assetURL : [ '$stateParams', 'AttachmentService', function( $stateParams, AttachmentService ) {
-                    console.log( 'resolve Params.imgid', $stateParams.imgid );
-                    return AttachmentService.getAttachmentsByRecipe( $stateParams.imgid );
+                    return AttachmentService.getById( $stateParams.imgid );
                 } ]
             },
             views : {
-                'image-stage' : {
+                'imagestage@main' : {
                     // pass in action nav component to parent level of template
                     template : '<image-view source="$resolve.assetURL"></image-view>'
                 }
@@ -48,6 +52,6 @@ angular.module( 'TreasuredRecipesApp.imageView', [
     templateUrl : 'imageView/imageView.html',
     controller : imageViewCtrl,
     bindings : {
-        source : '@'
+        image : '=source'
     }
 });

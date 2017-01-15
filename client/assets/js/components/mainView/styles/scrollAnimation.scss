@@ -3,9 +3,6 @@
 // =============================================================================
 $animation-duration-default: 0.2s !default;
 $scroll-view-height: 4000 !default;
-.stage {
-    position: relative;
-}
 
 .scroll-view {
     display: block;
@@ -38,7 +35,12 @@ $scroll-view-height: 4000 !default;
     // }
     &.ng-enter {
         transition-timing-function: ease-out;
-        transform: translateY(rem-calc($scroll-view-height*2));
+        // transform: translateY(rem-calc($scroll-view-height*2));
+
+        // .recipe-view & {
+            transform: translateY(rem-calc(-$scroll-view-height*2));
+        // }
+
     }
     &.ng-enter-active {
         opacity: 1;
