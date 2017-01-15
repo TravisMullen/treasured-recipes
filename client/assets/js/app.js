@@ -3,6 +3,8 @@
 angular.module( 'TreasuredRecipesApp.animations', [ 'ngAnimate' ] );
 // Declare app level module which depends on views, and components
 angular.module( 'TreasuredRecipesApp', [
+    
+    'app.settings',
 
     'ui.router',
 

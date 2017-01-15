@@ -24,11 +24,12 @@ var
     jasmine = require( 'gulp-jasmine' ),
     jscs = require( 'gulp-jscs' ),
     change = require( 'gulp-change' ),
+    replace = require( 'gulp-replace' ),
     jscsStylish = require( 'gulp-jscs-stylish' ),
     karma = require( 'karma' ),
 
     // constants
-    config = require( './package.json' ),
+    __config = require( './package.json' ),
 
     // globals
     Server, // for karma
@@ -42,7 +43,7 @@ var
     // declare `Server` jawn.
     Server = karma.Server;
 
-console.log( 'config', config );
+console.log( '__config', __config );
 
 // Check for --production flag
 var isProduction = !!( argv.production );
@@ -81,6 +82,7 @@ var paths = {
     ],
     // These files are for JavaScript
     appJS : [
+        'client/assets/js/config.js',
         'client/assets/js/app.js',
         'client/assets/js/**/*.js',
         '!client/assets/js/**/*test.js'
@@ -152,19 +154,39 @@ gulp.task( 'clean', function( cb ) {
     rimraf( './build', cb );
 });
 
-// // Cleans the build directory
-// gulp.task( 'clean', function( cb ) {
-//     rimraf( './build', cb );
-// });
+// set up config service
+gulp.task( 'copy:pre:configer', function( done ) {
+    var conf, 
+        stream,
+        serviceName = 'configService',
+        serviceDir = './client/assets/js',
+        serviceFile = serviceDir + '/config.js';
+
+    // set globals into local obj
+    conf = __config[ serviceName ] || {};
+    conf.title = __config.title;
+    conf.nameSpace = __config.name;
+
+    console.log("conf",conf);
+    stream = gulp.src( serviceFile  )
+        .pipe(replace(/(return [^]+end)/, 'return '+JSON.stringify( conf )+' // end'))
+        .pipe(gulp.dest( serviceDir ));
+
+    return stream.on('end',function(){
+        console.log(serviceName + ' updated to ' + serviceFile);
+        // done();
+    });
+});
 
 // Copies everything in the client folder except templates, Sass, and JS
-gulp.task( 'copy', function() {
+gulp.task( 'copy:post',  function() {
     return gulp.src( paths.assets, {
             base : './client/'
         })
         .pipe( gulp.dest( './build' ) );
 });
 
+gulp.task( 'copy', [ 'copy:post', 'copy:post']);
 
 // Copies page templates and generates URLs for them
 gulp.task( 'copy:templates', function() {
@@ -174,8 +196,8 @@ gulp.task( 'copy:templates', function() {
         //     removeComments: true
         // }))
         .pipe( tplcache({
-            module : config.nameSpace+'.templates',
-            filename : config.name+'-templates.js',
+            module : __config.nameSpace+'.templates',
+            filename : __config.name+'-templates.js',
             standalone: true
         }) )
         .pipe( gulp.dest( './build/assets/js' ) );

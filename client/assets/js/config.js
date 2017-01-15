@@ -1,8 +1,6 @@
-// function (){
-//     angular.module('ngAnimate');
-//     angular.module('TreasuredRecipesApp.animations',['ngAnimate']);
-//     angular.module( 'TreasuredRecipesApp.templates', [] );
-//     angular.module( 'TreasuredRecipesApp.services', [] );
-//     angular.module( 'TreasuredRecipesApp.controllers', [] );
-//     angular.module( 'TreasuredRecipesApp.components', [] );
-// }();
+/* jshint quotmark: true */
+'use strict';
+angular.module( 'app.settings', [] ).factory( 'ConfigService', function() {
+	// settings exported here from `gulpfile.js`
+    return {'api' : {'items' : 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe'}, 'title' : 'Treasured Recipes', 'nameSpace' : 'treasured-recipes'} // end
+});

@@ -2,17 +2,17 @@
 angular.module( 'TreasuredRecipesApp.RecipeService', [
         'webStorageModule'
     ] )
-    .factory( 'RecipeService', [ '$q', '$http', 'webStorage',
-        function( $q, $http, webStorage ) {
+    .factory( 'RecipeService', [ '$q', '$http', 'webStorage', 'ConfigService',
+        function( $q, $http, webStorage, ConfigService ) {
             var
                 recipes,
                 slugHash = {},
-                nameSpace = 'treasured-recipes',
+                nameSpace = ConfigService.nameSpace, // "treasured-recipes"
 
                 storageKeys = {
                     lastreq : nameSpace + ':lastreq',
                     collection : nameSpace + ':collection',
-                    selected : storageKeys + ':selected'
+                    selected : nameSpace + ':selected'
                 },
 
                 cachePrev,
@@ -63,13 +63,13 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 if ( remainingTime() ) {
                     // first check to see if in memory and not too old
                     if ( recipes ) {
-                        console.log( 'Loaded from Memory' );
+                        // console.log( 'Loaded from Memory' );
                         deferred.resolve( recipes );
 
                         // second check to see if in localstorage and not too old
                     } else {
 
-                        console.log( 'Loaded from Storage' );
+                        // console.log( 'Loaded from Storage' );
 
                         recipes = webStorage.get( storageKeys.collection );
                         // rebuild lost hash
@@ -84,12 +84,12 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 } else {
 
                     // third get a fresh copy
-                    console.log( 'Fresh JSON requested' );
+                    // console.log( 'Fresh JSON requested' );
 
                     $http({
                         method : 'GET', // read only 
                         // path or JSON API or file ('/assets/data/json/example1.json')
-                        url : 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe'
+                        url : ConfigService.api.items
                     }).then( function successCallback( response ) {
                         // this callback will be called asynchronously
                         // when the response is available

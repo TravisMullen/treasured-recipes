@@ -2,9 +2,10 @@
 angular.module( 'TreasuredRecipesApp.AttachmentService', [
         'webStorageModule'
     ] )
-    .factory( 'AttachmentService', [ '$q', '$http', 'webStorage',
-        function( $q, $http, webStorage ) {
+    .factory( 'AttachmentService', [ '$q', '$http', 'webStorage', 'ConfigService',
+        function( $q, $http, webStorage, ConfigService ) {
             var
+                nameSpace = ConfigService.nameSpace, // "treasured-recipes"
                 attachments,
                 idHash = {},
                 // idHash = {},
@@ -38,10 +39,10 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
                     deferred.resolve( attachments );
                     // }
                     // second check to see if in localstorage and not too old
-                } else if ( webStorage.get( 'TreasuredRecipesApp:wp-attachments:' + recipeId + ':lastreq' ) > cacheTime ) {
+                } else if ( webStorage.get( nameSpace + ':wp-attachments:' + recipeId + ':lastreq' ) > cacheTime ) {
 
-                    attachments = webStorage.get( 'TreasuredRecipesApp:wp-attachments:' + recipeId + ':collection' );
-                    lastreq = webStorage.get( 'TreasuredRecipesApp:wp-attachments:' + recipeId + ':lastreq' );
+                    attachments = webStorage.get( nameSpace + ':wp-attachments:' + recipeId + ':collection' );
+                    lastreq = webStorage.get( nameSpace + ':wp-attachments:' + recipeId + ':lastreq' );
                     // if (attachments.length !== Object.keys(idHash).length) {
                     buildHash();
                     // }
@@ -54,7 +55,7 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
 
                     $http({
                         method : 'GET', // read only 
-                        url : 'http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/media',
+                        url : ConfigService.api.media,
                         params : { parent : recipeId }
                     }).then( function successCallback( response ) {
                         // this callback will be called asynchronously
@@ -64,8 +65,8 @@ angular.module( 'TreasuredRecipesApp.AttachmentService', [
                         attachments = response.data;
                         buildHash();
 
-                        webStorage.set( 'TreasuredRecipesApp:wp-attachments:' + recipeId + ':collection', attachments );
-                        webStorage.set( 'TreasuredRecipesApp:wp-attachments:' + recipeId + ':lastreq', +( new Date() ) );
+                        webStorage.set( nameSpace + ':wp-attachments:' + recipeId + ':collection', attachments );
+                        webStorage.set( nameSpace + ':wp-attachments:' + recipeId + ':lastreq', +( new Date() ) );
 
                         deferred.resolve( attachments );
 
