@@ -3,6 +3,10 @@
 function searchViewCtrl( $filter, $state ) {
     var view = this;
 
+    view.updateGlobals = function( updates ) {
+        return view.updateglobals( updates );
+    };
+
     view.gotoRecipes = function go() {
         if ( view.last ) {
             $state.go( 'recipe', { slug : view.last.slug });
@@ -14,14 +18,14 @@ function searchViewCtrl( $filter, $state ) {
     }; 
 
     // destory self on state change request
-    // view.$onInit = function() { 
+    view.$onInit = function() { 
         // for `showList`
         view.settings = $state.current.data;
 
         view.placeholder = 'Search Recipes!';
         view.searchValue = '';
         // 
-        // $mainCtrl.loadedAssets
+        // $appCtrl.loadedAssets
         if ( !view.loaded ) {
             $state.go( 'main.loading' );
         }
@@ -29,7 +33,9 @@ function searchViewCtrl( $filter, $state ) {
         if ( !view.fieldType ) {
             view.fieldType = 'search';
         }
-    // };
+        console.log("view",view);
+        view.updateGlobals({ title : 'Search stuff' });
+    };
 
     view.searchRecipes = function searchFilter( value, index, array ) {
         if ( typeof( view.searchValue ) === 'string' && view.searchValue.length ) {
@@ -43,6 +49,7 @@ function searchViewCtrl( $filter, $state ) {
             return true;
         }
     };
+
 }
 
 searchViewCtrl.$inject = [ '$filter', '$state' ];
@@ -88,7 +95,7 @@ function searchViewConfig( $stateProvider ) {
 
             views : {
                 'content' : {
-                    template : '<search-view class="grid-block middle" loaded="$mainCtrl.loadedAssets" state-change="$mainCtrl.stateChange" recipes="$resolve.recipes" last="$resolve.last"></search-view>'
+                    template : '<search-view class="grid-block middle" loaded="$appCtrl.loadedAssets" state-change="$appCtrl.stateChange" recipes="$resolve.recipes" last="$resolve.last" updateglobals="$appCtrl.setTitle"></search-view>'
                 }
             },
 
@@ -130,6 +137,9 @@ angular.module( 'TreasuredRecipesApp.searchView', [
     controller : searchViewCtrl,
     // replace: true,
     bindings : {
+
+        updateglobals : '&?', 
+
         recipes : '=',
         last : '=',
         stateChange : '=?',

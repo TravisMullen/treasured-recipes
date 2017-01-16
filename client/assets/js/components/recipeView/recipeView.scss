@@ -23,7 +23,9 @@ family-recipe {
     padding: 0;
     min-height: rem-calc(1223);
     width: rem-calc(760);
-    background-image: url("../../images/recipe-pad-background-top.png"), url("../../images/recipe-pad-background-bottom.png"), url("../../images/recipe-pad-background-middle.png");
+    background-image: url("../../images/recipe-pad-background-top.png"), 
+                    url("../../images/recipe-pad-background-bottom.png"), 
+                    url("../../images/recipe-pad-background-middle.png");
     background-repeat: no-repeat, no-repeat, repeat-y;
     background-position: center rem-calc(-310), bottom center, center center;
     &:before,

@@ -4,7 +4,7 @@
 
 <!-- <h1>stateChange:  {{$ctrl.stateChange }}</h1> -->
 <!-- init {{ :: $ctrl.init }} -->
-<ul class="dark menu-bar fade-in ng-hide" ng-show="$ctrl.stateChange == false && $ctrl.showNav && ($ctrl.next || $ctrl.prev)">
+<ul class="dark menu-bar">
     <li ng-if="$ctrl.next.slug">
         <a ui-sref="recipe({slug: $ctrl.next.slug})">
             <span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{ :: $ctrl.next.title.rendered}}</span>

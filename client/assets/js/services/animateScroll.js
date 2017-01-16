@@ -40,6 +40,25 @@ angular.module( 'TreasuredRecipesApp.AnimateScroll', [] )
                     } else {
                         lastTop = anchor.top;
                         console.log( 'runTime', runTime );
+
+
+
+// 
+// 
+// 
+// 
+// 
+// UsSER REQUEST ANIMATION FRAME !!!!!!!!
+// s
+// s
+// 
+// 
+// 
+// 
+// 
+// 
+
+
                         $timeout( function( argument ) {
                             console.log( 'anticiplated animation  compelt!!' );
                             animationDeffered.resolve( lastTop );
@@ -122,7 +141,7 @@ angular.module( 'TreasuredRecipesApp.AnimateScroll', [] )
                 return def.promise;
             };
 
-
+            console.log( 'AnimateScroll loaded!' );
             return service;
 
         }

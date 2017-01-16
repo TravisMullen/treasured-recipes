@@ -1,7 +1,7 @@
 'use strict';
 // set view
 // 
-function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollService ) {
+function recipeViewCtrl( $state, $stateParams, RecipeService ) {
     var view = this;
 
     // AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
@@ -23,7 +23,7 @@ function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollSe
 
             // remove it on complete
             count.splice( count.indexOf( value ), 1 );
-            console.log( 'callbackOnLast', value );
+            // console.log( 'callbackOnLast', value );
             // none left
             if ( count.length === 0 ) {
 
@@ -43,7 +43,7 @@ function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollSe
    // destory self on state change request
     view.$onInit = function() {
         if ( !view.assets ) {
-            console.log( 'goto preloading view' );
+            // console.log( 'goto preloading view' );
             if ( typeof( view.slug ) ) {
                 view.slug(); // init cb to set slug
             }
@@ -55,7 +55,8 @@ function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollSe
 
     // view.$onDestroy = function() {
     //     // console.log( '$onDestroy' );
-    //     AnimateScrollService.cancel();
+    //     // AnimateScrollService.cancel();
+    //     RecipeService.unset();
     // };
 
     // add some stuff to the view
@@ -71,7 +72,7 @@ function recipeViewCtrl( $scope, $state, $stateParams, $animate, AnimateScrollSe
 
 } // end of // recipeViewCtrl
 
-recipeViewCtrl.$inject = [ '$scope', '$state', '$stateParams', '$animate', 'AnimateScrollService' ];
+recipeViewCtrl.$inject = [ '$state', '$stateParams', 'RecipeService' ];
 
 angular.module( 'TreasuredRecipesApp.recipeView', [
 
@@ -83,7 +84,7 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
 
     'TreasuredRecipesApp.RecipeService',
     'TreasuredRecipesApp.AttachmentService',
-    'TreasuredRecipesApp.AnimateScroll',
+    // 'TreasuredRecipesApp.AnimateScroll',
     'TreasuredRecipesApp.templates'
 ] )
 
@@ -158,11 +159,11 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                         preload : true,
                         persist : true 
                     } ],
-                    template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$mainCtrl.loadedAssets" recipe="$resolve.recipe" slug="$mainCtrl.setslug( { slug: $resolve.recipe.slug } )"></recipe-view>'
+                    template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$appCtrl.loadedAssets" recipe="$resolve.recipe" slug="$appCtrl.setslug( { slug: $resolve.recipe.slug } )"></recipe-view>'
                 },
                 'alt' : {
                     // pass in action nav component to parent level of template
-                    template : '<action-nav state-change="$mainCtrl.stateChange" next="$resolve.next" prev="$resolve.prev"></action-nav>'
+                    template : '<action-nav state-change="$appCtrl.stateChange" next="$resolve.next" prev="$resolve.prev"></action-nav>'
                 }
             }
         });

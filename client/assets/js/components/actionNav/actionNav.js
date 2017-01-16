@@ -1,6 +1,6 @@
 'use strict';
 
-function actionNavCtrl( $timeout, AnimateScroll ) {
+function actionNavCtrl( $timeout ) {
     var view = this;
     $timeout( function() {
         view.showNav = true;
@@ -11,12 +11,9 @@ function actionNavCtrl( $timeout, AnimateScroll ) {
     // };
 }
 
-actionNavCtrl.$inject = [ '$timeout', 'AnimateScrollService' ];
+actionNavCtrl.$inject = [ '$timeout' ];
 
 angular.module( 'TreasuredRecipesApp.actionNav', [
-    
-    'TreasuredRecipesApp.AnimateScroll',
-
     'TreasuredRecipesApp.templates'
 ] )
 

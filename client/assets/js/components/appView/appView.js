@@ -1,6 +1,8 @@
 'use strict';
-
-function mainViewConfig( $stateProvider ) {
+// main view and controller to be use by all others
+// therefor becomes the global and will be used
+// instead of $rootScope
+function appViewConfig( $stateProvider ) {
     $stateProvider
         .state( 'main', {
 
@@ -10,12 +12,22 @@ function mainViewConfig( $stateProvider ) {
             // onEnter
             // onExit fN???
 
-            controller : 'mainViewCtrl',
-            controllerAs : '$mainCtrl',
+            controller : 'appViewCtrl',
+            controllerAs : '$appCtrl',
 
-            templateUrl : 'mainView/mainView.html',
+            templateUrl : 'appView/appView.html',
 
             resolve : {
+
+                // get the configs for all the views
+                figgy : function( ConfigService ) {
+                    return ConfigService;
+                },
+
+                // expose some data for the globals
+                active : function( RecipeService ) {
+                    return RecipeService.items;
+                },
 
                 img : [ '$q', '$timeout', function( $q, $timeout ) {
                     var deferred = $q.defer();
@@ -36,11 +48,11 @@ function mainViewConfig( $stateProvider ) {
 
             views : {
                 'content' : {      
-                    css : [ 'assets/css/mainView/mainView.css' ],
+                    css : [ 'assets/css/appView/appView.css' ],
                     template : '<div class="grid-content text-center pull-down-4" ng-include="\'partials/loader-icon.html\'"></div>'
                 },
                 'alt' : {
-                    template : '<ul class="pre-loading"><li ng-repeat="imgsrc in $resolve.preload.src"><image-loader src="{{imgsrc}}" on-load="$mainCtrl.complete"></image-loader></li></ul>'
+                    template : '<ul class="pre-loading"><li ng-repeat="imgsrc in $resolve.preload.src"><image-loader src="{{imgsrc}}" on-load="$appCtrl.complete"></image-loader></li></ul>'
                 }
             },
 
@@ -55,7 +67,7 @@ function mainViewConfig( $stateProvider ) {
         });
 }
 
-angular.module( 'TreasuredRecipesApp.mainView', [
+angular.module( 'TreasuredRecipesApp.appView', [
 
     'ngAnimate', // trickles down to sub-views
     'ui.router',
@@ -68,21 +80,20 @@ angular.module( 'TreasuredRecipesApp.mainView', [
     'TreasuredRecipesApp.templates'
 ] )
 
-.config( [ '$stateProvider', mainViewConfig ] )
+.config( [ '$stateProvider', appViewConfig ] )
 
-.controller( 'mainViewCtrl', [
-    '$scope',
-    '$q',
+.controller( 'appViewCtrl', [
+
     '$rootScope',
     '$state',
     '$timeout',
     '$stateParams',
     '$animate',
 
-
+    'figgy',
     'img',
     // 'preload',
-    function( $scope, $q, $root, $state, $timeout, $stateParams, $animate, img ) {
+    function( $root, $state, $timeout, $stateParams, $animate, figgy, img ) {
         // function( $q, $state, $timeout ) {
         var view = this,
             count = [ img.src ];
@@ -109,28 +120,22 @@ angular.module( 'TreasuredRecipesApp.mainView', [
             }
         }
 
+        view.info = {
+            title : figgy.title
+        };
 
-        view.stateChange = false;
-        $root.$on( '$stateChangeStart',
-            function( event, toState, toParams, fromState, fromParams, options ) {
-            view.stateChange = true;
-            // console.log( '$stateChangeStart // From: ', fromState );
-        });
-        $root.$on( '$stateChangeSuccess',
-            function( event, toState, toParams, fromState, fromParams, options ) {
-            view.stateChange = false;
-            // console.log( '$stateChangeSuccess // From: ', toParams );
-            // console.log( 'toState', toState );
-        });
-        $root.$on( '$stateChangeError',
-            function( event, toState, toParams, fromState, fromParams, options ) {
-            view.stateChange = false;
-            // console.log( '$stateChangeError // From: ', toParams );
-            // console.log( 'toState', toState );
-        });
 
+        // view.fn.globals = {
+
+        // };
         view.setslug = function( value ) {
             view.slug = value.slug || value;
+        };
+
+        view.setTitle = function( updates ) {
+            view.info.title = updates.title;
+            console.log("setTitle // view.header.title",view.info.title);
+            // return Object.merge(view.header.title, updates);
         };
 
         view.loadedAssets = false;

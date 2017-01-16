@@ -9,22 +9,36 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
             scope : {
                 stateClass : '='
             },
-            controller : [ '$scope', '$window', '$element', '$state', '$timeout',
-                function stateClassController( $scope, $window, $element, $state, $timeout ) {
+            controller : [ '$scope', '$rootScope', '$element', '$state',
+                function stateClassController( $scope, $root, $element, $state ) {
                     var settings = $scope.stateClass || {},
                         classTarget = settings.classList || 'classList',
-                        staggerTarget = settings.stagger ?
-                            document.querySelector( settings.stagger ) :
-                            $element[ 0 ],
+                        // staggerTarget = settings.stagger ?
+                        //     document.querySelector( settings.stagger ) :
+                        //     $element[ 0 ],
                         styles,
                         delay,
                         duration,
 
-
+                        // stateChange = 'state-change',
 
                         // staggerTime = 30,
                         activeClasses = [];
-                    console.log( 'stateClass loaded!' );
+
+
+                    // $element.addClass( stateChange );
+                    // $root.$on( '$stateChangeStart',
+                    //     function( event, toState, toParams, fromState, fromParams, options ) {
+                    //     $element.removeClass( stateChange );
+                    // });
+                    // $root.$on( '$stateChangeSuccess',
+                    //     function( event, toState, toParams, fromState, fromParams, options ) {
+                    //     $element.addClass( stateChange );
+                    // });
+                    // $root.$on( '$stateChangeError',
+                    //     function( event, toState, toParams, fromState, fromParams, options ) {
+                    //     $element.addClass( stateChange );
+                    // });
 
                     $scope.$watch( function() {
 
@@ -34,8 +48,8 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
 
                         if ( res ) {
 
-                            $element.removeClass( 'state-class-active' )
-                                .addClass( 'state-class-pre' );
+                            // $element.removeClass( 'state-class-active' )
+                            //     .addClass( 'state-class-pre' );
 
 
                             if ( res[ classTarget ] && res[ classTarget ].length ) {
@@ -59,7 +73,7 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
 
 
                                 // console.log("staggerTarget",staggerTarget);
-                                styles = $window.getComputedStyle( staggerTarget );
+                                // styles = $window.getComputedStyle( staggerTarget );
 
                                 // duration = styles.transitionDuration || styles.animationDuration;
                                 // delay = styles.transitionDelay || styles.animationDelay;
@@ -83,3 +97,21 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
             ]
         };
     });
+        // view.stateChange = false;
+        // $root.$on( '$stateChangeStart',
+        //     function( event, toState, toParams, fromState, fromParams, options ) {
+        //     view.stateChange = true;
+        //     // console.log( '$stateChangeStart // From: ', fromState );
+        // });
+        // $root.$on( '$stateChangeSuccess',
+        //     function( event, toState, toParams, fromState, fromParams, options ) {
+        //     view.stateChange = false;
+        //     // console.log( '$stateChangeSuccess // From: ', toParams );
+        //     // console.log( 'toState', toState );
+        // });
+        // $root.$on( '$stateChangeError',
+        //     function( event, toState, toParams, fromState, fromParams, options ) {
+        //     view.stateChange = false;
+        //     // console.log( '$stateChangeError // From: ', toParams );
+        //     // console.log( 'toState', toState );
+        // });

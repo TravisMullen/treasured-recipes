@@ -44,29 +44,29 @@ $animation-duration-default: 800ms;
 // Change any value in this map from "true" to "false" to disable that component's CSS class output. You'll still be able to use the component's mixins, but none of our pre-written classes will be in your CSS.
 
 $include-css: (
-  accordion: false,
-  action-sheet: false,
+  // accordion: false,
+  // action-sheet: false,
   // block-list: true,
-  // button: true,
-  button-group: false,
-  card: false,
+  button: true,
+  // button-group: false,
+  // card: false,
   // coloring: true,
   // extras: true,
   // forms: true,
   // grid: true,
-  iconic: false,
-  label: false,
-  badge: false,
+  // iconic: false,
+  // label: false,
+  // badge: false,
   // list: true,
-  // menu-bar: true,
+  menu-bar: true,
   // modal: true,
   // motion: true,
-  notification: false,
+  // notification: false,
   // off-canvas: true,
-  panel: false,
-  popup: false,
-  switch: false,
-  tabs: false,
+  // panel: false,
+  // popup: false,
+  // switch: false,
+  // tabs: false,
   // title-bar: true,
   // typography: true,
   // utilities: true,
@@ -124,8 +124,12 @@ $gray-light: lighten($gray, 8);
 $dark-brown: #8c6154;
 $light-brown: #B38667;
 
+// blue
 $primary-color: #013C78;
+// white
 $secondary-color: #f1f1f1;
+
+
 $alert-color: #93311B;
 $info-color: #A0D3E8;
 $success-color: #43AC6A;

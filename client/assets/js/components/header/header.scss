@@ -1,0 +1,94 @@
+// action nav view template style
+@import "../../../../scss/req"; // required 
+
+// 
+$animation-duration-default: 0.2s !default;
+$component-height: rem-calc(100) !default;
+
+// $header-fore-color: rgba($secondary-color, 0.8) !default;
+// $header-back-color: rgba($secondary-color, 0) !default;
+
+header-component {
+
+
+    // borrowed from https://www.html5andbeyond.com/pure-css3-background-textures-examples/
+    // background: $secondary-color;
+    // background: linear-gradient(135deg, $header-fore-color 0%, $header-fore-color 23%, rgba($tuatara, 1) 25%, $header-fore-color 27%, $header-fore-color 50%, $header-fore-color 73%, rgba($tuatara, 1) 75%, $header-fore-color 77%);
+    // background-size: rem-calc(10) rem-calc(10);
+
+    // header {
+    //     width: inherit;
+    //     height: inherit;
+    //     background: linear-gradient(45deg, $header-back-color 0%, $header-back-color 23%, rgba($tuatara, 1) 25%, $header-back-color 27%, $header-back-color 50%, $header-back-color 73%, rgba($tuatara, 1) 75%, $header-back-color 77%);
+    //     background-size: rem-calc(10) rem-calc(10);
+    // }
+
+
+    display: block;
+    position: relative;
+    background-color: rgba($secondary-color, 0.8);
+    // border-bottom: rem-calc(2) solid $secondary-color;
+    border-bottom: rem-calc(3) solid rgba($primary-color, 0.8);
+    filter: drop-shadow(rem-calc(1) rem-calc(2) rem-calc(2) rgba(0, 0, 0, 0.3));
+
+
+    .ng-enter, 
+    .ng-leave {
+        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+    }
+
+    .ng-enter {
+        transition-delay: $animation-duration-default*2;
+    }
+
+    .ng-enter,
+    .ng-leave.ng-leave-active {
+      opacity:0;
+    }
+
+    .ng-leave,
+    .ng-enter.ng-enter-active {
+      opacity:1;
+    }
+
+    // .ng-enter,
+    // .ng-leave {
+    //     /* property name | duration | timing function | delay */
+    //     transition: all $animation-duration-default cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    // }
+    // // .ng-leave {
+    // //     // transition: opacity $animation-duration-default,
+    // //     //             opacity $animation-duration-default;
+    // //     transition-duration: $animation-duration-default/2;
+    // // }
+
+    // .ng-enter {
+    //     opacity: 0;
+    //     // transition-timing-function: ease-out;
+    //     // transform: translateY(rem-calc($component-height*2));
+    //     // .recipe-view & {
+    //     transform: translateY(rem-calc(-$component-height*2));
+    //     // }
+    // }
+    // .ng-enter-active {
+    //     opacity: 1;
+    //     // left:0;
+    //     transform: translateY(0);
+    // }
+    // .ng-enter-stagger {
+    //     .ng-enter-stagger-active {
+    //     // this will have a 100ms delay between each successive leave animation
+    //     transition-delay: $animation-duration-default;
+    //     /* As of 1.4.4, this must always be set: it signals ngAnimate
+    //         to not accidentally inherit a delay property from another CSS class */
+    //     transition-duration: 0s;
+    //     }
+    // }
+
+    // .ng-leave {
+    //     transform: translateY(0);
+    // }
+    // .ng-leave-active {
+    //     transform: translateY(rem-calc(-$component-height*2));
+    // }
+}

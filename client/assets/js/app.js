@@ -11,8 +11,14 @@ angular.module( 'TreasuredRecipesApp', [
     'TreasuredRecipesApp.icons',
 
     'TreasuredRecipesApp.animations',
+    
+    // appView is home of $appCtrl
+    // and houses the root scope
+    // instead of using $rootScope
+    'TreasuredRecipesApp.appView',
 
-    'TreasuredRecipesApp.mainView',
+    'TreasuredRecipesApp.header',
+    'TreasuredRecipesApp.footer',
 
     'TreasuredRecipesApp.searchView',
     'TreasuredRecipesApp.recipeView',

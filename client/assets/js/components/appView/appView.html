@@ -1,17 +1,26 @@
 <image-section>
     <div class="grid-frame vertical">
+
+        <header-component 
+            info="$appCtrl.info"
+            ></header-component>
+
         <div class="grid-content stage">
             <!-- <div class="grid-block"> -->
                 <div ui-view="content" class="scroll-view grid-block"></div>
             <!-- </div> -->
         </div>
+
         <nav ui-view="alt"></nav>
 
+        <footer-component
+            info="$appCtrl.info"
+            ></footer-component>
     </div>
 
     <!-- background image -->
     <div class="background-wrapper">
-        <image-loader src="{{$resolve.img.src}}" no-append="true" class="background-elm" background-replace="true" on-load="$mainCtrl.complete"></image-loader>
+        <image-loader src="{{$resolve.img.src}}" no-append="true" class="background-elm" background-replace="true" on-load="$appCtrl.complete"></image-loader>
     </div>
 
 </image-section>

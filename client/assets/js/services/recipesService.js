@@ -12,24 +12,34 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 storageKeys = {
                     lastreq : nameSpace + ':lastreq',
                     collection : nameSpace + ':collection',
-                    selected : nameSpace + ':selected'
+                    selected : nameSpace + ':data.selected'
                 },
-
-                cachePrev,
-                cacheNext,
 
                 cache = 15 * 60000, // 15 min
                 // cache = 1*60*60000, // 1 hour
 
-                lastreq,
 
-                selected,
                 error = null,
+
+                // expose some external data
+                data = {
+                    selected : undefined,
+
+                    cachePrev : undefined,
+                    cacheNext : undefined,
+
+                    lastreq : undefined,
+
+                    keys : storageKeys,
+
+                    refreshInterval : cache
+                },
 
                 service = {};
 
-            // meant to be a READ ONLY service
 
+
+            // meant to be a READ ONLY service
             function filterJSONfromRecipe( recipes ) {
                 var updated = [],
                     rendered,
@@ -77,7 +87,7 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                             slugHash[ recipes[ i ].slug ] = true;
                         }
 
-                        // lastreq = webStorage.get(storageKeys.lastreq);
+                        // data.lastreq = webStorage.get(storageKeys.lastreq);
 
                         deferred.resolve( recipes );
                     }
@@ -112,34 +122,38 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return deferred.promise;
             }
 
-            function getSelected( slug ) {
+            function getSelected() {
                 var deferred = $q.defer();
-                deferred.resolve( selected );
+                deferred.resolve( data.selected );
                 return deferred.promise;
             }
 
             function getRecipeBySlug( slug ) {
                 var deferred = $q.defer();
-                getRecipes().then( function() {
 
-                    if ( !slug ) {
-                        slug = selected.slug;
-                    }
+                // if (slug === false) {
+                //     deferred.resolve( { waiting: true } );
+                // } else {
+                    getRecipes().then( function() {
 
-                    for ( var i = recipes.length - 1; i >= 0; i-- ) {
-                        if ( recipes[ i ].slug === slug ) {
-                            selected = recipes[ i ];
-
-                            webStorage.set( storageKeys.selected, selected );
-
-                            deferred.resolve( selected );
-                            return;
-                        } else if ( i === 0 ) {
-                            deferred.reject();
+                        if ( !slug ) {
+                            slug = data.selected.slug;
                         }
-                    }
-                });
 
+                        for ( var i = recipes.length - 1; i >= 0; i-- ) {
+                            if ( recipes[ i ].slug === slug ) {
+                                data.selected = recipes[ i ];
+
+                                webStorage.set( storageKeys.selected, data.selected );
+
+                                deferred.resolve( data.selected );
+                                return;
+                            } else if ( i === 0 ) {
+                                deferred.reject();
+                            }
+                        }
+                    });
+                // }
                 return deferred.promise;
             }
 
@@ -147,13 +161,13 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 var deferred = $q.defer(),
                     seat;
                 getRecipeBySlug().then( function() {
-                    seat = recipes.indexOf( selected );
+                    seat = recipes.indexOf( data.selected );
                     if ( seat === recipes.length - 1 ) {
-                        cacheNext = recipes[ 0 ];
+                        data.cacheNext = recipes[ 0 ];
                     } else {
-                        cacheNext = recipes[ seat + 1 ];
+                        data.cacheNext = recipes[ seat + 1 ];
                     }
-                    deferred.resolve( cacheNext );
+                    deferred.resolve( data.cacheNext );
                 });
 
                 return deferred.promise;
@@ -164,13 +178,13 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                     seat;
 
                 getRecipeBySlug().then( function() {
-                    seat = recipes.indexOf( selected );
+                    seat = recipes.indexOf( data.selected );
                     if ( seat === 0 ) {
-                        cachePrev = recipes[ recipes.length - 1 ];
+                        data.cachePrev = recipes[ recipes.length - 1 ];
                     } else {
-                        cachePrev = recipes[ seat - 1 ];
+                        data.cachePrev = recipes[ seat - 1 ];
                     }
-                    deferred.resolve( cachePrev );
+                    deferred.resolve( data.cachePrev );
                 });
 
                 return deferred.promise;
@@ -202,14 +216,17 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
             service.recipes = getRecipes;
 
             service.get = getRecipeBySlug;
-            service.selected = selected;
+            // service.getSelected = getSelected;
+            // service.selected = data.selected;
             service.error = error;
+
+            service.items = data;
 
             service.next = nextRecipe;
             service.prev = prevRecipe;
 
-            service.cachePrev = cachePrev;
-            service.cacheNext = cacheNext;
+            service.cachePrev = data.cachePrev;
+            service.cacheNext = data.cacheNext;
 
             service.last = lastRecipe;
             service.storageKeys = storageKeys;
@@ -217,6 +234,12 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
             service.isStored = isStored;
             service.isCached = remainingTime;
             service.cache = cache;
+
+            service.unset = function() {
+                data.selected = undefined;
+                data.cachePrev = undefined;
+                data.cacheNext = undefined;
+            };
 
 
             return service;
