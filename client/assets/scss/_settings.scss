@@ -44,32 +44,32 @@ $animation-duration-default: 800ms;
 // Change any value in this map from "true" to "false" to disable that component's CSS class output. You'll still be able to use the component's mixins, but none of our pre-written classes will be in your CSS.
 
 $include-css: (
-  // accordion: false,
-  // action-sheet: false,
-  // block-list: true,
+  accordion: false,
+  action-sheet: false,
+  block-list: false,
   button: true,
-  // button-group: false,
-  // card: false,
-  // coloring: true,
-  // extras: true,
-  // forms: true,
-  // grid: true,
-  // iconic: false,
-  // label: false,
-  // badge: false,
-  // list: true,
+  button-group: false,
+  card: false,
+  coloring: true,
+  extras: true,
+  forms: true,
+  grid: true,
+  iconic: false,
+  label: false,
+  badge: false,
+  list: false,
   menu-bar: true,
-  // modal: true,
-  // motion: true,
-  // notification: false,
-  // off-canvas: true,
-  // panel: false,
-  // popup: false,
-  // switch: false,
-  // tabs: false,
-  // title-bar: true,
-  // typography: true,
-  // utilities: true,
+  modal: true,
+  motion: false,
+  notification: false,
+  off-canvas: true,
+  panel: false,
+  popup: false,
+  switch: false,
+  tabs: false,
+  title-bar: false,
+  typography: true,
+  utilities: true,
 ); 
 
 // 2. Global Styles
@@ -184,7 +184,7 @@ $breakpoint-classes: (small medium large);
 $header-font-family: "SmithTypewriter", $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: $font-weight-normal;
-// $header-font-color: #222;
+$header-font-color: $oil;
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -214,8 +214,8 @@ $h6-font-reduction: 0;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
-// $small-font-size: 60%;
-// $small-font-color: scale-color($header-font-color, $lightness: 35%);
+$small-font-size: 0.8rem;
+$small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs
 $paragraph-font-family: $alt-font-family;

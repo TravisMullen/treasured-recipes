@@ -44,6 +44,7 @@
     },
     "configService": {
         "api" : {
+            "pages":"http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/pages",
             "items": "http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/recipe",
             "media": "http://www.treasuredrecipes.info/mullen-family/wp-json/wp/v2/media"
         }

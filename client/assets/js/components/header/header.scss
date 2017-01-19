@@ -1,12 +1,16 @@
 // action nav view template style
 @import "../../../../scss/req"; // required 
 
-// 
 $animation-duration-default: 0.2s !default;
-$component-height: rem-calc(100) !default;
+
+$component-height: rem-calc(100);
+$header-font-size: $h1-font-size;
 
 // $header-fore-color: rgba($secondary-color, 0.8) !default;
 // $header-back-color: rgba($secondary-color, 0) !default;
+
+
+
 
 header-component {
 
@@ -22,6 +26,8 @@ header-component {
     //     background: linear-gradient(45deg, $header-back-color 0%, $header-back-color 23%, rgba($tuatara, 1) 25%, $header-back-color 27%, $header-back-color 50%, $header-back-color 73%, rgba($tuatara, 1) 75%, $header-back-color 77%);
     //     background-size: rem-calc(10) rem-calc(10);
     // }
+    
+    font-size: $header-font-size;
 
 
     display: block;
@@ -31,64 +37,64 @@ header-component {
     border-bottom: rem-calc(3) solid rgba($primary-color, 0.8);
     filter: drop-shadow(rem-calc(1) rem-calc(2) rem-calc(2) rgba(0, 0, 0, 0.3));
 
+}
+.header-scroll-down {
+    
+    /* this transition tells ngAnimate to make the animation happen */
+    transition-property: all;
+    transition-duration: $animation-duration-default;
+    transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
 
-    .ng-enter, 
-    .ng-leave {
-        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
+
+// transform: translateY(rem-calc($component-height*2));
+
+        /* property name | duration | timing function | delay */
+        // transition:all 1s cubic-bezier(0.940, 0.460, 0.450, 0.250);
+    &.ng-enter-prepare {
+        // transition-property: all;
+        // transition-duration: 1s;
+        // transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
+        overflow: hidden;
     }
-
-    .ng-enter {
-        transition-delay: $animation-duration-default*2;
+    &.ng-leave {
+        transition-duration: $animation-duration-default;
+        // transition-property: all;
+        // transition-duration: 1s;
+        // transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
+        overflow: hidden;
     }
-
-    .ng-enter,
-    .ng-leave.ng-leave-active {
-      opacity:0;
-    }
-
-    .ng-leave,
-    .ng-enter.ng-enter-active {
-      opacity:1;
-    }
-
-    // .ng-enter,
-    // .ng-leave {
-    //     /* property name | duration | timing function | delay */
-    //     transition: all $animation-duration-default cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-    // }
-    // // .ng-leave {
-    // //     // transition: opacity $animation-duration-default,
-    // //     //             opacity $animation-duration-default;
-    // //     transition-duration: $animation-duration-default/2;
-    // // }
-
-    // .ng-enter {
-    //     opacity: 0;
-    //     // transition-timing-function: ease-out;
-    //     // transform: translateY(rem-calc($component-height*2));
-    //     // .recipe-view & {
-    //     transform: translateY(rem-calc(-$component-height*2));
-    //     // }
-    // }
-    // .ng-enter-active {
-    //     opacity: 1;
-    //     // left:0;
-    //     transform: translateY(0);
-    // }
-    // .ng-enter-stagger {
-    //     .ng-enter-stagger-active {
-    //     // this will have a 100ms delay between each successive leave animation
-    //     transition-delay: $animation-duration-default;
-    //     /* As of 1.4.4, this must always be set: it signals ngAnimate
-    //         to not accidentally inherit a delay property from another CSS class */
-    //     transition-duration: 0s;
+    // &.ng-enter {
+    //     height: rem-calc(200);
+    //     &.ng-enter-active {
+    //         overflow: auto;
+    //         height: auto;
     //     }
     // }
+    // &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        // .recipe-view & {
+            height: 0;
+            overflow: auto;
+        // }
+    }
+        
+    // &.ng-leave,
+    &.ng-enter.ng-enter-active {
+        // .search-view & {
+            overflow: auto;
+            height: auto;
+        // }
+    }
 
-    // .ng-leave {
-    //     transform: translateY(0);
-    // }
-    // .ng-leave-active {
-    //     transform: translateY(rem-calc(-$component-height*2));
-    // }
+    .crop { 
+        // background-color: green;
+        overflow: hidden;
+    }
 }
+
+/* this extra CSS class will be absorbed into the transition
+since the $animateCss code is adding the class */
+// .crop { 
+//     background-color: green;
+//     // do someting on enter
+// }

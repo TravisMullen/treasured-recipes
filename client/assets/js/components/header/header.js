@@ -1,30 +1,51 @@
 'use strict';
 
-function headerCtrl( $scope, $timeout, RecipeService ) {
-    var view = this;
-    // $timeout( function() {
-    //     view.showHeader = true;
-    // }, 30 );
+// function headerCtrl() {
+//     var view = this;
+//     console.log("view.state",view.state);
+//      // = true;
+// }
 
-    // view.$onInit = function() {
-    //     RecipeService.getSelected().then( function( res ) {
-    //         // console.log( 'res', res );
-    //         view.recipe = res;
-    //     });
-    // };
-    // 
-    // 
-    view.$onChanges = function( res ) {
-        // $state.current.data
-        console.log( '$onChanges', res );
-    }
-}
-
-headerCtrl.$inject = [ '$scope', '$timeout', 'RecipeService' ];
+// headerCtrl.$inject = [ '$scope' ];
 
 angular.module( 'TreasuredRecipesApp.header', [
     'TreasuredRecipesApp.templates'
 ] )
+
+.animation( '.header-scroll-down', [ '$animateCss', function( $animateCss ) {
+    return {
+        enter : function( element, done ) {
+            var offsetHeight = element[ 0 ].offsetHeight,
+                runner,
+                animation = $animateCss( element, {
+                    event : 'enter',
+                    cleanupStyles : true,
+                    structural : true,
+                    delay : true,
+                    addClass : 'crop',
+                    from : { height : 0 },
+                    to : { height :  offsetHeight + 'px' }
+                });
+
+            animation.start().done( function( res ) {
+                done();
+            });
+        },
+        leave : function( element, done ) {
+            var offsetHeight = element[ 0 ].offsetHeight,
+                runner,
+                animation = $animateCss( element, {
+                    event : 'leave',
+                    structural : true,
+                    delay : true
+                });
+            animation.start().done( function( res ) {
+                done();
+            });
+        }
+    }
+} ] )
+
 
 // .config( [ '$stateProvider', function( $stateProvider ) {
 //     $stateProvider
@@ -38,7 +59,7 @@ angular.module( 'TreasuredRecipesApp.header', [
 //             // controllerAs : '$recipeCtrl',
 
 //             resolve : {
-//                 recipe : function( RecipeService, $stateParams ) {
+//                 recipe : function( $stateParams ) {
 //                     return RecipeService.get( $stateParams.slug );
 //                 }
 //             }
@@ -52,8 +73,9 @@ angular.module( 'TreasuredRecipesApp.header', [
         preload : true,
         persist : true 
     } ],
-    controller : headerCtrl,
+    // controller : headerCtrl,
     bindings : {
-        info : '='
+        info : '=',
+        state: '='
     }
 });

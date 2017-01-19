@@ -9,9 +9,12 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
             scope : {
                 stateClass : '='
             },
-            controller : [ '$scope', '$rootScope', '$element', '$state',
-                function stateClassController( $scope, $root, $element, $state ) {
-                    var settings = $scope.stateClass || {},
+            controllerAs: '$stateCtrl',
+            controller : [ '$scope', '$element', '$state',
+                function stateClassController( $scope, $element, $state ) {
+                    var view = this,
+
+                        settings = $scope.stateClass || {},
                         classTarget = settings.classList || 'classList',
                         // staggerTarget = settings.stagger ?
                         //     document.querySelector( settings.stagger ) :
@@ -25,6 +28,16 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
                         // staggerTime = 30,
                         activeClasses = [];
 
+                    // angular.element($window).bind("scroll", function() {
+                    //     if (this.pageYOffset >= 20) {
+                    //         scope.boolChangeClass = true;
+                    //         console.log('Scrolled below header.');
+                    //     } else {
+                    //         scope.boolChangeClass = false;
+                    //         console.log('Header is in view.');
+                    //     }
+                    //     scope.$apply();
+                    // });
 
                     // $element.addClass( stateChange );
                     // $root.$on( '$stateChangeStart',
@@ -48,6 +61,7 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
 
                         if ( res ) {
 
+                            view.active = res[ classTarget ];
                             // $element.removeClass( 'state-class-active' )
                             //     .addClass( 'state-class-pre' );
 

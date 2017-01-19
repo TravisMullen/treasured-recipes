@@ -193,7 +193,7 @@ gulp.task( 'copy', [ 'copy:config', 'copy:assets']);
 
 // Copies page templates and generates URLs for them
 gulp.task( 'copy:templates', function() {
-    return gulp.src( ['./client/views/**/*.html','./client/assets/js/components/**/*.html'] )
+    return gulp.src( ['./client/views/**/*.html','./client/assets/js/components/**/**/*.html'] )
 
         // .pipe(htmlmin({
         //     removeComments: true

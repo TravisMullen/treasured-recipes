@@ -22,23 +22,22 @@ $scroll-view-height: 4000 !default;
     // transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration-default;
     &.ng-enter {
 
-        transition: all $animation-duration-default*2;
     }
     &.ng-leave {
         // transition: opacity $animation-duration-default,
         //             opacity $animation-duration-default;
-        transition: all $animation-duration-default;
     }
     // &.ng-enter-prepare {
     //     // opacity: 0;
     //     transform: translateY(rem-calc(-1000));
     // }
     &.ng-enter {
+        transition: all $animation-duration-default*2;
         transition-timing-function: ease-out;
         // transform: translateY(rem-calc($scroll-view-height*2));
 
         // .recipe-view & {
-            transform: translateY(rem-calc(-$scroll-view-height*2));
+            transform: translateY(rem-calc($scroll-view-height*2));
         // }
 
     }
@@ -50,7 +49,7 @@ $scroll-view-height: 4000 !default;
     &.ng-enter-stagger {
         // &.ng-enter-stagger-active {
             // this will have a 100ms delay between each successive leave animation
-            transition-delay: $animation-duration-default*4;
+            transition-delay: $animation-duration-default*2;
             /* As of 1.4.4, this must always be set: it signals ngAnimate
             to not accidentally inherit a delay property from another CSS class */
             transition-duration: 0s;
@@ -64,6 +63,7 @@ $scroll-view-height: 4000 !default;
     //     transform: translateY(rem-calc(0));
     // }
     &.ng-leave {
+        transition: all $animation-duration-default;
         transition-timing-function: ease-in;
         opacity: 1;
         transform: translateY(0);

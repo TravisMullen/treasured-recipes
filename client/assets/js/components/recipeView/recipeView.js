@@ -2,7 +2,10 @@
 // set view
 // 
 function recipeViewCtrl( $state, $stateParams, RecipeService ) {
-    var view = this;
+    var view = this,
+        model = {};
+
+
 
     // AnimateScrollService.run( '.stage', '[ng-click="print(document)"]' ).then( function( res ) {
 
@@ -42,6 +45,7 @@ function recipeViewCtrl( $state, $stateParams, RecipeService ) {
     // };
    // destory self on state change request
     view.$onInit = function() {
+        var item = {};
         if ( !view.assets ) {
             // console.log( 'goto preloading view' );
             if ( typeof( view.slug ) ) {
@@ -51,6 +55,9 @@ function recipeViewCtrl( $state, $stateParams, RecipeService ) {
         //     //     console.log("view.loaded",view.loaded);
             $state.go( 'main.loading' );
         }
+
+        item.title = view.recipe.title.rendered || view.recipe.details.name;
+        view.export()( item );
     };
 
     // view.$onDestroy = function() {
@@ -159,11 +166,13 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
                         preload : true,
                         persist : true 
                     } ],
-                    template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$appCtrl.loadedAssets" recipe="$resolve.recipe" slug="$appCtrl.setslug( { slug: $resolve.recipe.slug } )"></recipe-view>'
+                    templateUrl : 'recipeView/views/contentView.html'
+                    // template : '<recipe-view class="grid-block align-center" load="$resolve.preload" assets="$appCtrl.loadedAssets" recipe="$resolve.recipe" export="$appCtrl.setTitle"></recipe-view>'
                 },
                 'alt' : {
                     // pass in action nav component to parent level of template
-                    template : '<action-nav state-change="$appCtrl.stateChange" next="$resolve.next" prev="$resolve.prev"></action-nav>'
+                    // template : '<action-nav state-change="$appCtrl.stateChange" next="$resolve.next" prev="$resolve.prev"></action-nav>'
+                    templateUrl : 'recipeView/views/altView.html'
                 }
             }
         });
@@ -174,8 +183,9 @@ angular.module( 'TreasuredRecipesApp.recipeView', [
     controller : recipeViewCtrl,
     // replace : true,
     bindings : {
+        slug : '&',
+        export : '&',
         recipe : '=',
-        slug : '&?',
         load : '=?',
         assets : '='
     }

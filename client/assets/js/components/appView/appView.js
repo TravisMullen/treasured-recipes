@@ -82,6 +82,66 @@ angular.module( 'TreasuredRecipesApp.appView', [
 
 .config( [ '$stateProvider', appViewConfig ] )
 
+// todo: orgonize this better
+// .animation( '.scroll-view', [ '$animateCss', function( $animateCss ) {
+//     console.log( '.scroll-view loaded!' );
+//     return {
+//         enter : function( element, done ) {
+//             var offsetHeight = element[ 0 ].offsetHeight,
+//                 runner,
+//                 animation = $animateCss( element, {
+//                     event: 'enter',
+//                     cleanupStyles: true,
+//                     structural: true,
+//                     delay: true//,
+//                     // duration: 2,
+//                     // addClass : 'maroon-setting',
+//                     // from : { height : 0 },
+//                     // to : { height :  offsetHeight + 'px' }
+//                     // to: { height: 200 }
+//                 });
+//             // console.log( 'endscroll-view', offsetHeight );
+
+//             // runner = animation.start();
+
+//             // animation.start().done(function( res ) {
+//             //     console.log("done!",res);
+//             //     done();
+//             // });
+//             animation.start().done( function( res ) {
+//                 console.log( 'scroll-view enter done!', res );
+//                 done();
+//             });
+//         },
+//         leave : function( element, done ) {
+//             var offsetHeight = element[ 0 ].offsetHeight,
+//                 runner,
+//                 animation = $animateCss( element, {
+//                     event: 'leave',
+//                     structural: true,
+//                     delay: true
+//                     // duration: 2,
+//                     // addClass : 'maroon-setting',
+//                     // from : { height : 0 },
+//                     // to : { height :  offsetHeight + 'px' }
+//                     // to: { height: 200 }
+//                 });
+//             // console.log( 'scroll-view', offsetHeight );
+
+//             // runner = animation.start();
+
+//             // animation.start().done(function( res ) {
+//             //     console.log("done!",res);
+//             //     done();
+//             // });
+//             animation.start().done( function( res ) {
+//                 console.log( 'scroll-view leave done!', res );
+//                 done();
+//             });
+//         }
+//     }
+// } ] )
+
 .controller( 'appViewCtrl', [
 
     '$rootScope',
@@ -120,10 +180,14 @@ angular.module( 'TreasuredRecipesApp.appView', [
             }
         }
 
-        view.info = {
-            title : figgy.title
+
+        function update( updates ) {
+            return angular.extend( view.info, updates );
         };
 
+        view.info = {
+            title : undefined
+        };
 
         // view.fn.globals = {
 
@@ -132,11 +196,7 @@ angular.module( 'TreasuredRecipesApp.appView', [
             view.slug = value.slug || value;
         };
 
-        view.setTitle = function( updates ) {
-            view.info.title = updates.title;
-            console.log("setTitle // view.header.title",view.info.title);
-            // return Object.merge(view.header.title, updates);
-        };
+        view.setTitle = update;
 
         view.loadedAssets = false;
         view.complete = callbackOnLast;

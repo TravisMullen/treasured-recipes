@@ -1,13 +1,15 @@
+ <!-- root component - appView $appCtrl -->
 <image-section>
     <div class="grid-frame vertical">
 
         <header-component 
             info="$appCtrl.info"
+            state="$stateCtrl.active"
             ></header-component>
 
         <div class="grid-content stage">
             <!-- <div class="grid-block"> -->
-                <div ui-view="content" class="scroll-view grid-block"></div>
+                <div ui-view="content" class="scroll-view keep-scroll animation-promise grid-block"></div>
             <!-- </div> -->
         </div>
 

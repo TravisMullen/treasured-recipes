@@ -1,13 +1,18 @@
 'use strict';
-angular.module( 'TreasuredRecipesApp.RecipeService', [
+
+
+// change this to be ITEM service so it can be used against the nav and medie
+
+
+angular.module( 'TreasuredNavItemsApp.NavItemService', [
         'webStorageModule'
     ] )
-    .factory( 'RecipeService', [ '$q', '$http', 'webStorage', 'ConfigService',
+    .factory( 'NavItemService', [ '$q', '$http', 'webStorage', 'ConfigService',
         function( $q, $http, webStorage, ConfigService ) {
             var
-                recipes,
+                navigation,
                 slugHash = {},
-                nameSpace = ConfigService.nameSpace, // "treasured-recipes"
+                nameSpace = ConfigService.nameSpace, // "treasured-navigation"
 
                 storageKeys = {
                     lastreq : nameSpace + ':lastreq',
@@ -40,25 +45,25 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
 
 
             // meant to be a READ ONLY service
-            function filterJSONfromRecipe( recipes ) {
+            function filterJSONfromNavItem( navigation ) {
                 var updated = [],
                     rendered,
                     filtered;
-                if ( !recipes.length ) {
+                if ( !navigation.length ) {
                     return [];
                 }
-                for ( var i = recipes.length - 1; i >= 0; i-- ) {
-                    rendered = recipes[ i ].content.rendered;
+                for ( var i = navigation.length - 1; i >= 0; i-- ) {
+                    rendered = navigation[ i ].content.rendered;
                     // get that fuckin JSON out of there!
                     filtered = rendered.substring( rendered.indexOf( '{' ), rendered.lastIndexOf( '}' ) + 1 );
-                    recipes[ i ].details = JSON.parse( filtered );
+                    navigation[ i ].details = JSON.parse( filtered );
                     // take out the trash
-                    delete recipes[ i ].content;
+                    delete navigation[ i ].content;
 
                     // set a hash since we are already in the data
-                    slugHash[ recipes[ i ].slug ] = true;
+                    slugHash[ navigation[ i ].slug ] = true;
                 }
-                return recipes;
+                return navigation;
             }
 
             function remainingTime() {
@@ -67,29 +72,29 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return req ? ( req - cacheTime ) : false;
             }
 
-            function getRecipes( bustCache ) {
+            function getNavItems( bustCache ) {
                 var deferred = $q.defer();
 
                 if ( remainingTime() ) {
                     // first check to see if in memory and not too old
-                    if ( recipes ) {
+                    if ( navigation ) {
                         // console.log( 'Loaded from Memory' );
-                        deferred.resolve( recipes );
+                        deferred.resolve( navigation );
 
                         // second check to see if in localstorage and not too old
                     } else {
 
                         // console.log( 'Loaded from Storage' );
 
-                        recipes = webStorage.get( storageKeys.collection );
+                        navigation = webStorage.get( storageKeys.collection );
                         // rebuild lost hash
-                        for ( var i = 0; i < recipes.length; i++ ) {
-                            slugHash[ recipes[ i ].slug ] = true;
+                        for ( var i = 0; i < navigation.length; i++ ) {
+                            slugHash[ navigation[ i ].slug ] = true;
                         }
 
                         // data.lastreq = webStorage.get(storageKeys.lastreq);
 
-                        deferred.resolve( recipes );
+                        deferred.resolve( navigation );
                     }
                 } else {
 
@@ -98,24 +103,23 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
 
                     $http({
                         method : 'GET', // read only 
-                        // path or JSON API or file ('/assets/data/json/example1.json')
-                        url : ConfigService.api.items
+                        url : ConfigService.api.pages
                     }).then( function successCallback( response ) {
                         // this callback will be called asynchronously
                         // when the response is available
 
                         // set to global of `data`
-                        recipes = filterJSONfromRecipe( response.data );
+                        navigation = filterJSONfromNavItem( response.data );
 
-                        webStorage.set( storageKeys.collection, recipes );
+                        webStorage.set( storageKeys.collection, navigation );
                         webStorage.set( storageKeys.lastreq, +( new Date() ) );
 
-                        deferred.resolve( recipes );
+                        deferred.resolve( navigation );
 
                     }, function errorCallback( response ) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        error = 'No recipes found.';
+                        error = 'No navigation found.';
                     });
                 }
 
@@ -128,44 +132,42 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return deferred.promise;
             }
 
-            function getRecipeBySlug( slug ) {
+            function getNavItemBySlug( slug ) {
                 var deferred = $q.defer();
 
-                // if (slug === false) {
-                //     deferred.resolve( { waiting: true } );
-                // } else {
-                    getRecipes().then( function() {
+          
+                getNavItems().then( function() {
 
-                        if ( !slug ) {
-                            slug = data.selected.slug;
+                    if ( !slug ) {
+                        slug = data.selected.slug;
+                    }
+
+                    for ( var i = navigation.length - 1; i >= 0; i-- ) {
+                        if ( navigation[ i ].slug === slug ) {
+                            data.selected = navigation[ i ];
+
+                            webStorage.set( storageKeys.selected, data.selected );
+
+                            deferred.resolve( data.selected );
+                            return;
+                        } else if ( i === 0 ) {
+                            deferred.reject();
                         }
+                    }
+                });
 
-                        for ( var i = recipes.length - 1; i >= 0; i-- ) {
-                            if ( recipes[ i ].slug === slug ) {
-                                data.selected = recipes[ i ];
-
-                                webStorage.set( storageKeys.selected, data.selected );
-
-                                deferred.resolve( data.selected );
-                                return;
-                            } else if ( i === 0 ) {
-                                deferred.reject();
-                            }
-                        }
-                    });
-                // }
                 return deferred.promise;
             }
 
-            function nextRecipe() {
+            function nextNavItem() {
                 var deferred = $q.defer(),
                     seat;
-                getRecipeBySlug().then( function() {
-                    seat = recipes.indexOf( data.selected );
-                    if ( seat === recipes.length - 1 ) {
-                        data.cacheNext = recipes[ 0 ];
+                getNavItemBySlug().then( function() {
+                    seat = navigation.indexOf( data.selected );
+                    if ( seat === navigation.length - 1 ) {
+                        data.cacheNext = navigation[ 0 ];
                     } else {
-                        data.cacheNext = recipes[ seat + 1 ];
+                        data.cacheNext = navigation[ seat + 1 ];
                     }
                     deferred.resolve( data.cacheNext );
                 });
@@ -173,16 +175,16 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return deferred.promise;
             }
 
-            function prevRecipe() {
+            function prevNavItem() {
                 var deferred = $q.defer(),
                     seat;
 
-                getRecipeBySlug().then( function() {
-                    seat = recipes.indexOf( data.selected );
+                getNavItemBySlug().then( function() {
+                    seat = navigation.indexOf( data.selected );
                     if ( seat === 0 ) {
-                        data.cachePrev = recipes[ recipes.length - 1 ];
+                        data.cachePrev = navigation[ navigation.length - 1 ];
                     } else {
-                        data.cachePrev = recipes[ seat - 1 ];
+                        data.cachePrev = navigation[ seat - 1 ];
                     }
                     deferred.resolve( data.cachePrev );
                 });
@@ -190,15 +192,15 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return deferred.promise;
             }
 
-            function lastRecipe() {
+            function lastNavItem() {
                 var deferred = $q.defer(),
                     last = webStorage.get( storageKeys.selected );
 
-                getRecipes().then( function() {
+                getNavItems().then( function() {
                     if ( last && slugHash[ last.slug ] ) {
                         deferred.resolve( last );
                     } else {
-                        deferred.resolve( recipes[ 0 ] );
+                        deferred.resolve( navigation[ 0 ] );
                     }
                 });
 
@@ -213,34 +215,27 @@ angular.module( 'TreasuredRecipesApp.RecipeService', [
                 return value;
             }
 
-            service.recipes = getRecipes;
+            service.navigation = getNavItems;
 
-            service.get = getRecipeBySlug;
+            service.get = getNavItemBySlug;
             // service.getSelected = getSelected;
             // service.selected = data.selected;
             service.error = error;
 
             service.items = data;
 
-            service.next = nextRecipe;
-            service.prev = prevRecipe;
+            service.next = nextNavItem;
+            service.prev = prevNavItem;
 
             service.cachePrev = data.cachePrev;
             service.cacheNext = data.cacheNext;
 
-            service.last = lastRecipe;
+            service.last = lastNavItem;
             service.storageKeys = storageKeys;
 
             service.isStored = isStored;
             service.isCached = remainingTime;
             service.cache = cache;
-
-            service.unset = function() {
-                data.selected = undefined;
-                data.cachePrev = undefined;
-                data.cacheNext = undefined;
-            };
-
 
             return service;
 

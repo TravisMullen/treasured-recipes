@@ -6,6 +6,10 @@ function footerCtrl( $timeout ) {
     //     view.showFooter = true;
     // }, 30 );
     view.year = new Date().getFullYear();
+    
+    // view.showContact = function() {
+    //     view.contact = true;
+    // }
 }
 
 footerCtrl.$inject = [ '$timeout' ];
