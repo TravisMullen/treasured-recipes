@@ -13,7 +13,7 @@ $header-font-size: $h1-font-size;
 
 
 header-component {
-
+    
 
     // borrowed from https://www.html5andbeyond.com/pure-css3-background-textures-examples/
     // background: $secondary-color;
@@ -43,20 +43,23 @@ header-component {
     /* this transition tells ngAnimate to make the animation happen */
     transition-property: all;
     transition-duration: $animation-duration-default;
-    transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
+    // transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
+    transition-timing-function: ease-out;
 
 
 // transform: translateY(rem-calc($component-height*2));
 
         /* property name | duration | timing function | delay */
         // transition:all 1s cubic-bezier(0.940, 0.460, 0.450, 0.250);
-    &.ng-enter-prepare {
+    &.ng-enter-prepare,
+    &.ng-header-enter-prepare {
         // transition-property: all;
         // transition-duration: 1s;
         // transition-timing-function: cubic-bezier(0.940, 0.460, 0.450, 0.250);
         overflow: hidden;
     }
-    &.ng-leave {
+    &.ng-leave,
+    &.ng-header-leave {
         transition-duration: $animation-duration-default;
         // transition-property: all;
         // transition-duration: 1s;
@@ -71,7 +74,8 @@ header-component {
     //     }
     // }
     // &.ng-enter,
-    &.ng-leave.ng-leave-active {
+    &.ng-leave.ng-leave-active,
+    &.ng-header-leave.ng-header-leave-active {
         // .recipe-view & {
             height: 0;
             overflow: auto;
@@ -79,7 +83,8 @@ header-component {
     }
         
     // &.ng-leave,
-    &.ng-enter.ng-enter-active {
+    &.ng-enter.ng-enter-active,
+    &.ng-header-enter.ng-header-enter-active {
         // .search-view & {
             overflow: auto;
             height: auto;

@@ -1,0 +1,11 @@
+.grid-container {
+	width: 90vw;
+}
+
+
+@include breakpoint(small) {
+	.grid-content {
+	    // @include grid-container;
+		width: auto;
+	}
+}

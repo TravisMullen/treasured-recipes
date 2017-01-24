@@ -2,23 +2,49 @@
 @import "../../../../scss/req"; // required
 $animation-duration-default: 800ms !default;
 // 
+// 
+// 
+// 
+// @include keyframes(scrollout) {
+//     0% {
+//         transform: translateY(0);
+//     }
+//     100% {
+//         transform: translateY(vh);
+//     }
+// }
+
+
+// @include keyframes(scrollin) {
+//     0% {
+//         transform: translateY( vh );
+//     }
+//     100% {
+//         transform: translateY(0);
+//     }
+// }
+
 [ui-view="imagestage"] {
     z-index:5;
     position: absolute;
 	// position: relative;
     width: vw;
     height: vh;
+    &.ng-enter-prepare {
+        opacity: 0;
+        .modal {
+            animation-name: scrollin;
+            animation-duration: $animation-duration-default*2;
+            animation-timing-function: easein;
+            animation-delay: $animation-duration-default/2;
+        }
+    }
     &.ng-enter {
         transition: opacity ease-in $animation-duration-default/2;
         opacity: 0;
     }
     &.ng-enter-active {
         opacity: 1;
-    }
-    .modal {
-        animation-name: scrollin;
-        animation-duration: $animation-duration-default*2;
-        animation-timing-function: easein;
     }
     &.ng-leave {
         transition: opacity ease-out $animation-duration-default/2;

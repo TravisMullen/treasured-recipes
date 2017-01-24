@@ -1,5 +1,5 @@
 <!-- header component -->
-<header class="text-center header-scroll-down" ng-click="$ctrl.hide = true" ng-if="$ctrl.info.title && !$ctrl.hide">
+<header class="text-center ng-hide" ng-show="$ctrl.showHeader">
     <!-- <code>{{ $ctrl.info }}</code> -->
     <h1 class="primary-color header-font-size">
        {{ $ctrl.info.title }}

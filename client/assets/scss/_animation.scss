@@ -50,14 +50,6 @@ $animation-duration-default: 800ms !default;
     }
 }
 
-.pre-loading {
-    position: absolute;
-    overflow: hidden;
-    bottom: $onepx;
-    right: $onepx;
-    height: $onepx;
-    width: $onepx;
-}
 // ui-view {
 //     position: relative;
 // // }

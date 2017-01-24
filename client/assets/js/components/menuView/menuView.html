@@ -1,0 +1,18 @@
+<!-- menuView: template -->
+<ul class="menu-bar">
+<!--     <li ng-if="$ctrl.next.slug">
+        <a ui-sref="recipe({slug: $ctrl.next.slug})">
+            <span><span class="icon-angle-left white"></span>&nbsp;&nbsp;{{ :: $ctrl.next.title.rendered}}</span>
+        </a>
+    </li> -->
+    <li class="show-for-medium shrink" ng-repeat="item in items">
+        <a>
+            {{item.title.rendered}}
+        </a>
+    </li>
+<!--     <li ng-if="$ctrl.prev.slug" class="align-right">
+        <a ui-sref="recipe({slug: $ctrl.prev.slug})">
+            <span>{{ :: $ctrl.prev.title.rendered}}&nbsp;&nbsp;<span class="icon-angle-right"></span></span>
+        </a>
+    </li> -->
+</ul>

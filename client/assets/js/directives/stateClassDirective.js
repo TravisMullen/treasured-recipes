@@ -9,7 +9,7 @@ angular.module( 'TreasuredRecipesApp.stateClass', [] )
             scope : {
                 stateClass : '='
             },
-            controllerAs: '$stateCtrl',
+            controllerAs : '$stateCtrl',
             controller : [ '$scope', '$element', '$state',
                 function stateClassController( $scope, $element, $state ) {
                     var view = this,

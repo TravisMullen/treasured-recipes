@@ -24,7 +24,6 @@ forms
 //     }
 // }
 
-
 input {
     filter: drop-shadow(rem-calc(1) rem-calc(2) rem-calc(2) rgba(0, 0, 0, 0.3));
     
@@ -33,15 +32,17 @@ input {
     }
     &.search-box {
         z-index: 1;
+        position: relative;
         // border: rem-calc(3) solid $border-color;
         // background-color: rgba($white,0.6);
         &:after {
-            width: rem-calc(20);
-            height: rem-calc(20);
-            color: $iron;
+            // width: rem-calc(20);
+            // height: rem-calc(20);
+            // color: $iron;
+            color: purple;
             z-index: 2;
             display: block;
-            position: relative;
+            position: absolute;
             @extend .icon-base;
             @extend .icon-search:before;
             top: rem-calc(2);

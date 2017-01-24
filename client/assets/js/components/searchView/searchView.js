@@ -21,7 +21,7 @@ function searchViewCtrl( $filter, $state ) {
         // for `showList`
         view.settings = $state.current.data;
 
-        view.placeholder = 'search by name.';
+        view.placeholder = 'search recipes';
         view.searchValue = '';
         // 
         // $appCtrl.loadedAssets
@@ -33,7 +33,7 @@ function searchViewCtrl( $filter, $state ) {
             view.fieldType = 'search';
         }
 
-        view.export()( { title : 'Search Treasured Recipes.' } );
+        view.export()( { title : 'Treasured Recipes.' } );
     };
 
     view.searchRecipes = function searchFilter( value, index, array ) {

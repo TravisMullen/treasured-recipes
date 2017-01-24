@@ -1,53 +1,84 @@
 // action nav view template style
 @import "../../../../scss/req"; // required 
-
+$animation-duration-default: 0.8s !default;
 // 
 // 
-@keyframes slideoutnav {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(rem-calc(100));
-    }
-}
+// @keyframes slideoutnav {
+//     0% {
+//         opacity: 1;
+//         // transform: translateX(0);
+//     }
+//     100% {
+//         opacity: 0;
+//         // transform: translateX(rem-calc(-60));
+//     }
+// }
 
-@keyframes slideinnav {
-    0% {
-        transform: translateY(rem-calc(100));
-    }
-    100% {
-        transform: translateY(0);
-    }
+// @keyframes slideinnav {
+//     0% {
+//         opacity: 0;
+//         // transform: translateX(rem-calc(-60));
+//     }
+//     100% {
+//         opacity: 1;
+//         // transform: translateX(0);
+//     }
+// }
+action-nav {
+    // display: block;
+    // position: absolute;
 }
-
-[ui-view="alt"] {
+.menu-scroll {
+    position: relative;
     cursor: pointer;
-    border-top: 1px solid $primary-color;
+    // border-top: 1px solid $primary-color;
     // background-color: rgba($black, 0.2); // rgba($primary-color, 0.8)
     // background-color: rgba($primary-color, 0.8); // rgba($primary-color, 0.8)
+    // [ng-if] {
+    // &.ng-enter,
+    // &.ng-leave {
+    //     // action-nav {
+    //         // transition-duration: $animation-duration-default*5;
+    //     // }
+    // }
+    // &.ng-enter-prepare,
+    // &.ng-enter {
+    //     // .menu-bar {
+    //         opacity: 0;
+    // //     }
+    // // }
+    // // &.ng-enter {
+    // //     // action-nav {
+    // //     .menu-bar {
+    //         // opacity: 0;
+    //         transition: opacity;
+    //         transition-duration: $animation-duration-default;
+    //         transition-delay: $animation-duration-default;
+    //         transition-timing-function: ease-out;
+    //     // }
+    // }
+    // &.ng-enter-active {
+    //     // action-nav {
+    //     // .menu-bar {
+    //         opacity: 1;
+    //         background-color: yellow;
+    //     // }
+    // }
+    // &.ng-leave {
+    //     // .menu-bar {
+    //         opacity: 1;
+    //         transition: opacity;
+    //         transition-delay: 0;
+    //         transition-duration: $animation-duration-default/2;
+    //         transition-timing-function: ease-in;
+    //     // }
+    // }
+    // &.ng-leave-active {
+    //     // .menu-bar {
 
-    &.ng-enter,
-    &.ng-leave {
-        .menu-bar {
-            animation-duration: 1.0s;
-        }
-    }
-
-    &.ng-enter {
-        .menu-bar {
-            animation-name: slideoutnav;
-            animation-delay: 1.0s;
-            animation-timing-function: ease-out;
-        }
-    }
-
-    &.ng-leave {
-        .menu-bar {
-            animation-name: slideinnav;
-            // animation-delay: 2s;
-            // animation-duration: 0.2s;
-            animation-timing-function: ease-in;
-        }
-    }
+    //         opacity: 0;
+    //         background-color: purple;
+    //     // }
+    // }
+    // }
 }

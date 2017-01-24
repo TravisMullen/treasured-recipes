@@ -1,16 +1,16 @@
 'use strict';
 
-describe('TreasuredRecipesApp.searchView module', function() {
+describe( 'TreasuredRecipesApp.searchView module', function() {
 
-    beforeEach(module('TreasuredRecipesApp.searchView'));
+    beforeEach( module( 'TreasuredRecipesApp.searchView' ) );
 
-    describe('SearchView controller', function() {
+    describe( 'SearchView controller', function() {
 
-        it('should be valid', inject(function($controller) {
+        it( 'should be valid', inject( function( $controller ) {
             //spec body
-            var SearchViewCtrl = $controller('SearchViewCtrl');
-            expect(SearchViewCtrl).toBeDefined();
-        }));
+            var SearchViewCtrl = $controller( 'SearchViewCtrl' );
+            expect( SearchViewCtrl ).toBeDefined();
+        }) );
 
         // it('should have list of recipes', inject(function($controller) {
         //     //spec body

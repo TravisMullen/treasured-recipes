@@ -1,10 +1,10 @@
 <!-- footer component -->
 <footer class="text-center">
-	<small>&copy;&nbsp;{{ :: $ctrl.year }}&nbsp;{{ :: $ctrl.info.name }}. All rights reserved.</small>   <small><button class="tiny" ng-click="$ctrl.showContact = !$ctrl.showContact">Contant Us.</button></small>
+	<small>&copy;&nbsp;{{ :: $ctrl.year }}&nbsp;{{ :: $ctrl.info.name }}. All rights reserved.</small>   <small><button class="tiny" ng-click="$ctrl.showContact = !$ctrl.showContact">Contact</button></small>
 	
 	<h4 ng-show="$ctrl.showContact" class="fade-in ng-hide">
 		<a target="_blank" 
 		href="mailto:travis@travismullen.com" 
-		>Email Travis.</a>
+		>Email <span class="icon-mail-reply"></span></a>
 	</h4>
 </footer>

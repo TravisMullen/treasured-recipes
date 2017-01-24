@@ -1,0 +1,10 @@
+// search view template style
+@import "../../../../scss/req"; // required
+// 
+// 
+// 
+$animation-duration-default: 0.8s !default;
+.menu-view {
+    border-bottom: rem-calc(5) solid purple;
+}
+

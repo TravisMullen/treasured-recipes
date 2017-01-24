@@ -47,7 +47,7 @@ function appViewConfig( $stateProvider ) {
 
 
             views : {
-                'content' : {      
+                'content' : {
                     css : [ 'assets/css/appView/appView.css' ],
                     template : '<div class="grid-content text-center pull-down-4" ng-include="\'partials/loader-icon.html\'"></div>'
                 },
@@ -159,7 +159,7 @@ angular.module( 'TreasuredRecipesApp.appView', [
             count = [ img.src ];
 
         // all asset will call the same callback
-        function callbackOnLast( value ){
+        function callbackOnLast( value ) {
 
             // remove it on complete
             count.splice( count.indexOf( value ), 1 );
@@ -176,7 +176,7 @@ angular.module( 'TreasuredRecipesApp.appView', [
                     $state.go( 'recipe', { slug : view.slug });
                 } else {
                     $state.go( 'search' );
-                }    
+                }
             }
         }
 
@@ -189,9 +189,12 @@ angular.module( 'TreasuredRecipesApp.appView', [
             title : undefined
         };
 
-        // view.fn.globals = {
-
-        // };
+        view.$onInit = function() {
+            console.log( '$onInit' );
+        };
+        view.$onDestroy = function() {
+            console.log( '$onDestroy' );
+        };
         view.setslug = function( value ) {
             view.slug = value.slug || value;
         };

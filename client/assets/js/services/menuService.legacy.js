@@ -4,10 +4,10 @@
 // change this to be ITEM service so it can be used against the nav and medie
 
 
-angular.module( 'TreasuredNavItemsApp.NavItemService', [
+angular.module( 'TreasuredNavItemsApp.MenuService', [
         'webStorageModule'
     ] )
-    .factory( 'NavItemService', [ '$q', '$http', 'webStorage', 'ConfigService',
+    .factory( 'MenuService', [ '$q', '$http', 'webStorage', 'ConfigService',
         function( $q, $http, webStorage, ConfigService ) {
             var
                 navigation,
@@ -40,28 +40,30 @@ angular.module( 'TreasuredNavItemsApp.NavItemService', [
                     refreshInterval : cache
                 },
 
+                keyAttr = 'slug',
+
                 service = {};
 
 
 
             // meant to be a READ ONLY service
             function filterJSONfromNavItem( navigation ) {
-                var updated = [],
-                    rendered,
-                    filtered;
+                var updated = [];
+                    // rendered,
+                    // filtered;
                 if ( !navigation.length ) {
                     return [];
                 }
                 for ( var i = navigation.length - 1; i >= 0; i-- ) {
-                    rendered = navigation[ i ].content.rendered;
+                    // rendered = navigation[ i ].content.rendered;
                     // get that fuckin JSON out of there!
-                    filtered = rendered.substring( rendered.indexOf( '{' ), rendered.lastIndexOf( '}' ) + 1 );
-                    navigation[ i ].details = JSON.parse( filtered );
+                    // filtered = rendered.substring( rendered.indexOf( '{' ), rendered.lastIndexOf( '}' ) + 1 );
+                    // navigation[ i ].details = JSON.parse( filtered );
                     // take out the trash
-                    delete navigation[ i ].content;
+                    // delete navigation[ i ].content;
 
                     // set a hash since we are already in the data
-                    slugHash[ navigation[ i ].slug ] = true;
+                    slugHash[ navigation[ i ][ keyAttr ] ] = true;
                 }
                 return navigation;
             }
@@ -89,7 +91,7 @@ angular.module( 'TreasuredNavItemsApp.NavItemService', [
                         navigation = webStorage.get( storageKeys.collection );
                         // rebuild lost hash
                         for ( var i = 0; i < navigation.length; i++ ) {
-                            slugHash[ navigation[ i ].slug ] = true;
+                            slugHash[ navigation[ i ][ keyAttr ] ] = true;
                         }
 
                         // data.lastreq = webStorage.get(storageKeys.lastreq);
@@ -132,18 +134,18 @@ angular.module( 'TreasuredNavItemsApp.NavItemService', [
                 return deferred.promise;
             }
 
-            function getNavItemBySlug( slug ) {
+            function getNavItemBySlug( index ) {
                 var deferred = $q.defer();
 
           
                 getNavItems().then( function() {
 
-                    if ( !slug ) {
-                        slug = data.selected.slug;
+                    if ( !index ) {
+                        index = data.selected[ keyAttr ];
                     }
 
                     for ( var i = navigation.length - 1; i >= 0; i-- ) {
-                        if ( navigation[ i ].slug === slug ) {
+                        if ( navigation[ i ][ keyAttr ] === index ) {
                             data.selected = navigation[ i ];
 
                             webStorage.set( storageKeys.selected, data.selected );
@@ -197,7 +199,7 @@ angular.module( 'TreasuredNavItemsApp.NavItemService', [
                     last = webStorage.get( storageKeys.selected );
 
                 getNavItems().then( function() {
-                    if ( last && slugHash[ last.slug ] ) {
+                    if ( last && slugHash[ last[ keyAttr ] ] ) {
                         deferred.resolve( last );
                     } else {
                         deferred.resolve( navigation[ 0 ] );

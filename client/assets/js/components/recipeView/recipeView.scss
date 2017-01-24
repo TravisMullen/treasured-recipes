@@ -4,17 +4,17 @@
 $animation-duration-default: 800ms !default;
 // 
 // 
-family-recipe {
-    display: block;
-    @include breakpoint(medium) {
-        margin-left: rem-calc(-80);
-    }
-    // padding-left: rem-calc(50);
-    // .inner-wrap {
-    //  margin-left: rem-calc(120);
-    //  max-width: rem-calc(700);
-    // }
-}
+// family-recipe {
+//     display: block;
+//     @include breakpoint(medium) {
+//         margin-left: rem-calc(-80);
+//     }
+//     // padding-left: rem-calc(50);
+//     // .inner-wrap {
+//     //  margin-left: rem-calc(120);
+//     //  max-width: rem-calc(700);
+//     // }
+// }
 
 .old-tablet-seemless {
     position: relative;
@@ -49,4 +49,15 @@ family-recipe {
         bottom: rem-calc(-121);
         height: rem-calc(121);
     }
+}
+
+
+
+.pre-loading {
+    position: absolute;
+    overflow: hidden;
+    bottom: $onepx;
+    right: $onepx;
+    height: $onepx;
+    width: $onepx;
 }

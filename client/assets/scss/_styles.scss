@@ -7,157 +7,71 @@
     overflow-y: scroll;
 }
 
-body {
-    // background-image: $background-image;
-    // border-top: rem-calc(6) solid $alert-color;
-    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
+// body {
+//     // background-image: $background-image;
+//     // border-top: rem-calc(6) solid $alert-color;
+//     // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
 
-}
-.large-image {
-    // height: 60%;
-    // 
-    height: 60vh;
-    width: auto;
-}
-
-.off-screen-preloader {
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    height: rem-calc(1);
-    width: rem-calc(1);
-    // &.bg-load-success,
-    // .bg-load-success & {
-    //     display: none;
-    // }
-}
-
-
-
-
-.logo-nav {
-    color: $white;
-    g {
-        color: $white;
-    }
-    display: inline-block;
-    height: rem-calc(20);
-}
-
-[ui-view="header"] {
-    box-shadow: 0 0 1em black;
-    // background: trawnsparent url("../images/stock-photo-vintage-gingham-tablecloth-background-156891551.jpg") repeat 0 0;
-    // }
-}
-
-
-
-
-// [ui-view="main"] {
-    [type="search"] {
-        border: rem-calc(4) solid $primary-color;
-        &:hover,
-        &:focus,
-        &:active {
-            border: rem-calc(4) solid $alert-color;
-        }
-    }
 // }
 
-// .main-leave {
-//     animation-name: scrollout;
-//     animation-duration: 1s;
-//     animation-timing-function: ease;
-// }
-// .main-enter {
-//     // animation-delay: 1.5s;
-//     animation-name: scrollin;
-//     animation-duration: 1s;
-//     animation-timing-function: ease;
+// .off-screen-preloader {
+//     display: block;
+//     overflow: hidden;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 9999;
+//     height: rem-calc(1);
+//     width: rem-calc(1);
+//     // &.bg-load-success,
+//     // .bg-load-success & {
+//     //     display: none;
+//     // }
 // }
 
 
 
-// .main-leave
-// .main-leave-active
-// .main-enter
-// .main-enter-active
-// .bg-table-cloth {
-//     // background-image: url("../images/stock-photo-stock-image-of-closeup-of-burlap-background-texture-image-has-been-prepared-to-be-tileable-51820867.jpg");
-//     // stock-photo-stock-image-of-closeup-of-burlap-background-texture-image-has-been-prepared-to-be-tileable-51820867
-//     background-image: url("../images/stock-photo-striped-seamless-tablecloth-background-138272153.jpg");
-//     background-repeat: repeat;
-//     background-position: 0 0;
-//     margin-left: rem-calc(-30);
-// }
-.button {
-    cursor: pointer;
-}
 
-// // animate `ng-show`
-// and all children of elm that have `ng-show` used
-// [ng-show].fade-in,
-// .fade-in-all [ng-show] {
-//     // too dangerous to just use `.fade-in`
-//     // @include single-transition( opacity, 0.5s );
-//     // 
-//     transition-property: opacity;
-//     transition-duration: 0.5s;
-//     &.ng-hide {
-//         display: inherit !important; // we don't want `display: block` here!
-//         // display: none !important; // we don't want `display: block` here!
-//         opacity: 0;
+// .logo-nav {
+//     color: $white;
+//     g {
+//         color: $white;
 //     }
+//     display: inline-block;
+//     height: rem-calc(20);
 // }
-// // =============================================================================
-// // shive for f5 sites
-// // =============================================================================
+// }
+
+// ol,
 // ul {
-//     &.grid-block {
-//         margin: auto;
-//     }
+//     margin: 0;
+//     padding: 0;
 // }
-ol,
-ul {
-    margin: 0;
-    padding: 0;
-}
 
-// ol {
-// list-style: 
-li {
-    list-style: none;
-    /* Remove list bullets */
-    padding-left: rem-calc(16);
-}
-
-li:before {
-    display: inline-block;
-    position: relative;
-    // content: "•"; /* Insert content that looks like bullets */
-    //9633
-    // 
-    // content: "."; /* Insert content that looks like bullets */
-    // padding-right: rem-calc(8);
-    // top: rem-calc(-3.5);
-    ol & {
-        top: rem-calc(1);
-        @extend .icon-base;
-        @extend .icon-genderless:before;
-        // content: "\2610";
-        /* Insert content that looks like bullets */
-    }
-    ul & {
-        // content: "\2610"; /* Insert content that looks like bullets */
-    }
-    padding-right: rem-calc(8);
-    top: rem-calc(-3.5);
-    // color: blue; /* Or a color you prefer */
-    // color: #93311B; // note card red
-    // color: #008542; // lime
-}
+// li:before {
+//     display: inline-block;
+//     position: relative;
+//     // content: "•"; /* Insert content that looks like bullets */
+//     //9633
+//     // 
+//     // content: "."; /* Insert content that looks like bullets */
+//     // padding-right: rem-calc(8);
+//     // top: rem-calc(-3.5);
+//     ol & {
+//         top: rem-calc(1);
+//         @extend .icon-base;
+//         @extend .icon-genderless:before;
+//         // content: "\2610";
+//         /* Insert content that looks like bullets */
+//     }
+//     ul & {
+//         // content: "\2610"; /* Insert content that looks like bullets */
+//     }
+//     padding-right: rem-calc(8);
+//     top: rem-calc(-3.5);
+//     // color: blue; /* Or a color you prefer */
+//     // color: #93311B; // note card red
+//     // color: #008542; // lime
+// }
 
 

@@ -45,6 +45,10 @@ angular.module( 'TreasuredDatasetsApp.DataService', [
                     refreshInterval : cache
                 },
 
+                // targets: {
+
+                // },
+
                 service = {};
             
             if ( !figgy.collection ) {

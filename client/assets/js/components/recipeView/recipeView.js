@@ -11,9 +11,10 @@ function recipeViewCtrl( $state, $stateParams, RecipeService ) {
 
     // });
 
-    // view.$onInit = function() {
+    view.$onInit = function() {
         // console.log( '$onInit slug!', view.recipe.slug );
         var count = [];
+        var item = {};
 
         if ( view.load && view.load.src ) {
             angular.forEach( view.load.src, function( value ) {
@@ -34,18 +35,17 @@ function recipeViewCtrl( $state, $stateParams, RecipeService ) {
                 view.recipeAssetsLoaded = true;
 
                 // goto next route
-                // if ( view.slug ) {
-                //     $state.go( 'recipe', { slug : view.slug });
-                // } else {
-                //     $state.go( 'search' );
-                // }
+                if ( view.slug ) {
+                    $state.go( 'recipe', { slug : view.slug });
+                } else {
+                    $state.go( 'search' );
+                }
             }
         }
         view.complete = callbackOnLast;
     // };
    // destory self on state change request
-    view.$onInit = function() {
-        var item = {};
+    // view.$onInit = function() {
         if ( !view.assets ) {
             // console.log( 'goto preloading view' );
             if ( typeof( view.slug ) ) {
